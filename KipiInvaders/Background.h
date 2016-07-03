@@ -9,7 +9,6 @@ private:
     Texture _BTexture;
     SDL_Rect _BClip;
 public:
-    //Constructors
     Background();
     ~Background();
 
@@ -17,7 +16,7 @@ public:
     bool loadBackgroundFromFile(string path);
     void setBackgroundClip(int x, int y, int w, int h);
 
-    //Output
+    //Shows background
     void render(int x, int y);
 };
 

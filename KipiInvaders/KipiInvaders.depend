@@ -390,7 +390,7 @@
 1467466682 source:d:\games\codeblocksprojects\kipiinvaders\background.cpp
 	"Background.h"
 
-1467466626 d:\games\codeblocksprojects\kipiinvaders\background.h
+1467482131 d:\games\codeblocksprojects\kipiinvaders\background.h
 	"main.h"
 	"Texture.h"
 
@@ -407,16 +407,17 @@
 1467463619 d:\games\codeblocksprojects\kipiinvaders\texture.h
 	"main.h"
 
-1467469835 source:d:\games\codeblocksprojects\kipiinvaders\gameloop.cpp
+1467573554 source:d:\games\codeblocksprojects\kipiinvaders\gameloop.cpp
 	"GameLoop.h"
 	"LoadMedia.h"
 
-1467469231 d:\games\codeblocksprojects\kipiinvaders\gameloop.h
+1467578315 d:\games\codeblocksprojects\kipiinvaders\gameloop.h
 	"main.h"
 
-1467468961 d:\games\codeblocksprojects\kipiinvaders\loadmedia.h
+1467565329 d:\games\codeblocksprojects\kipiinvaders\loadmedia.h
 	"main.h"
 	"Background.h"
+	"Button.h"
 
 1467469964 source:d:\games\codeblocksprojects\kipiinvaders\initsdl.cpp
 	"InitSDL.h"
@@ -424,7 +425,7 @@
 1467461578 d:\games\codeblocksprojects\kipiinvaders\initsdl.h
 	"main.h"
 
-1467468848 source:d:\games\codeblocksprojects\kipiinvaders\loadmedia.cpp
+1467573592 source:d:\games\codeblocksprojects\kipiinvaders\loadmedia.cpp
 	"LoadMedia.h"
 
 1467469855 source:d:\games\codeblocksprojects\kipiinvaders\main.cpp
@@ -434,5 +435,12 @@
 	"GameLoop.h"
 
 1467469046 source:d:\games\codeblocksprojects\kipiinvaders\texture.cpp
+	"Texture.h"
+
+1467555573 source:d:\games\codeblocksprojects\kipiinvaders\button.cpp
+	"Button.h"
+
+1467544408 d:\games\codeblocksprojects\kipiinvaders\button.h
+	"main.h"
 	"Texture.h"
 

@@ -45,6 +45,8 @@
 		</Linker>
 		<Unit filename="Background.cpp" />
 		<Unit filename="Background.h" />
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.h" />
 		<Unit filename="GameLoop.cpp" />
 		<Unit filename="GameLoop.h" />
 		<Unit filename="InitSDL.cpp" />
