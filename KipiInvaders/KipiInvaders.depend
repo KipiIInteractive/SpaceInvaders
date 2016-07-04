@@ -502,10 +502,9 @@
 1467633840 source:c:\users\intern\documents\kipiinvaders\texture.cpp
 	"Texture.h"
 
-1467643901 c:\users\intern\documents\kipiinvaders\resources.h
+1467649894 c:\users\intern\documents\kipiinvaders\resources.h
 	"Background.h"
 	"Button.h"
-	"Enemy.h"
 
 1467625731 c:\users\intern\documents\kipiinvaders\system.h
 	<SDL.h>
@@ -516,22 +515,33 @@
 1467625698 source:c:\users\intern\documents\kipiinvaders\system.cpp
 	"System.h"
 
-1467642796 c:\users\intern\documents\kipiinvaders\enemy.h
+1467648144 c:\users\intern\documents\kipiinvaders\enemy.h
 	"Texture.h"
 
-1467642836 source:c:\users\intern\documents\kipiinvaders\enemy.cpp
+1467648155 source:c:\users\intern\documents\kipiinvaders\enemy.cpp
 	"Enemy.h"
 
 1467638701 c:\users\intern\documents\kipiinvaders\row.h
 
-1467643879 source:c:\users\intern\documents\kipiinvaders\gamehandler.cpp
+1467649403 source:c:\users\intern\documents\kipiinvaders\gamehandler.cpp
 	"GameHandler.h"
 
-1467643857 c:\users\intern\documents\kipiinvaders\gamehandler.h
+1467649419 c:\users\intern\documents\kipiinvaders\gamehandler.h
 	<SDL.h>
 	"Resources.h"
+	"GameObjectGenerator.h"
 
 1467644125 c:\users\intern\documents\kipiinvaders\menuhandler.h
 	<SDL.h>
 	"Resources.h"
+
+1467644205 source:c:\users\intern\documents\kipiinvaders\menuhandler.cpp
+	"MenuHandler.h"
+
+1467650160 c:\users\intern\documents\kipiinvaders\gameobjectgenerator.h
+	"Resources.h"
+	"Enemy.h"
+
+1467649463 source:c:\users\intern\documents\kipiinvaders\gameobjectgenerator.cpp
+	"GameObjectGenerator.h"
 

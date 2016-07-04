@@ -7,7 +7,6 @@ using namespace std;
 
 class Enemy {
 private:
-    static const int MAX_ALIENS_ON_ROW;
     Texture _ETexture;
     SDL_Rect _ERect;
     SDL_Point _EVelocity;
@@ -17,7 +16,7 @@ public:
 
     bool loadFromFile(string path);
 
-    void setPosition();
+    void setPosition(int x, int y);
 
     void setXVelocity(int x);
     void setYVelocity(int y);

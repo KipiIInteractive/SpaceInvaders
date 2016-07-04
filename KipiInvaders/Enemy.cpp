@@ -1,7 +1,5 @@
 #include "Enemy.h"
 
-const int Enemy::MAX_ALIENS_ON_ROW = 8;
-
 Enemy::Enemy() {
     _ERect.x = 0;
     _ERect.y = 0;
@@ -23,7 +21,7 @@ Enemy::~Enemy() {
 
 bool Enemy::loadFromFile(string path) { return _ETexture.loadFromFile(path); }
 
-void Enemy::setPosition() {
+void Enemy::setPosition(int x, int y) {
 
 }
 

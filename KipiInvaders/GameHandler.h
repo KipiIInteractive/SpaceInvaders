@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "Resources.h"
+#include "GameObjectGenerator.h"
 
 class GameHandler {
 public:
