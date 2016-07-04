@@ -15,9 +15,6 @@ Button gBackButton;
 //Menu Text
 Texture gControlsMenuText[3];
 
-//Enemy
-Enemy gEnemy1;
-
 bool LoadMedia::load() {
     bool success = true;
 
@@ -121,14 +118,7 @@ bool LoadMedia::load() {
     }
 
     //Enemies
-    if(!gEnemy1.loadFromFile("./images/enemy1.png")) {
-        success = false;
-    }
-    else {
-        gEnemy1.setHeight(50);
-        gEnemy1.setWidth(50);
-        gEnemy1.setPosition(200, 200);
-    }
+
 
     return success;
 }

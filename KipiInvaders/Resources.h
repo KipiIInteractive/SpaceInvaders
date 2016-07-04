@@ -16,7 +16,4 @@ extern Button gSurvivalGameModeButton;
 extern Button gBackButton;
 extern Texture gControlsMenuText[3];
 
-//Enemy
-extern Enemy gEnemy1;
-
 #endif // RESOURCES_H_INCLUDED
