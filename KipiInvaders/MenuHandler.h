@@ -17,8 +17,5 @@ public:
     static void handleGameModesMenuEvents(SDL_Event *e);
     static void handleControlsMenuEvents(SDL_Event *e);
     static void handleOptionsMenuEvents(SDL_Event *e);
-
-    static void returnToPreviousMenu(Button buttonClicked);
-
 };
 #endif // MENUHANDLER_H_INCLUDED

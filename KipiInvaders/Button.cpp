@@ -78,6 +78,9 @@ void Button::handleEvents(SDL_Event *e) {
             }
         }
     }
+    else {
+        _BColor = {255, 0, 0, 0};
+    }
 }
 
 int Button::getHeight() {

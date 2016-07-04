@@ -21,9 +21,8 @@ Enemy::~Enemy() {
 
 bool Enemy::loadFromFile(string path) { return _ETexture.loadFromFile(path); }
 
-void Enemy::setPosition(int x, int y) {
-
-}
+void Enemy::setPosition(int x, int y) { _ERect.x = x;
+                                        _ERect.y = y; }
 
 void Enemy::setXVelocity(int x) { _EVelocity.x = x; }
 void Enemy::setYVelocity(int y) { _EVelocity.y = y; }

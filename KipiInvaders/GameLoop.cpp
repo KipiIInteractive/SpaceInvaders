@@ -11,8 +11,10 @@ void GameLoop::run() {
             }
 
             if(gPlayButton.isClicked()) {
+                MenuHandler::handleGameModesMenuEvents(&e);
                 if(gBackButton.isClicked()) {
-                    MenuHandler::returnToPreviousMenu(gPlayButton);
+                    gPlayButton.unclick();
+                    gBackButton.unclick();
                 }
                 else if(gClassicGameModeButton.isClicked()) {
                     GameHandler::handleClassicGameEvents(&e);
@@ -20,20 +22,19 @@ void GameLoop::run() {
                 else if(gSurvivalGameModeButton.isClicked()) {
                     GameHandler::handleSurvivalGameEvents(&e);
                 }
-                else {
-                    MenuHandler::handleGameModesMenuEvents(&e);
-                }
             }
             else if(gControlsButton.isClicked()) {
                 MenuHandler::handleControlsMenuEvents(&e);
                 if(gBackButton.isClicked()) {
-                    MenuHandler::returnToPreviousMenu(gControlsButton);
+                    gControlsButton.unclick();
+                    gBackButton.unclick();
                 }
             }
             else if(gOptionsButton.isClicked()) {
                 MenuHandler::handleOptionsMenuEvents(&e);
                 if(gBackButton.isClicked()) {
-                    MenuHandler::returnToPreviousMenu(gOptionsButton);
+                    gOptionsButton.unclick();
+                    gBackButton.unclick();
                 }
             }
             else {

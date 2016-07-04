@@ -55,6 +55,8 @@
 		<Unit filename="GameLoop.h" />
 		<Unit filename="GameObjectGenerator.cpp" />
 		<Unit filename="GameObjectGenerator.h" />
+		<Unit filename="GameObjectRenderer.cpp" />
+		<Unit filename="GameObjectRenderer.h" />
 		<Unit filename="InitSDL.cpp" />
 		<Unit filename="InitSDL.h" />
 		<Unit filename="LoadMedia.cpp" />

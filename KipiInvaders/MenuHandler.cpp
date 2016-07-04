@@ -31,11 +31,6 @@ void MenuHandler::showOptionsMenu() {
     gBackButton.render();
 }
 
-void MenuHandler::returnToPreviousMenu(Button b) {
-    b.unclick();
-    gBackButton.unclick();
-}
-
 void MenuHandler::handleMainMenuEvents(SDL_Event *e) {
     gPlayButton.handleEvents(e);
     gControlsButton.handleEvents(e);

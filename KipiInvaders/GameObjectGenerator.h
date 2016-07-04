@@ -2,7 +2,6 @@
 #define GAMEOBJECTGENERATOR_H_INCLUDED
 
 #include "Resources.h"
-#include "Enemy.h"
 
 class GameObjectGenerator {
 public:
