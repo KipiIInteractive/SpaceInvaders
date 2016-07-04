@@ -20,7 +20,7 @@ bool RegistrationWindow::isActive;
 void RegistrationWindow::Init()
 {
     //Create the backgroud texture for the log-in window
-    RegistrationWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.png", System::renderer);
+    RegistrationWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.jpg", System::renderer);
     if(RegistrationWindow::backgroundTexture == NULL)
         std::cout << "Failed to create the registration background texture. File: profile_managment/Log_in.cpp/Init(): \n" << IMG_GetError() << std::endl;
 

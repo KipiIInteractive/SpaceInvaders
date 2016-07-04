@@ -11,7 +11,6 @@ User::~User()
 {
     this->username.clear();
     this->password.clear();
-    this->highScore = NULL;
 }
 
 string User::GetUsername() { return this->username; }

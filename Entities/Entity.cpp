@@ -2,8 +2,8 @@
 
 Entity::Entity()
 {
-    this->rect.h = 0; this->rect.w = 0;
-    this->rect.x = 0; this->rect.y = 0;
+    this->rect.h = 1; this->rect.w = 1;
+    this->rect.x = 1; this->rect.y = 1;
     this->texture = NULL;
     this->movementSpeed = 1;
     this->shootingPower = 1;
@@ -26,8 +26,7 @@ void Entity::SetTexture(SDL_Texture *texture) { this->texture = texture; }
 
 void Entity::Render()
 {
-    if(this->isAlive)
-        SDL_RenderCopy(System::renderer, this->texture, NULL, &this->rect);
+    SDL_RenderCopy(System::renderer, this->texture, NULL, &this->rect);
 }
 
 void Entity::SetX(int x) { this->rect.x = x; }

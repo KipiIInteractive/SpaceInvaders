@@ -1,4 +1,5 @@
 #include "AliensManager.h"
+#include "../Game/Game.h"
 
 int AliensManager::number = 0;
 int AliensManager::movementSpeed = 0;
@@ -27,13 +28,22 @@ void AliensManager::Move()
         {
             AliensManager::ChangeTheDirection();
             for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
-                CURRENT_ALIEN->SetY(CURRENT_ALIEN->GetY() + 1);
-        }
+            {
+                CURRENT_ALIEN->SetY(CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() / 2);
 
-        if(AliensManager::direction == System::Direction::Right)
-            CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetMovementSpeed());
-        else if(AliensManager::direction == System::Direction::Left)
-            CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetMovementSpeed());
+                if(AliensManager::direction == System::Direction::Right)
+                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetMovementSpeed());
+                else if(AliensManager::direction == System::Direction::Left)
+                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetMovementSpeed());
+            }
+        }
+        else
+        {
+            if(AliensManager::direction == System::Direction::Right)
+                CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetMovementSpeed());
+            else if(AliensManager::direction == System::Direction::Left)
+                CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetMovementSpeed());
+        }
     }
 }
 
@@ -41,9 +51,9 @@ bool AliensManager::isAlienHitTheWall()
 {
     for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
     {
-        if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() > System::Screen::Width)
+        if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() > Game::Pannel.w + Game::Pannel.x)
             return true;
-        else if(CURRENT_ALIEN->GetX() < 0)
+        else if(CURRENT_ALIEN->GetX() < Game::Pannel.x)
             return true;
     }
     return false;

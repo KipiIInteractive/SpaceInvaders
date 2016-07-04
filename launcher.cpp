@@ -23,11 +23,18 @@ void InitEverything()
 {
     //Initialize SDL
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
-        std::cout << "Failed to initialize SDL. File: launcher.cpp/Initizlizations(): \n" << SDL_GetError() << std::endl;
+        std::cout << "Failed to initialize SDL. File: launcher.cpp/Initializations(): \n" << SDL_GetError() << std::endl;
 
     //Initialize SDL_TTF
     if(TTF_Init() < 0)
-        std::cout << "Failed to initialize SDL_TTF. File: launcher.cpp/Initizlizations(): \n" << TTF_GetError() << std::endl;
+        std::cout << "Failed to initialize SDL_TTF. File: launcher.cpp/Initializations(): \n" << TTF_GetError() << std::endl;
+
+    int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+    if( !imgFlags)
+        std::cout << "Failed to initialize imgFlags. File: launcher.cpp/Initializations() \n" << IMG_GetError() << std::endl;
+
+    if(!IMG_Init( imgFlags ))
+        std::cout << "Failed to initialize SDL_IMAGE. File: launcher.cpp/Initializations() \n" << IMG_GetError() << std::endl;
 
     //Create the window
     System::window = SDL_CreateWindow("Space Invaders",
@@ -75,4 +82,10 @@ void InitEverything()
 
     //Read which is the current level number
     LevelManager::InitCurrentLevel();
+
+    //Initialize the player
+    Player::Init();
+
+    //Initialize the game window
+    Game::Init();
 }

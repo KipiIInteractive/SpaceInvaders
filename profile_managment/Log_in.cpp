@@ -21,7 +21,7 @@ void LoginWindow::Init()
     ProfileManager::LoadTheUsersData();
 
     //Create the backgroud texture for the log-in window
-    LoginWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.png", System::renderer);
+    LoginWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.jpg", System::renderer);
     if(LoginWindow::backgroundTexture == NULL)
         std::cout << "Failed to create the log-in background texture. File: profile_managment/Log_in.cpp/Init(): \n" << IMG_GetError() << std::endl;
 

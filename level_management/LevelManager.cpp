@@ -1,9 +1,10 @@
 #include "LevelManager.h"
+#include "../Game/Game.h"
 
 int LevelManager::currentLevel;
 
 #define LEVELS_PATH "Resources/Levels/"
-#define MAX_ALIENS_ON_ROW 20
+#define MAX_ALIENS_ON_ROW 15
 
 bool LevelManager::FileIsExisting(string filename)
 {
@@ -30,7 +31,6 @@ bool LevelManager::LoadLevel(int lvl)
         {
             string line;
             int line_num = 0;
-
             for(std::string line; getline(level, line); )
             {
                 //Add the number of the aliens in the AlienManager class
@@ -49,8 +49,9 @@ bool LevelManager::LoadLevel(int lvl)
                 {
                     int type, pos_x, pos_y;
                     level >> type >> pos_y >> pos_x;
-                    pos_x *= System::Screen::Width / MAX_ALIENS_ON_ROW + 8;
-                    pos_y *= System::Screen::Height / 11.24 + 6;
+                    pos_x *=  (Game::Pannel.w / MAX_ALIENS_ON_ROW);
+                    pos_x += Game::Pannel.x;
+                    pos_y *= Game::Pannel.w / MAX_ALIENS_ON_ROW + 5;
                     AliensManager::AddNewAlien(type, pos_x, pos_y);
                 }
 

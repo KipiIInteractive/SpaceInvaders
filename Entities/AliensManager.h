@@ -2,7 +2,6 @@
 #define ALIENSMANAGER_H_INCLUDED
 
 #include "Alien.h"
-#include <iostream>
 #include <vector>
 
 class AliensManager
