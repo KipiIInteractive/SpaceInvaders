@@ -1,7 +1,8 @@
 #ifndef GAMELOOP_H_INCLUDED
 #define GAMELOOP_H_INCLUDED
 
-#include "main.h"
+#include "Resources.h"
+#include "System.h"
 
 class GameLoop {
 public:

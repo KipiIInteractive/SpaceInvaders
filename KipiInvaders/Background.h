@@ -1,8 +1,9 @@
 #ifndef BACKGROUND_H_INCLUDED
 #define BACKGROUND_H_INCLUDED
 
-#include "main.h"
 #include "Texture.h"
+
+using namespace std;
 
 class Background {
 private:
@@ -19,6 +20,4 @@ public:
     //Shows background
     void render(int x, int y);
 };
-
-
 #endif // BACKGROUND_H_INCLUDED

@@ -1,7 +1,13 @@
 #ifndef TEXTURE_H_INCLUDED
 #define TEXTURE_H_INCLUDED
 
-#include "main.h"
+#include <string>
+#include <SDL_ttf.h>
+#include <SDL_image.h>
+#include <iostream>
+#include "System.h"
+
+using namespace std;
 
 class Texture {
     SDL_Texture* _Texture;
@@ -20,9 +26,13 @@ public:
 
     string getText();
 
-    int getHeight();
+    void setWidth(int w);
+
+    void setHeight(int h);
 
     int getWidth();
+
+    int getHeight();
 
     void render(int x, int y, SDL_Rect* clip = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE, double angle = 0.0, SDL_Point* center = NULL);
 

@@ -12,6 +12,8 @@ Texture::~Texture() {
 }
 
 bool Texture::loadFromFile(string path) {
+    free();
+
     SDL_Texture* finalTexture = NULL;
 
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -21,7 +23,7 @@ bool Texture::loadFromFile(string path) {
     else {
         SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 255, 255));
 
-        finalTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+        finalTexture = SDL_CreateTextureFromSurface(System::renderer, loadedSurface);
         if(finalTexture == NULL) {
             cout << SDL_GetError() << endl;
         }
@@ -46,13 +48,13 @@ bool Texture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF_
         textSurface = TTF_RenderText_Solid(font, textureText.c_str(), textColor);
     }
     else {
-        textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+        textSurface = TTF_RenderText_Solid(System::font, textureText.c_str(), textColor);
     }
     if(textSurface == NULL) {
         cout << TTF_GetError() << endl;
     }
     else {
-        _Texture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
+        _Texture = SDL_CreateTextureFromSurface(System::renderer, textSurface);
         if(_Texture == NULL) {
             cout << SDL_GetError() << endl;
         }
@@ -68,19 +70,27 @@ bool Texture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF_
 }
 
 void Texture::setColor(SDL_Color color) {
-    SDL_SetTextureColorMod(Texture::_Texture, color.r, color.g, color.b);
+    SDL_SetTextureColorMod(_Texture, color.r, color.g, color.b);
+}
+
+void Texture::setWidth(int w) {
+    _TWidth = w;
+}
+
+void Texture::setHeight(int h) {
+    _THeight = h;
 }
 
 int Texture::getHeight() {
-    return Texture::_THeight;
+    return _THeight;
 }
 
 int Texture::getWidth() {
-    return Texture::_TWidth;
+    return _TWidth;
 }
 
 string Texture::getText() {
-    return Texture::_TText;
+    return _TText;
 }
 
 void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double angle, SDL_Point* center) {
@@ -90,14 +100,14 @@ void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double
         renderQuad.w = clip->w;
         renderQuad.h = clip->h;
     }
-    SDL_RenderCopyEx(gRenderer, Texture::_Texture, clip, &renderQuad, angle, center, flip);
+    SDL_RenderCopyEx(System::renderer, _Texture, clip, &renderQuad, angle, center, flip);
 }
 
 void Texture::free() {
-    if(Texture::_Texture != NULL) {
-        SDL_DestroyTexture(Texture::_Texture);
-        Texture::_Texture = NULL;
-        Texture::_THeight = 0;
-        Texture::_TWidth = 0;
+    if(_Texture != NULL) {
+        SDL_DestroyTexture(_Texture);
+        _Texture = NULL;
+        _THeight = 0;
+        _TWidth = 0;
     }
 }

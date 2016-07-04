@@ -1,5 +1,4 @@
 #include "GameLoop.h"
-#include "LoadMedia.h"
 
 void GameLoop::run() {
     bool isRunning = true;
@@ -13,12 +12,24 @@ void GameLoop::run() {
 
             if(gPlayButton.isClicked()) {
                 handleGameModesMenuEvents(&e);
+                if(gBackButton.isClicked()) {
+                    gPlayButton.unclick();
+                    gBackButton.unclick();
+                }
             }
             else if(gControlsButton.isClicked()) {
                 handleControlsMenuEvents(&e);
+                if(gBackButton.isClicked()) {
+                    gControlsButton.unclick();
+                    gBackButton.unclick();
+                }
             }
             else if(gOptionsButton.isClicked()) {
                 handleOptionsMenuEvents(&e);
+                if(gBackButton.isClicked()) {
+                    gOptionsButton.unclick();
+                    gBackButton.unclick();
+                }
             }
             else {
                 gPlayButton.handleEvents(&e);
@@ -28,14 +39,10 @@ void GameLoop::run() {
             }
         }
         //Clears the game window
-        SDL_RenderClear(gRenderer);
+        SDL_RenderClear(System::renderer);
 
         if(gPlayButton.isClicked()) {
-            if(gBackButton.isClicked()) {
-                gPlayButton.unclick();
-                gBackButton.unclick();
-            }
-            else if(gClassicGameModeButton.isClicked()) {
+            if(gClassicGameModeButton.isClicked()) {
                 startClassicGame();
             }
             else if(gSurvivalGameModeButton.isClicked()) {
@@ -47,17 +54,9 @@ void GameLoop::run() {
         }
         else if(gControlsButton.isClicked()) {
             showControlsMenu();
-            if(gBackButton.isClicked()) {
-                gControlsButton.unclick();
-                gBackButton.unclick();
-            }
         }
         else if(gOptionsButton.isClicked()) {
             showOptionsMenu();
-            if(gBackButton.isClicked()) {
-                gOptionsButton.unclick();
-                gBackButton.unclick();
-            }
         }
         else if(gExitButton.isClicked()) {
             isRunning = false;
@@ -68,7 +67,7 @@ void GameLoop::run() {
         }
 
         //Updates game window
-        SDL_RenderPresent(gRenderer);
+        SDL_RenderPresent(System::renderer);
     }
 }
 
@@ -89,12 +88,12 @@ void GameLoop::showGameModesMenu() {
 
 void GameLoop::showControlsMenu() {
     gMenuBackground.render(0, 0);
-    gControlsMenuText[0].render((SCREEN_WIDTH - gControlsMenuText[0].getWidth())/2,
-                                (SCREEN_HEIGHT - gControlsMenuText[0].getHeight())/2 - gControlsMenuText[0].getHeight());
-    gControlsMenuText[1].render((SCREEN_WIDTH - gControlsMenuText[1].getWidth())/2,
-                                (SCREEN_HEIGHT - gControlsMenuText[1].getHeight())/2);
-    gControlsMenuText[2].render((SCREEN_WIDTH - gControlsMenuText[2].getWidth())/2,
-                                (SCREEN_HEIGHT - gControlsMenuText[2].getHeight())/2 + gControlsMenuText[1].getHeight());
+    gControlsMenuText[0].render((System::SCREEN_WIDTH - gControlsMenuText[0].getWidth())/2,
+                                (System::SCREEN_HEIGHT - gControlsMenuText[0].getHeight())/2 - gControlsMenuText[0].getHeight());
+    gControlsMenuText[1].render((System::SCREEN_WIDTH - gControlsMenuText[1].getWidth())/2,
+                                (System::SCREEN_HEIGHT - gControlsMenuText[1].getHeight())/2);
+    gControlsMenuText[2].render((System::SCREEN_WIDTH - gControlsMenuText[2].getWidth())/2,
+                                (System::SCREEN_HEIGHT - gControlsMenuText[2].getHeight())/2 + gControlsMenuText[1].getHeight());
     gBackButton.render();
 }
 
@@ -119,6 +118,8 @@ void GameLoop::handleOptionsMenuEvents(SDL_Event *e) {
 
 void GameLoop::startClassicGame() {
     gMenuBackground.render(0, 0);
+    gEnemy1.render();
+    gBackButton.render();
 }
 
 void GameLoop::startSurvivalGame() {

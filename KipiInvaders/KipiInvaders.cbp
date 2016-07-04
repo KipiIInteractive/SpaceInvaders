@@ -47,12 +47,17 @@
 		<Unit filename="Background.h" />
 		<Unit filename="Button.cpp" />
 		<Unit filename="Button.h" />
+		<Unit filename="Enemy.cpp" />
+		<Unit filename="Enemy.h" />
 		<Unit filename="GameLoop.cpp" />
 		<Unit filename="GameLoop.h" />
 		<Unit filename="InitSDL.cpp" />
 		<Unit filename="InitSDL.h" />
 		<Unit filename="LoadMedia.cpp" />
 		<Unit filename="LoadMedia.h" />
+		<Unit filename="Resources.h" />
+		<Unit filename="System.cpp" />
+		<Unit filename="System.h" />
 		<Unit filename="Texture.cpp" />
 		<Unit filename="Texture.h" />
 		<Unit filename="main.cpp" />

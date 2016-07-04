@@ -15,26 +15,22 @@ Button gBackButton;
 //Menu Text
 Texture gControlsMenuText[3];
 
-//Music used
-Mix_Music* gMusic = NULL;
-
-
-//Font used
-TTF_Font* gFont = NULL;
+//Enemy
+Enemy gEnemy1;
 
 bool LoadMedia::load() {
     bool success = true;
 
     //Menu Background
-    if(!gMenuBackground.loadBackgroundFromFile("images/menuBackground.png")) {
+    if(!(gMenuBackground.loadBackgroundFromFile("./images/menuBackground.png"))) {
         success = false;
     }
     else {
-        gMenuBackground.setBackgroundClip(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        gMenuBackground.setBackgroundClip(0, 0, System::SCREEN_WIDTH, System::SCREEN_HEIGHT);
     }
 
-    gFont = TTF_OpenFont("fonts/earthorbiter.ttf",50);
-    if(gFont == NULL) {
+    System::font = TTF_OpenFont("./fonts/earthorbiter.ttf",50);
+    if(System::font == NULL) {
         success = false;
         cout << TTF_GetError() << endl;
     }
@@ -45,8 +41,8 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gPlayButton.setDimensions((SCREEN_WIDTH - gPlayButton.getWidth())/2,
-                                      (SCREEN_HEIGHT - gPlayButton.getHeight())/2,
+            gPlayButton.setDimensions((System::SCREEN_WIDTH - gPlayButton.getWidth())/2,
+                                      (System::SCREEN_HEIGHT - gPlayButton.getHeight())/2,
                                       gPlayButton.getWidth(),
                                       gPlayButton.getHeight());
         }
@@ -55,8 +51,8 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gControlsButton.setDimensions((SCREEN_WIDTH - gControlsButton.getWidth())/2,
-                                          (SCREEN_HEIGHT - gControlsButton.getHeight())/2 + gPlayButton.getHeight(),
+            gControlsButton.setDimensions((System::SCREEN_WIDTH - gControlsButton.getWidth())/2,
+                                          (System::SCREEN_HEIGHT - gControlsButton.getHeight())/2 + gPlayButton.getHeight(),
                                           gControlsButton.getWidth(),
                                           gControlsButton.getHeight());
 
@@ -77,8 +73,8 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gOptionsButton.setDimensions((SCREEN_WIDTH - gOptionsButton.getWidth())/2,
-                                         (SCREEN_HEIGHT - gOptionsButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight(),
+            gOptionsButton.setDimensions((System::SCREEN_WIDTH - gOptionsButton.getWidth())/2,
+                                         (System::SCREEN_HEIGHT - gOptionsButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight(),
                                          gOptionsButton.getWidth(),
                                          gOptionsButton.getHeight());
         }
@@ -87,8 +83,8 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gExitButton.setDimensions((SCREEN_WIDTH - gExitButton.getWidth())/2,
-                                      (SCREEN_HEIGHT - gExitButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight() + gOptionsButton.getHeight(),
+            gExitButton.setDimensions((System::SCREEN_WIDTH - gExitButton.getWidth())/2,
+                                      (System::SCREEN_HEIGHT - gExitButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight() + gOptionsButton.getHeight(),
                                       gExitButton.getWidth(),
                                       gExitButton.getHeight());
         }
@@ -97,8 +93,8 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gClassicGameModeButton.setDimensions((SCREEN_WIDTH - gClassicGameModeButton.getWidth())/2,
-                                      (SCREEN_HEIGHT - gClassicGameModeButton.getHeight())/2,
+            gClassicGameModeButton.setDimensions((System::SCREEN_WIDTH - gClassicGameModeButton.getWidth())/2,
+                                      (System::SCREEN_HEIGHT - gClassicGameModeButton.getHeight())/2,
                                       gClassicGameModeButton.getWidth(),
                                       gClassicGameModeButton.getHeight());
         }
@@ -107,8 +103,8 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gSurvivalGameModeButton.setDimensions((SCREEN_WIDTH - gSurvivalGameModeButton.getWidth())/2,
-                                      (SCREEN_HEIGHT - gSurvivalGameModeButton.getHeight())/2 + gClassicGameModeButton.getHeight(),
+            gSurvivalGameModeButton.setDimensions((System::SCREEN_WIDTH - gSurvivalGameModeButton.getWidth())/2,
+                                      (System::SCREEN_HEIGHT - gSurvivalGameModeButton.getHeight())/2 + gClassicGameModeButton.getHeight(),
                                       gSurvivalGameModeButton.getWidth(),
                                       gSurvivalGameModeButton.getHeight());
         }
@@ -117,11 +113,21 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
-            gBackButton.setDimensions((SCREEN_WIDTH - gBackButton.getWidth())/2,
-                                      SCREEN_HEIGHT - gBackButton.getHeight(),
+            gBackButton.setDimensions((System::SCREEN_WIDTH - gBackButton.getWidth())/2,
+                                      System::SCREEN_HEIGHT - gBackButton.getHeight(),
                                       gBackButton.getWidth(),
                                       gBackButton.getHeight());
         }
+    }
+
+    //Enemies
+    if(!gEnemy1.loadFromFile("./images/enemy1.png")) {
+        success = false;
+    }
+    else {
+        gEnemy1.setHeight(50);
+        gEnemy1.setWidth(50);
+        gEnemy1.setPosition(200, 200);
     }
 
     return success;

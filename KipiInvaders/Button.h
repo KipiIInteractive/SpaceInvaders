@@ -1,8 +1,9 @@
 #ifndef BUTTON_H_INCLUDED
 #define BUTTON_H_INCLUDED
 
-#include "main.h"
 #include "Texture.h"
+
+using namespace std;
 
 class Button {
 protected:
@@ -16,8 +17,8 @@ public:
     ~Button();
 
     //Button Initialization
-    bool loadButtonFromFile(std::string path);
-    bool loadButtonFromText(std::string text, SDL_Color color);
+    bool loadButtonFromFile(string path);
+    bool loadButtonFromText(string text, SDL_Color color);
     void setDimensions(int x, int y, int w, int h);
     void setClip(int x, int y, int w, int h);
 

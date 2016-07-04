@@ -444,3 +444,79 @@
 	"main.h"
 	"Texture.h"
 
+1467635780 source:c:\users\intern\documents\kipiinvaders\background.cpp
+	"Background.h"
+
+1467635862 c:\users\intern\documents\kipiinvaders\background.h
+	"Texture.h"
+
+1467623015 c:\users\intern\documents\kipiinvaders\main.h
+	"InitSDL.h"
+	"LoadMedia.h"
+	"GameLoop.h"
+
+1467636024 c:\users\intern\documents\kipiinvaders\texture.h
+	<string>
+	<SDL_ttf.h>
+	<SDL_image.h>
+	<iostream>
+	"System.h"
+
+1467635831 source:c:\users\intern\documents\kipiinvaders\button.cpp
+	"Button.h"
+
+1467635866 c:\users\intern\documents\kipiinvaders\button.h
+	"Texture.h"
+
+1467636793 source:c:\users\intern\documents\kipiinvaders\gameloop.cpp
+	"GameLoop.h"
+
+1467623289 c:\users\intern\documents\kipiinvaders\gameloop.h
+	"Resources.h"
+	"System.h"
+
+1467623765 c:\users\intern\documents\kipiinvaders\loadmedia.h
+	"Resources.h"
+	"System.h"
+	<iostream>
+
+1467631293 source:c:\users\intern\documents\kipiinvaders\initsdl.cpp
+	"InitSDL.h"
+
+1467623726 c:\users\intern\documents\kipiinvaders\initsdl.h
+	<iostream>
+	<SDL_ttf.h>
+	<SDL_image.h>
+	<SDL_mixer.h>
+	<string>
+	"System.h"
+
+1467636200 source:c:\users\intern\documents\kipiinvaders\loadmedia.cpp
+	"LoadMedia.h"
+
+1467634442 source:c:\users\intern\documents\kipiinvaders\main.cpp
+	"main.h"
+
+1467633840 source:c:\users\intern\documents\kipiinvaders\texture.cpp
+	"Texture.h"
+
+1467636227 c:\users\intern\documents\kipiinvaders\resources.h
+	"Background.h"
+	"Button.h"
+	"Enemy.h"
+
+1467625731 c:\users\intern\documents\kipiinvaders\system.h
+	<SDL.h>
+	<windows.h>
+	<SDL_mixer.h>
+	<SDL_ttf.h>
+
+1467625698 source:c:\users\intern\documents\kipiinvaders\system.cpp
+	"System.h"
+
+1467635152 c:\users\intern\documents\kipiinvaders\enemy.h
+	"Texture.h"
+
+1467635178 source:c:\users\intern\documents\kipiinvaders\enemy.cpp
+	"Enemy.h"
+
