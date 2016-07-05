@@ -8,6 +8,7 @@ using namespace std;
 
 class Enemy {
 private:
+    bool _ECollidedWithScreen;
     Texture _ETexture;
     SDL_Rect _ERect;
     SDL_Point _EVelocity;
@@ -28,6 +29,8 @@ public:
 
     void setMovementDirection(Direction dir);
 
+    void setHasCollidedWithScreen(bool b);
+
     int getX();
     int getY();
 
@@ -35,6 +38,8 @@ public:
     int getHeight();
 
     Direction getMovementDirection();
+
+    bool hasCollidedWithScreen();
 
     void render();
 

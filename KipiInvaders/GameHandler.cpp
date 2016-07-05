@@ -23,6 +23,8 @@ void GameHandler::handleSurvivalGameEvents(SDL_Event* e) {
 void GameHandler::resetGame() {
     GameObjectGenerator::enemiesGenerated = false;
     enemies.clear();
-    leftmostEnemyList.clear();
-    rightmostEnemyList.clear();
+    firstRowOfEnemies.clear();
+    secondRowOfEnemies.clear();
+    thirdRowOfEnemies.clear();
+    fourthRowOfEnemies.clear();
 }

@@ -1,10 +1,12 @@
 #ifndef RESOURCES_H_INCLUDED
 #define RESOURCES_H_INCLUDED
 
+#include <list>
+#include <vector>
+#include <iterator>
 #include "Background.h"
 #include "Button.h"
 #include "Enemy.h"
-#include <list>
 
 //GUI
 extern Background gMenuBackground;
@@ -23,7 +25,9 @@ extern const int ENEMY_ROWS;
 extern const int MAX_ALIENS_ON_ROW;
 
 extern list<Enemy*> enemies;
-extern list<Enemy*> leftmostEnemyList;
-extern list<Enemy*> rightmostEnemyList;
+extern vector<Enemy*> firstRowOfEnemies;
+extern vector<Enemy*> secondRowOfEnemies;
+extern vector<Enemy*> thirdRowOfEnemies;
+extern vector<Enemy*> fourthRowOfEnemies;
 
 #endif // RESOURCES_H_INCLUDED
