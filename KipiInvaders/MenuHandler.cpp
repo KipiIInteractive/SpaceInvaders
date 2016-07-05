@@ -31,6 +31,12 @@ void MenuHandler::showOptionsMenu() {
     gBackButton.render();
 }
 
+void MenuHandler::showPauseMenu() {
+    gMenuBackground.render(0, 0);
+    gResumeButton.render();
+    gMainMenuButton.render();
+}
+
 void MenuHandler::handleMainMenuEvents(SDL_Event *e) {
     gPlayButton.handleEvents(e);
     gControlsButton.handleEvents(e);
@@ -50,4 +56,9 @@ void MenuHandler::handleControlsMenuEvents(SDL_Event *e) {
 
 void MenuHandler::handleOptionsMenuEvents(SDL_Event *e) {
     gBackButton.handleEvents(e);
+}
+
+void MenuHandler::handlePauseMenuEvents(SDL_Event *e) {
+    gResumeButton.handleEvents(e);
+    gMainMenuButton.handleEvents(e);
 }

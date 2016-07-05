@@ -2,7 +2,9 @@
 
 void GameLoop::run() {
     bool isRunning = true;
+    bool isPaused = false;
     SDL_Event e;
+
     while(isRunning) {
         //Handles events when they occur
         while(SDL_PollEvent(&e) != 0) {
@@ -11,16 +13,55 @@ void GameLoop::run() {
             }
 
             if(gPlayButton.isClicked()) {
-                MenuHandler::handleGameModesMenuEvents(&e);
                 if(gBackButton.isClicked()) {
                     gPlayButton.unclick();
                     gBackButton.unclick();
                 }
                 else if(gClassicGameModeButton.isClicked()) {
-                    GameHandler::handleClassicGameEvents(&e);
+                    if(isPaused) {
+                        MenuHandler::handlePauseMenuEvents(&e);
+                        if(gResumeButton.isClicked()) {
+                            isPaused = false;
+                            gResumeButton.unclick();
+                        }
+                        else if(gMainMenuButton.isClicked()) {
+                            gClassicGameModeButton.unclick();
+                            gPlayButton.unclick();
+                            gMainMenuButton.unclick();
+                            isPaused = false;
+                            GameHandler::resetGame();
+                        }
+                    }
+                    else {
+                        GameHandler::handleClassicGameEvents(&e);
+                        if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
+                            isPaused = true;
+                        }
+                    }
                 }
                 else if(gSurvivalGameModeButton.isClicked()) {
-                    GameHandler::handleSurvivalGameEvents(&e);
+                    if(isPaused) {
+                        MenuHandler::handlePauseMenuEvents(&e);
+                        if(gResumeButton.isClicked()) {
+                            isPaused = false;
+                            gResumeButton.unclick();
+                        }
+                        else if(gMainMenuButton.isClicked()) {
+                            gSurvivalGameModeButton.unclick();
+                            gPlayButton.unclick();
+                            gMainMenuButton.unclick();
+                            isPaused = false;
+                        }
+                    }
+                    else {
+                        GameHandler::handleSurvivalGameEvents(&e);
+                        if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
+                            isPaused = true;
+                        }
+                    }
+                }
+                else {
+                    MenuHandler::handleGameModesMenuEvents(&e);
                 }
             }
             else if(gControlsButton.isClicked()) {
@@ -46,10 +87,20 @@ void GameLoop::run() {
 
         if(gPlayButton.isClicked()) {
             if(gClassicGameModeButton.isClicked()) {
-                GameHandler::startClassicGame();
+                if(isPaused) {
+                    MenuHandler::showPauseMenu();
+                }
+                else {
+                    GameHandler::startClassicGame();
+                }
             }
             else if(gSurvivalGameModeButton.isClicked()) {
-                GameHandler::startSurvivalGame();
+                if(isPaused) {
+                    MenuHandler::showPauseMenu();
+                }
+                else {
+                    GameHandler::startSurvivalGame();
+                }
             }
             else {
                 MenuHandler::showGameModesMenu();
@@ -68,7 +119,6 @@ void GameLoop::run() {
         else {
             MenuHandler::showMainMenu();
         }
-
         //Updates game window
         SDL_RenderPresent(System::renderer);
     }

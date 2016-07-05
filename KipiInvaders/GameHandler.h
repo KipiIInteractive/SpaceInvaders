@@ -1,10 +1,10 @@
 #ifndef GAMEHANDLER_H_INCLUDED
 #define GAMEHANDLER_H_INCLUDED
 
-#include <SDL.h>
-#include "Resources.h"
 #include "GameObjectGenerator.h"
 #include "GameObjectRenderer.h"
+#include "GameObjectHandler.h"
+#include "GameObjectCollision.h"
 
 class GameHandler {
 public:
@@ -13,5 +13,7 @@ public:
 
     static void handleClassicGameEvents(SDL_Event* e);
     static void handleSurvivalGameEvents(SDL_Event* e);
+
+    static void resetGame();
 };
 #endif // GAMEHANDLER_H_INCLUDED

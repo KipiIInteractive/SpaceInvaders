@@ -23,8 +23,9 @@ bool InitSDL::init() {
             SDL_SetRenderDrawColor(System::renderer, 255, 255, 255, 255);
 
             //Different image format initialization
-            int imgFlags = IMG_INIT_PNG;
-            if(!(IMG_Init(imgFlags) & imgFlags)) {
+            int pngFlag = IMG_INIT_PNG;
+            int jpgFlag = IMG_INIT_JPG;
+            if(!(IMG_Init(pngFlag | jpgFlag))){
                 cout << IMG_GetError() << endl;
                 success = false;
             }

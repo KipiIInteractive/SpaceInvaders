@@ -11,6 +11,8 @@ Button gExitButton;
 Button gClassicGameModeButton;
 Button gSurvivalGameModeButton;
 Button gBackButton;
+Button gResumeButton;
+Button gMainMenuButton;
 
 //Menu Text
 Texture gControlsMenuText[3];
@@ -115,10 +117,27 @@ bool LoadMedia::load() {
                                       gBackButton.getWidth(),
                                       gBackButton.getHeight());
         }
+
+        if(!gResumeButton.loadButtonFromText("Resume", color)) {
+            success = false;
+        }
+        else {
+            gResumeButton.setDimensions((System::SCREEN_WIDTH - gResumeButton.getWidth())/2,
+                                        (System::SCREEN_HEIGHT - gResumeButton.getHeight())/2,
+                                        gResumeButton.getWidth(),
+                                        gResumeButton.getHeight());
+        }
+
+        if(!gMainMenuButton.loadButtonFromText("Main Menu", color)) {
+            success = false;
+        }
+        else {
+            gMainMenuButton.setDimensions((System::SCREEN_WIDTH - gMainMenuButton.getWidth())/2,
+                                          System::SCREEN_HEIGHT - gMainMenuButton.getHeight(),
+                                          gMainMenuButton.getWidth(),
+                                          gMainMenuButton.getHeight());
+        }
     }
-
-    //Enemies
-
 
     return success;
 }

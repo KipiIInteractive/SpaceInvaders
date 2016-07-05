@@ -2,6 +2,7 @@
 #define ENEMY_H_INCLUDED
 
 #include "Texture.h"
+#include "Direction.h"
 
 using namespace std;
 
@@ -10,6 +11,7 @@ private:
     Texture _ETexture;
     SDL_Rect _ERect;
     SDL_Point _EVelocity;
+    Direction _EDirection;
 public:
     Enemy();
     ~Enemy();
@@ -24,13 +26,21 @@ public:
     void setWidth(int w);
     void setHeight(int h);
 
+    void setMovementDirection(Direction dir);
+
     int getX();
     int getY();
 
     int getWidth();
     int getHeight();
 
+    Direction getMovementDirection();
+
     void render();
+
+    void update();
+
+    void checkCollision();
 };
 
 

@@ -12,8 +12,6 @@ Texture::~Texture() {
 }
 
 bool Texture::loadFromFile(string path) {
-    free();
-
     SDL_Texture* finalTexture = NULL;
 
     SDL_Surface* loadedSurface = IMG_Load(path.c_str());
@@ -60,13 +58,13 @@ bool Texture::loadFromRenderedText(string textureText, SDL_Color textColor, TTF_
         }
         else {
             //Get texture dimensions
-            Texture::_TWidth = textSurface->w;
-            Texture::_THeight = textSurface->h;
+            _TWidth = textSurface->w;
+            _THeight = textSurface->h;
         }
         //Free old surface
         SDL_FreeSurface(textSurface);
     }
-    return Texture::_Texture != NULL;
+    return _Texture != NULL;
 }
 
 void Texture::setColor(SDL_Color color) {
@@ -95,7 +93,7 @@ string Texture::getText() {
 
 void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double angle, SDL_Point* center) {
     SDL_Rect renderQuad;
-    renderQuad = {x, y, Texture::_TWidth, Texture::_THeight};
+    renderQuad = {x, y, _TWidth, _THeight};
     if(clip != NULL && clip->w != 0 && clip->h != 0) {
         renderQuad.w = clip->w;
         renderQuad.h = clip->h;
