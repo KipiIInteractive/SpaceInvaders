@@ -4,7 +4,7 @@ void MenuHandler::showMainMenu() {
     gMenuBackground.render(0, 0);
     gPlayButton.render();
     gControlsButton.render();
-    gOptionsButton.render();
+    gRankingButton.render();
     gExitButton.render();
 }
 
@@ -26,7 +26,7 @@ void MenuHandler::showControlsMenu() {
     gBackButton.render();
 }
 
-void MenuHandler::showOptionsMenu() {
+void MenuHandler::showRankingMenu() {
     gMenuBackground.render(0, 0);
     gBackButton.render();
 }
@@ -40,7 +40,7 @@ void MenuHandler::showPauseMenu() {
 void MenuHandler::handleMainMenuEvents(SDL_Event *e) {
     gPlayButton.handleEvents(e);
     gControlsButton.handleEvents(e);
-    gOptionsButton.handleEvents(e);
+    gRankingButton.handleEvents(e);
     gExitButton.handleEvents(e);
 }
 
@@ -54,7 +54,7 @@ void MenuHandler::handleControlsMenuEvents(SDL_Event *e) {
     gBackButton.handleEvents(e);
 }
 
-void MenuHandler::handleOptionsMenuEvents(SDL_Event *e) {
+void MenuHandler::handleRankingMenuEvents(SDL_Event *e) {
     gBackButton.handleEvents(e);
 }
 

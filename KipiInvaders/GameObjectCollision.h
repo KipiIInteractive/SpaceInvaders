@@ -1,7 +1,7 @@
 #ifndef GAMEOBJECTCOLLISION_H_INCLUDED
 #define GAMEOBJECTCOLLISION_H_INCLUDED
 
-#include "Resources.h"
+#include "EnemyResources.h"
 
 class GameObjectCollision {
 public:

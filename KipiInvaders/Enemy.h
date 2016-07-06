@@ -3,10 +3,9 @@
 
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>      /* time */
-#include <list>
-#include "Texture.h"
 #include "Direction.h"
-#include "Bullet.h"
+#include "BulletResources.h"
+#include "GameResources.h"
 
 using namespace std;
 
@@ -42,8 +41,6 @@ public:
     Direction getMovementDirection();
 
     bool hasCollidedWithScreen();
-
-    void shoot(int currLvl);
 
     void update();
 

@@ -9,3 +9,9 @@ void GameObjectRenderer::renderEnemies() {
 void GameObjectRenderer::renderPlayer() {
 
 }
+
+void GameObjectRenderer::renderBullets() {
+    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+        (*it)->render();
+    }
+}

@@ -387,42 +387,44 @@
 1467469231 d:\games\codeblocksprojects\gui\gameloop.h
 	"main.h"
 
-1467740724 source:d:\games\codeblocksprojects\kipiinvaders\background.cpp
+1467827502 source:d:\games\codeblocksprojects\kipiinvaders\background.cpp
 	"Background.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\background.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\background.h
 	"Texture.h"
 
-1467740724 d:\games\codeblocksprojects\kipiinvaders\main.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\main.h
 	"InitSDL.h"
 	"LoadMedia.h"
 	"GameLoop.h"
 
-1467740724 d:\games\codeblocksprojects\kipiinvaders\texture.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\texture.h
 	<string>
 	<SDL_ttf.h>
 	<SDL_image.h>
 	<iostream>
 	"System.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\gameloop.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\gameloop.cpp
 	"GameLoop.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\gameloop.h
-	"Resources.h"
+1467841413 d:\games\codeblocksprojects\kipiinvaders\gameloop.h
 	"System.h"
+	"MenuResources.h"
 	"MenuHandler.h"
 	"GameHandler.h"
 
-1467740724 d:\games\codeblocksprojects\kipiinvaders\loadmedia.h
-	"Resources.h"
-	"System.h"
+1467842294 d:\games\codeblocksprojects\kipiinvaders\loadmedia.h
 	<iostream>
+	"System.h"
+	"MenuResources.h"
+	"EnemyResources.h"
+	"BulletResources.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\initsdl.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\initsdl.cpp
 	"InitSDL.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\initsdl.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\initsdl.h
 	<iostream>
 	<SDL_ttf.h>
 	<SDL_image.h>
@@ -430,19 +432,19 @@
 	<string>
 	"System.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\loadmedia.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\loadmedia.cpp
 	"LoadMedia.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\main.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\main.cpp
 	"main.h"
 
-1467740724 source:d:\games\codeblocksprojects\kipiinvaders\texture.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\texture.cpp
 	"Texture.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\button.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\button.cpp
 	"Button.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\button.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\button.h
 	"Texture.h"
 
 1467813481 source:c:\users\intern\documents\kipiinvaders\background.cpp
@@ -556,57 +558,64 @@
 1467811932 source:c:\users\intern\documents\kipiinvaders\gameobjectgenerator.cpp
 	"GameObjectGenerator.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\system.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\system.h
 	<SDL.h>
 	<windows.h>
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 
-1467753714 source:d:\games\codeblocksprojects\kipiinvaders\enemy.cpp
+1467843577 source:d:\games\codeblocksprojects\kipiinvaders\enemy.cpp
 	"Enemy.h"
 
-1467753676 d:\games\codeblocksprojects\kipiinvaders\enemy.h
-	"Texture.h"
+1467842472 d:\games\codeblocksprojects\kipiinvaders\enemy.h
+	<stdlib.h>
+	<time.h>
 	"Direction.h"
+	"BulletResources.h"
+	"GameResources.h"
 
-1467753279 d:\games\codeblocksprojects\kipiinvaders\resources.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\resources.h
 	<list>
 	<vector>
 	<iterator>
 	"Background.h"
 	"Button.h"
 	"Enemy.h"
+	"Bullet.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\menuhandler.h
+1467843674 d:\games\codeblocksprojects\kipiinvaders\menuhandler.h
 	<SDL.h>
-	"Resources.h"
+	"MenuResources.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\gamehandler.h
+1467842211 d:\games\codeblocksprojects\kipiinvaders\gamehandler.h
 	"GameObjectGenerator.h"
 	"GameObjectRenderer.h"
 	"GameObjectHandler.h"
 	"GameObjectCollision.h"
+	"MenuResources.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\gameobjectgenerator.h
-	"Resources.h"
+1467842125 d:\games\codeblocksprojects\kipiinvaders\gameobjectgenerator.h
+	"GameResources.h"
+	"EnemyResources.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\menuhandler.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\menuhandler.cpp
 	"MenuHandler.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\system.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\system.cpp
 	"System.h"
 
-1467743722 source:d:\games\codeblocksprojects\kipiinvaders\gameobjectgenerator.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\gameobjectgenerator.cpp
 	"GameObjectGenerator.h"
 
-1467741180 source:d:\games\codeblocksprojects\kipiinvaders\gamehandler.cpp
+1467843132 source:d:\games\codeblocksprojects\kipiinvaders\gamehandler.cpp
 	"GameHandler.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\gameobjectrenderer.cpp
+1467843113 source:d:\games\codeblocksprojects\kipiinvaders\gameobjectrenderer.cpp
 	"GameObjectRenderer.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\gameobjectrenderer.h
-	"Resources.h"
+1467843099 d:\games\codeblocksprojects\kipiinvaders\gameobjectrenderer.h
+	"EnemyResources.h"
+	"BulletResources.h"
 
 1467791335 c:\users\intern\documents\kipiinvaders\gameobjectrenderer.h
 	"Resources.h"
@@ -628,18 +637,19 @@
 1467794434 source:c:\users\intern\documents\kipiinvaders\gameobjectcollision.cpp
 	"GameObjectCollision.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\direction.h
+1467827503 d:\games\codeblocksprojects\kipiinvaders\direction.h
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\gameobjecthandler.h
-	"Resources.h"
+1467842237 d:\games\codeblocksprojects\kipiinvaders\gameobjecthandler.h
+	"EnemyResources.h"
+	"GameResources.h"
 
-1467740725 d:\games\codeblocksprojects\kipiinvaders\gameobjectcollision.h
-	"Resources.h"
+1467842161 d:\games\codeblocksprojects\kipiinvaders\gameobjectcollision.h
+	"EnemyResources.h"
 
-1467754184 source:d:\games\codeblocksprojects\kipiinvaders\gameobjectcollision.cpp
+1467827503 source:d:\games\codeblocksprojects\kipiinvaders\gameobjectcollision.cpp
 	"GameObjectCollision.h"
 
-1467740725 source:d:\games\codeblocksprojects\kipiinvaders\gameobjecthandler.cpp
+1467842944 source:d:\games\codeblocksprojects\kipiinvaders\gameobjecthandler.cpp
 	"GameObjectHandler.h"
 
 1467817414 source:c:\users\intern\documents\kipiinvaders\bullet.cpp
@@ -649,4 +659,27 @@
 	<SDL.h>
 	"Direction.h"
 	"Texture.h"
+
+1467843274 source:d:\games\codeblocksprojects\kipiinvaders\bullet.cpp
+	"Bullet.h"
+
+1467827503 d:\games\codeblocksprojects\kipiinvaders\bullet.h
+	<SDL.h>
+	"Direction.h"
+	"Texture.h"
+
+1467843688 d:\games\codeblocksprojects\kipiinvaders\menuresources.h
+	"Background.h"
+	"Button.h"
+
+1467842006 d:\games\codeblocksprojects\kipiinvaders\bulletresources.h
+	<list>
+	"Bullet.h"
+
+1467842110 d:\games\codeblocksprojects\kipiinvaders\gameresources.h
+
+1467842181 d:\games\codeblocksprojects\kipiinvaders\enemyresources.h
+	<vector>
+	<list>
+	"Enemy.h"
 

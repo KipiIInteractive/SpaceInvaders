@@ -1,8 +1,8 @@
 #ifndef GAMELOOP_H_INCLUDED
 #define GAMELOOP_H_INCLUDED
 
-#include "Resources.h"
 #include "System.h"
+#include "MenuResources.h"
 #include "MenuHandler.h"
 #include "GameHandler.h"
 

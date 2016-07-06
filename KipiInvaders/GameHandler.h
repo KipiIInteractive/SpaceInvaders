@@ -5,6 +5,7 @@
 #include "GameObjectRenderer.h"
 #include "GameObjectHandler.h"
 #include "GameObjectCollision.h"
+#include "MenuResources.h"
 
 class GameHandler {
 public:

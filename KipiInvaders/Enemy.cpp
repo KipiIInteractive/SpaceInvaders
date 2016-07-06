@@ -48,17 +48,21 @@ Direction Enemy::getMovementDirection() { return _EDirection; }
 
 bool Enemy::hasCollidedWithScreen() { return _ECollidedWithScreen; }
 
-void Enemy::shoot(int currentLevel) {
-    //Bullet* bullet = new Bullet(gBulletTexture, DOWN, 1*currentLevel);
-    //bullets.push_back(bullet);
-}
-
 void Enemy::update() {
     if(_EDirection == RIGHT) {
         _ERect.x += _EVelocity.x;
     }
     else {
         _ERect.x -= _EVelocity.x;
+    }
+
+    if((rand() % 2000) == 1) {
+        Bullet* bullet = new Bullet(/* texture = */ gBulletTexture, /* direction = */DOWN, /* velocity = */ 2*CURRENT_LEVEL);
+        bullet->SetWidth(20);
+        bullet->SetHeight(20);
+        bullet->SetX(_ERect.x + _ERect.w/2);
+        bullet->SetY(_ERect.y + _ERect.h);
+        bullets.push_back(bullet);
     }
 }
 

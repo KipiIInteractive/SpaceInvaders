@@ -71,10 +71,10 @@ void GameLoop::run() {
                     gBackButton.unclick();
                 }
             }
-            else if(gOptionsButton.isClicked()) {
-                MenuHandler::handleOptionsMenuEvents(&e);
+            else if(gRankingButton.isClicked()) {
+                MenuHandler::handleRankingMenuEvents(&e);
                 if(gBackButton.isClicked()) {
-                    gOptionsButton.unclick();
+                    gRankingButton.unclick();
                     gBackButton.unclick();
                 }
             }
@@ -109,8 +109,8 @@ void GameLoop::run() {
         else if(gControlsButton.isClicked()) {
             MenuHandler::showControlsMenu();
         }
-        else if(gOptionsButton.isClicked()) {
-            MenuHandler::showOptionsMenu();
+        else if(gRankingButton.isClicked()) {
+            MenuHandler::showRankingMenu();
         }
         else if(gExitButton.isClicked()) {
             isRunning = false;

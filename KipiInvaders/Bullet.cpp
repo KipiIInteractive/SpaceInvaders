@@ -45,8 +45,8 @@ int Bullet::GetHeight() { return rect.h; }
 
 void Bullet::SetX(int value) { rect.x = value; }
 void Bullet::SetY(int value) { rect.y = value; }
-void Bullet::SetWidth(int value) { rect.w = value; }
-void Bullet::SetHeight(int value) { rect.h  = value; }
+void Bullet::SetWidth(int value) { rect.w = value; texture.setWidth(value); }
+void Bullet::SetHeight(int value) { rect.h  = value; texture.setHeight(value); }
 
 void Bullet::update() {
     if(direction == UP) {

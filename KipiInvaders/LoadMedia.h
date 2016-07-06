@@ -1,9 +1,11 @@
 #ifndef LOADMEDIA_H_INCLUDED
 #define LOADMEDIA_H_INCLUDED
 
-#include "Resources.h"
-#include "System.h"
 #include <iostream>
+#include "System.h"
+#include "MenuResources.h"
+#include "EnemyResources.h"
+#include "BulletResources.h"
 
 class LoadMedia {
 public:

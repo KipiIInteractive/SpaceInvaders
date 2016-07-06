@@ -1,7 +1,8 @@
 #ifndef GAMEOBJECTGENERATOR_H_INCLUDED
 #define GAMEOBJECTGENERATOR_H_INCLUDED
 
-#include "Resources.h"
+#include "GameResources.h"
+#include "EnemyResources.h"
 
 class GameObjectGenerator {
 public:

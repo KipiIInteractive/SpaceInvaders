@@ -6,7 +6,7 @@ Background gMenuBackground;
 //Menu Buttons
 Button gPlayButton;
 Button gControlsButton;
-Button gOptionsButton;
+Button gRankingButton;
 Button gExitButton;
 Button gClassicGameModeButton;
 Button gSurvivalGameModeButton;
@@ -75,14 +75,14 @@ bool LoadMedia::load() {
             }
         }
 
-        if(!gOptionsButton.loadButtonFromText("Options", color)) {
+        if(!gRankingButton.loadButtonFromText("Ranking", color)) {
             success = false;
         }
         else {
-            gOptionsButton.setDimensions((System::SCREEN_WIDTH - gOptionsButton.getWidth())/2,
-                                         (System::SCREEN_HEIGHT - gOptionsButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight(),
-                                         gOptionsButton.getWidth(),
-                                         gOptionsButton.getHeight());
+            gRankingButton.setDimensions((System::SCREEN_WIDTH - gRankingButton.getWidth())/2,
+                                         (System::SCREEN_HEIGHT - gRankingButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight(),
+                                         gRankingButton.getWidth(),
+                                         gRankingButton.getHeight());
         }
 
         if(!gExitButton.loadButtonFromText("Exit", color)) {
@@ -90,7 +90,7 @@ bool LoadMedia::load() {
         }
         else {
             gExitButton.setDimensions((System::SCREEN_WIDTH - gExitButton.getWidth())/2,
-                                      (System::SCREEN_HEIGHT - gExitButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight() + gOptionsButton.getHeight(),
+                                      (System::SCREEN_HEIGHT - gExitButton.getHeight())/2 + gPlayButton.getHeight() + gControlsButton.getHeight() + gRankingButton.getHeight(),
                                       gExitButton.getWidth(),
                                       gExitButton.getHeight());
         }

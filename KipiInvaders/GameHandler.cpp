@@ -6,6 +6,7 @@ void GameHandler::startClassicGame() {
     GameObjectHandler::updateEnemies();
     GameObjectCollision::checkEnemyCollision();
     GameObjectRenderer::renderEnemies();
+    GameObjectRenderer::renderBullets();
 }
 
 void GameHandler::startSurvivalGame() {
