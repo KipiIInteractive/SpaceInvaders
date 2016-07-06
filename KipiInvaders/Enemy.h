@@ -1,8 +1,12 @@
 #ifndef ENEMY_H_INCLUDED
 #define ENEMY_H_INCLUDED
 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>      /* time */
+#include <list>
 #include "Texture.h"
 #include "Direction.h"
+#include "Bullet.h"
 
 using namespace std;
 
@@ -14,10 +18,8 @@ private:
     SDL_Point _EVelocity;
     Direction _EDirection;
 public:
-    Enemy();
+    Enemy(Texture t, Direction dir);
     ~Enemy();
-
-    bool loadFromFile(string path);
 
     void setPosition(int x, int y);
 
@@ -41,11 +43,13 @@ public:
 
     bool hasCollidedWithScreen();
 
-    void render();
+    void shoot(int currLvl);
 
     void update();
 
     void checkCollision();
+
+    void render();
 };
 
 

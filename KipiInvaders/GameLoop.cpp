@@ -4,7 +4,7 @@ void GameLoop::run() {
     bool isRunning = true;
     bool isPaused = false;
     SDL_Event e;
-
+    srand(time(NULL));
     while(isRunning) {
         //Handles events when they occur
         while(SDL_PollEvent(&e) != 0) {

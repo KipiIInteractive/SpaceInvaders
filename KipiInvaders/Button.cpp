@@ -114,7 +114,3 @@ void Button::render() {
         _BTexture.render(_BPosition.x, _BPosition.y, &_BClip);
     }
 }
-
-void Button::free() {
-    _BTexture.free();
-}

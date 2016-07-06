@@ -10,6 +10,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 firstRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            firstRowOfEnemies[i]->setPosition(firstRowOfEnemies[i]->getX(),
+                                              firstRowOfEnemies[i]->getY() + firstRowOfEnemies[i]->getHeight()/4);
         }
         firstRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
     }
@@ -22,6 +24,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 firstRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            firstRowOfEnemies[i]->setPosition(firstRowOfEnemies[i]->getX(),
+                                              firstRowOfEnemies[i]->getY() + firstRowOfEnemies[i]->getHeight()/4);
         }
         firstRowOfEnemies.at(firstRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
     }
@@ -34,6 +38,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 secondRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            secondRowOfEnemies[i]->setPosition(secondRowOfEnemies[i]->getX(),
+                                              secondRowOfEnemies[i]->getY() + secondRowOfEnemies[i]->getHeight()/4);
         }
         secondRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
     }
@@ -46,6 +52,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 secondRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            secondRowOfEnemies[i]->setPosition(secondRowOfEnemies[i]->getX(),
+                                              secondRowOfEnemies[i]->getY() + secondRowOfEnemies[i]->getHeight()/4);
         }
         secondRowOfEnemies.at(secondRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
     }
@@ -58,6 +66,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 thirdRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            thirdRowOfEnemies[i]->setPosition(thirdRowOfEnemies[i]->getX(),
+                                              thirdRowOfEnemies[i]->getY() + thirdRowOfEnemies[i]->getHeight()/4);
         }
         thirdRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
     }
@@ -70,6 +80,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 thirdRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            thirdRowOfEnemies[i]->setPosition(thirdRowOfEnemies[i]->getX(),
+                                              thirdRowOfEnemies[i]->getY() + thirdRowOfEnemies[i]->getHeight()/4);
         }
         thirdRowOfEnemies.at(thirdRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
     }
@@ -82,6 +94,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 fourthRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            fourthRowOfEnemies[i]->setPosition(fourthRowOfEnemies[i]->getX(),
+                                              fourthRowOfEnemies[i]->getY() + fourthRowOfEnemies[i]->getHeight()/4);
         }
         fourthRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
     }
@@ -94,6 +108,8 @@ void GameObjectCollision::checkEnemyCollision() {
             else {
                 fourthRowOfEnemies[i]->setMovementDirection(RIGHT);
             }
+            fourthRowOfEnemies[i]->setPosition(fourthRowOfEnemies[i]->getX(),
+                                              fourthRowOfEnemies[i]->getY() + fourthRowOfEnemies[i]->getHeight()/4);
         }
         fourthRowOfEnemies.at(fourthRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
     }

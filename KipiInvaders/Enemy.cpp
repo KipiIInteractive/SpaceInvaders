@@ -1,6 +1,10 @@
 #include "Enemy.h"
 
-Enemy::Enemy() {
+list<Bullet*> bullets;
+
+Enemy::Enemy(Texture t, Direction dir) {
+    _ETexture = t;
+    _EDirection = dir;
     _ERect.x = 0;
     _ERect.y = 0;
     _ERect.w = 0;
@@ -20,8 +24,6 @@ Enemy::~Enemy() {
     _EVelocity.y = 0;
     _ECollidedWithScreen = false;
 }
-
-bool Enemy::loadFromFile(string path) { return _ETexture.loadFromFile(path); }
 
 void Enemy::setPosition(int x, int y) { _ERect.x = x;
                                         _ERect.y = y; }
@@ -46,7 +48,10 @@ Direction Enemy::getMovementDirection() { return _EDirection; }
 
 bool Enemy::hasCollidedWithScreen() { return _ECollidedWithScreen; }
 
-void Enemy::render() { _ETexture.render(_ERect.x, _ERect.y); }
+void Enemy::shoot(int currentLevel) {
+    //Bullet* bullet = new Bullet(gBulletTexture, DOWN, 1*currentLevel);
+    //bullets.push_back(bullet);
+}
 
 void Enemy::update() {
     if(_EDirection == RIGHT) {
@@ -62,10 +67,14 @@ void Enemy::checkCollision() {
         _ERect.x = 0;
         _EDirection = RIGHT;
         _ECollidedWithScreen = true;
+        _ERect.y += _ERect.h/4;
     }
     else if(_ERect.x + _ERect.w >= System::SCREEN_WIDTH) {
         _ERect.x = System::SCREEN_WIDTH - _ERect.w;
         _EDirection = LEFT;
         _ECollidedWithScreen = true;
+        _ERect.y += _ERect.h/4;
     }
 }
+
+void Enemy::render() { _ETexture.render(_ERect.x, _ERect.y); }

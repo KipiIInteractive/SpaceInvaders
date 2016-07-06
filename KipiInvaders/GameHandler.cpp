@@ -22,6 +22,9 @@ void GameHandler::handleSurvivalGameEvents(SDL_Event* e) {
 
 void GameHandler::resetGame() {
     GameObjectGenerator::enemiesGenerated = false;
+    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+        delete (*it);
+    }
     enemies.clear();
     firstRowOfEnemies.clear();
     secondRowOfEnemies.clear();

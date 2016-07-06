@@ -1,7 +1,6 @@
 #include "Background.h"
 
 Background::Background() {
-    _BTexture.free();
     _BClip.x = 0;
     _BClip.y = 0;
     _BClip.w = 0;

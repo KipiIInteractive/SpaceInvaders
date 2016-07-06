@@ -2,6 +2,8 @@
 
 const int ENEMY_ROWS = 4;
 const int MAX_ALIENS_ON_ROW = 12;
+int CURRENT_LEVEL = 1;
+const int SHOOTING_RNG = 5;
 
 list<Enemy*> enemies;
 vector<Enemy*> firstRowOfEnemies;
@@ -16,26 +18,19 @@ void GameObjectGenerator::generateEnemies() {
         int y;
         for(int i = 0; i < ENEMY_ROWS; i++) {
             for(int j = 0; j < MAX_ALIENS_ON_ROW; j++) {
-                Enemy* enemy = new Enemy();
-                if((enemy->loadFromFile("./models/enemy1.png") && i % 2 != 0)
-                   || (enemy->loadFromFile("./models/enemy2.png") && i % 2 == 0)) {
-                    enemy->setWidth(50);
-                    enemy->setHeight(50);
-                    y = enemy->getHeight()*i + 20*(i+1);
-                    enemy->setPosition(enemy->getWidth()*(j+1) + enemy->getWidth()*j, y);
-                    enemy->setXVelocity(2);
-                    if(i % 2 != 0) {
-                        enemy->setMovementDirection(RIGHT);
-                    }
-                    else {
-                        enemy->setMovementDirection(LEFT);
-                    }
-
-                    enemies.push_back(enemy);
+                Enemy* enemy = NULL;
+                if(i % 2 != 0) {
+                    enemy = new Enemy(/* texture = */ gEnemy1Texture, /* movementDirection = */ RIGHT);
                 }
                 else {
-                    return;
+                    enemy = new Enemy(/* texture = */ gEnemy2Texture, /* movementDirection = */ LEFT);
                 }
+                enemy->setWidth(50);
+                enemy->setHeight(50);
+                y = enemy->getHeight()*i + 20*(i+1);
+                enemy->setPosition(enemy->getWidth()*(j+1) + enemy->getWidth()*j, y);
+                enemy->setXVelocity(1*CURRENT_LEVEL);
+                enemies.push_back(enemy);
             }
         }
         list<Enemy*>::iterator it = enemies.begin();

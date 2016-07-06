@@ -17,6 +17,13 @@ Button gMainMenuButton;
 //Menu Text
 Texture gControlsMenuText[3];
 
+//Bullet
+Texture gBulletTexture;
+
+//Enemies
+Texture gEnemy1Texture;
+Texture gEnemy2Texture;
+
 bool LoadMedia::load() {
     bool success = true;
 
@@ -137,6 +144,18 @@ bool LoadMedia::load() {
                                           gMainMenuButton.getWidth(),
                                           gMainMenuButton.getHeight());
         }
+    }
+
+    if(!gBulletTexture.loadFromFile("./images/bullet.png")) {
+        success = false;
+    }
+
+    if(!gEnemy1Texture.loadFromFile("./models/enemy1.png")) {
+        success = false;
+    }
+
+    if(!gEnemy2Texture.loadFromFile("./models/enemy2.png")) {
+        success = false;
     }
 
     return success;

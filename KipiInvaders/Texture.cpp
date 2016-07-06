@@ -7,10 +7,6 @@ Texture::Texture() {
     _TText = "";
 }
 
-Texture::~Texture() {
-    free();
-}
-
 bool Texture::loadFromFile(string path) {
     SDL_Texture* finalTexture = NULL;
 

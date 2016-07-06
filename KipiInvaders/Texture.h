@@ -16,8 +16,6 @@ class Texture {
 public:
     Texture();
 
-    ~Texture();
-
     bool loadFromFile(string path);
 
     bool loadFromRenderedText(string str, SDL_Color color, TTF_Font* font = NULL);
