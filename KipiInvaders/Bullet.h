@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "Direction.h"
 #include "Texture.h"
+#include "EnemyResources.h"
 
 class Bullet
 {
@@ -12,7 +13,7 @@ class Bullet
         Texture texture;
         int speed;
         Direction direction;
-
+        bool collided;
     public:
         Bullet(Texture texture, Direction direction, int speed);
         ~Bullet();
@@ -33,6 +34,12 @@ class Bullet
         Direction GetDirection();
 
         void update();
+
+        bool hasCollided();
+        bool hasCollidedWithEnemy();
+        bool hasCollidedWithPlayer();
+
+        void checkCollision();
 
         void render();
 

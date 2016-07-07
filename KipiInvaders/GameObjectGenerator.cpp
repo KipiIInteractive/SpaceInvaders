@@ -3,13 +3,15 @@
 const int ENEMY_ROWS = 4;
 const int MAX_ALIENS_ON_ROW = 12;
 int CURRENT_LEVEL = 1;
-const int SHOOTING_RNG = 5;
+const int SHOOTING_RNG = 2000;
 
 list<Enemy*> enemies;
 vector<Enemy*> firstRowOfEnemies;
 vector<Enemy*> secondRowOfEnemies;
 vector<Enemy*> thirdRowOfEnemies;
 vector<Enemy*> fourthRowOfEnemies;
+
+list<Bullet*> bullets;
 
 bool GameObjectGenerator::enemiesGenerated = false;
 
@@ -20,10 +22,10 @@ void GameObjectGenerator::generateEnemies() {
             for(int j = 0; j < MAX_ALIENS_ON_ROW; j++) {
                 Enemy* enemy = NULL;
                 if(i % 2 != 0) {
-                    enemy = new Enemy(/* texture = */ gEnemy1Texture, /* movementDirection = */ RIGHT);
+                    enemy = new Enemy(/* texture = */ gEnemy1Texture, /* movementDirection = */ RIGHT, /*points= */ 20);
                 }
                 else {
-                    enemy = new Enemy(/* texture = */ gEnemy2Texture, /* movementDirection = */ LEFT);
+                    enemy = new Enemy(/* texture = */ gEnemy2Texture, /* movementDirection = */ RIGHT, /*points= */ 50);
                 }
                 enemy->setWidth(50);
                 enemy->setHeight(50);
@@ -44,4 +46,20 @@ void GameObjectGenerator::generateEnemies() {
 
 void GameObjectGenerator::generatePlayer() {
 
+}
+
+void GameObjectGenerator::generateBullets() {
+    int i = 0;
+    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+        if((i + MAX_ALIENS_ON_ROW >= enemies.size() && (*it)->isToShooT())
+           || ((*it)->isToShooT() && !((*(next(enemies.begin(), MAX_ALIENS_ON_ROW)))->isAlive()))) {
+            Bullet* bullet = new Bullet(/* texture = */ gBulletTexture, /* direction = */DOWN, /* velocity = */ 2*CURRENT_LEVEL);
+            bullet->SetWidth(20);
+            bullet->SetHeight(20);
+            bullet->SetX((*it)->getX() + (*it)->getWidth()/2);
+            bullet->SetY((*it)->getY() + (*it)->getHeight());
+            bullets.push_back(bullet);
+        }
+        i++;
+    }
 }

@@ -1,6 +1,9 @@
 #ifndef GAMERESOURCES_H_INCLUDED
 #define GAMERESOURCES_H_INCLUDED
 
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>      /* time */
+
 extern const int ENEMY_ROWS;
 extern const int MAX_ALIENS_ON_ROW;
 extern int CURRENT_LEVEL;

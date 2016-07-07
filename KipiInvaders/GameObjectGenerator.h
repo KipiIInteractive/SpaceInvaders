@@ -3,6 +3,7 @@
 
 #include "GameResources.h"
 #include "EnemyResources.h"
+#include "BulletResources.h"
 
 class GameObjectGenerator {
 public:
@@ -10,6 +11,7 @@ public:
 
     static void generateEnemies();
     static void generatePlayer();
+    static void generateBullets();
 };
 
 #endif // GAMEOBJECTGENERATOR_H_INCLUDED

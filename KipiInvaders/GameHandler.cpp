@@ -4,7 +4,10 @@ void GameHandler::startClassicGame() {
     GameObjectGenerator::generateEnemies();
     gMenuBackground.render(0, 0);
     GameObjectHandler::updateEnemies();
+    GameObjectGenerator::generateBullets();
+    GameObjectHandler::updateBullets();
     GameObjectCollision::checkEnemyCollision();
+    GameObjectCollision::checkBulletCollision();
     GameObjectRenderer::renderEnemies();
     GameObjectRenderer::renderBullets();
 }

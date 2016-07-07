@@ -11,6 +11,8 @@ Bullet::Bullet(Texture texture, Direction direction, int speed)
 
     this->speed = speed;
     this->direction = direction;
+
+    this->collided = false;
 }
 
 Bullet::~Bullet() {
@@ -24,19 +26,11 @@ Bullet::~Bullet() {
     this->direction = NONE;
 }
 
-bool Bullet::loadBulletFromFile(string path) {
-    return texture.loadFromFile(path);
-}
+bool Bullet::loadBulletFromFile(string path) { return texture.loadFromFile(path); }
 
-void Bullet::SetDirection(Direction direction)
-{
-    this->direction = direction;
-}
+void Bullet::SetDirection(Direction direction) { this->direction = direction; }
 
-Direction Bullet::GetDirection()
-{
-    return this->direction;
-}
+Direction Bullet::GetDirection() { return this->direction; }
 
 int Bullet::GetX() { return rect.x; }
 int Bullet::GetY() { return rect.y; }
@@ -57,11 +51,31 @@ void Bullet::update() {
     }
 }
 
-void Bullet::render() {
-    texture.render(rect.x, rect.y);
+void Bullet::render() { texture.render(rect.x, rect.y); }
+
+void Bullet::SetSpeed(int speed) { this->speed = speed; }
+
+bool Bullet::hasCollided() { return collided; }
+
+bool Bullet::hasCollidedWithEnemy() {
+    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+        if(rect.x + rect.w >= (*it)->getX()
+           && rect.x <= (*it)->getX() + (*it)->getWidth()
+           && rect.y < (*it)->getY() + (*it)->getHeight()
+           && (*it)->isAlive()) {
+            (*it)->setIsAlive(false);
+            return true;
+        }
+    }
+    return false;
 }
 
-void Bullet::SetSpeed(int speed)
-{
-    this->speed = speed;
+bool Bullet::hasCollidedWithPlayer() {
+    return false;
+}
+
+void Bullet::checkCollision() {
+    if(rect.y < 0 || rect.y > System::SCREEN_HEIGHT || hasCollidedWithEnemy() || hasCollidedWithPlayer()) {
+        collided = true;
+    }
 }

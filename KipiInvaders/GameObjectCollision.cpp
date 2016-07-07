@@ -1,120 +1,272 @@
 #include "GameObjectCollision.h"
 
 void GameObjectCollision::checkEnemyCollision() {
-    firstRowOfEnemies.at(0)->checkCollision();
-    if(firstRowOfEnemies.at(0)->hasCollidedWithScreen()) {
-        for(int i = 1; i < firstRowOfEnemies.size(); i++) {
-            if(firstRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                firstRowOfEnemies[i]->setMovementDirection(LEFT);
-            }
-            else {
-                firstRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            firstRowOfEnemies[i]->setPosition(firstRowOfEnemies[i]->getX(),
-                                              firstRowOfEnemies[i]->getY() + firstRowOfEnemies[i]->getHeight()/4);
-        }
-        firstRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
+    int enemyCounter = 0;
+    //Tries to find an alive leftmost alien on the current row
+    while(!(firstRowOfEnemies[enemyCounter]->isAlive()) && enemyCounter < firstRowOfEnemies.size()) {
+        enemyCounter++;
     }
-    firstRowOfEnemies.at(firstRowOfEnemies.size()-1)->checkCollision();
-    if(firstRowOfEnemies.at(firstRowOfEnemies.size()-1)->hasCollidedWithScreen()) {
-        for(int i = 0; i < firstRowOfEnemies.size()-1; i++) {
-            if(firstRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                firstRowOfEnemies[i]->setMovementDirection(LEFT);
+    // If the found alien is the only one alive on the row
+    if(enemyCounter == firstRowOfEnemies.size()-1) {
+        firstRowOfEnemies.at(enemyCounter)->checkCollision();
+        if(firstRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+                if((*it)->isAlive()) {
+                    if((*it)->getMovementDirection() == LEFT) {
+                        (*it)->setMovementDirection(RIGHT);
+                    }
+                    else {
+                        (*it)->setMovementDirection(LEFT);
+                    }
+                    (*it)->setPosition((*it)->getX(),
+                                        (*it)->getY() + (*it)->getHeight()/4);
+                }
             }
-            else {
-                firstRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            firstRowOfEnemies[i]->setPosition(firstRowOfEnemies[i]->getX(),
-                                              firstRowOfEnemies[i]->getY() + firstRowOfEnemies[i]->getHeight()/4);
+            firstRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
         }
-        firstRowOfEnemies.at(firstRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
     }
-    secondRowOfEnemies.at(0)->checkCollision();
-    if(secondRowOfEnemies.at(0)->hasCollidedWithScreen()) {
-        for(int i = 1; i < secondRowOfEnemies.size(); i++) {
-            if(secondRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                secondRowOfEnemies[i]->setMovementDirection(LEFT);
+    else if(enemyCounter < firstRowOfEnemies.size()-1) {
+        firstRowOfEnemies.at(enemyCounter)->checkCollision();
+        if(firstRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+                if((*it)->isAlive()) {
+                    if((*it)->getMovementDirection() == LEFT) {
+                        (*it)->setMovementDirection(RIGHT);
+                    }
+                    else {
+                        (*it)->setMovementDirection(LEFT);
+                    }
+                    (*it)->setPosition((*it)->getX(),
+                                        (*it)->getY() + (*it)->getHeight()/4);
+                }
             }
-            else {
-                secondRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            secondRowOfEnemies[i]->setPosition(secondRowOfEnemies[i]->getX(),
-                                              secondRowOfEnemies[i]->getY() + secondRowOfEnemies[i]->getHeight()/4);
+            firstRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
         }
-        secondRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
-    }
-    secondRowOfEnemies.at(secondRowOfEnemies.size()-1)->checkCollision();
-    if(secondRowOfEnemies.at(secondRowOfEnemies.size()-1)->hasCollidedWithScreen()) {
-        for(int i = 0; i < secondRowOfEnemies.size()-1; i++) {
-            if(secondRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                secondRowOfEnemies[i]->setMovementDirection(LEFT);
+        else {
+            int enemyCounter2 = firstRowOfEnemies.size()-1;
+            //Tries to find an alive rightmost alien
+            while(!(firstRowOfEnemies[enemyCounter2]->isAlive()) && enemyCounter2 > enemyCounter) {
+                enemyCounter2--;
             }
-            else {
-                secondRowOfEnemies[i]->setMovementDirection(RIGHT);
+            //It found another alien, which is the rightmost
+            if(enemyCounter2 > enemyCounter) {
+                firstRowOfEnemies.at(enemyCounter2)->checkCollision();
+                if(firstRowOfEnemies.at(enemyCounter2)->hasCollidedWithScreen()) {
+                    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+                        if((*it)->isAlive()) {
+                            (*it)->setMovementDirection(LEFT);
+                            (*it)->setPosition((*it)->getX(),
+                                                (*it)->getY() + (*it)->getHeight()/4);
+                        }
+                    }
+                    firstRowOfEnemies.at(enemyCounter2)->setHasCollidedWithScreen(false);
+                }
             }
-            secondRowOfEnemies[i]->setPosition(secondRowOfEnemies[i]->getX(),
-                                              secondRowOfEnemies[i]->getY() + secondRowOfEnemies[i]->getHeight()/4);
         }
-        secondRowOfEnemies.at(secondRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
     }
-    thirdRowOfEnemies.at(0)->checkCollision();
-    if(thirdRowOfEnemies.at(0)->hasCollidedWithScreen()) {
-        for(int i = 1; i < thirdRowOfEnemies.size(); i++) {
-            if(thirdRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                thirdRowOfEnemies[i]->setMovementDirection(LEFT);
-            }
-            else {
-                thirdRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            thirdRowOfEnemies[i]->setPosition(thirdRowOfEnemies[i]->getX(),
-                                              thirdRowOfEnemies[i]->getY() + thirdRowOfEnemies[i]->getHeight()/4);
-        }
-        thirdRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
-    }
-    thirdRowOfEnemies.at(thirdRowOfEnemies.size()-1)->checkCollision();
-    if(thirdRowOfEnemies.at(thirdRowOfEnemies.size()-1)->hasCollidedWithScreen()) {
-        for(int i = 0; i < thirdRowOfEnemies.size()-1; i++) {
-            if(thirdRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                thirdRowOfEnemies[i]->setMovementDirection(LEFT);
-            }
-            else {
-                thirdRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            thirdRowOfEnemies[i]->setPosition(thirdRowOfEnemies[i]->getX(),
-                                              thirdRowOfEnemies[i]->getY() + thirdRowOfEnemies[i]->getHeight()/4);
-        }
-        thirdRowOfEnemies.at(thirdRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
-    }
-    fourthRowOfEnemies.at(0)->checkCollision();
-    if(fourthRowOfEnemies.at(0)->hasCollidedWithScreen()) {
-        for(int i = 1; i < fourthRowOfEnemies.size(); i++) {
-            if(fourthRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                fourthRowOfEnemies[i]->setMovementDirection(LEFT);
-            }
-            else {
-                fourthRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            fourthRowOfEnemies[i]->setPosition(fourthRowOfEnemies[i]->getX(),
-                                              fourthRowOfEnemies[i]->getY() + fourthRowOfEnemies[i]->getHeight()/4);
-        }
-        fourthRowOfEnemies.at(0)->setHasCollidedWithScreen(false);
-    }
-    fourthRowOfEnemies.at(fourthRowOfEnemies.size()-1)->checkCollision();
-    if(fourthRowOfEnemies.at(fourthRowOfEnemies.size()-1)->hasCollidedWithScreen()) {
-        for(int i = 0; i < fourthRowOfEnemies.size()-1; i++) {
-            if(fourthRowOfEnemies[i]->getMovementDirection() == RIGHT) {
-                fourthRowOfEnemies[i]->setMovementDirection(LEFT);
-            }
-            else {
-                fourthRowOfEnemies[i]->setMovementDirection(RIGHT);
-            }
-            fourthRowOfEnemies[i]->setPosition(fourthRowOfEnemies[i]->getX(),
-                                              fourthRowOfEnemies[i]->getY() + fourthRowOfEnemies[i]->getHeight()/4);
-        }
-        fourthRowOfEnemies.at(fourthRowOfEnemies.size()-1)->setHasCollidedWithScreen(false);
-    }
+//    enemyCounter = 0;
+//    //Tries to find an alive leftmost alien on the current row
+//    while(!(secondRowOfEnemies[enemyCounter]->isAlive()) && enemyCounter < secondRowOfEnemies.size()) {
+//        enemyCounter++;
+//    }
+//    // If the found alien is the only one alive on the row
+//    if(enemyCounter == secondRowOfEnemies.size()-1) {
+//        secondRowOfEnemies.at(enemyCounter)->checkCollision();
+//        if(secondRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+//            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                if((*it)->isAlive()) {
+//                    if((*it)->getMovementDirection() == LEFT) {
+//                        (*it)->setMovementDirection(RIGHT);
+//                    }
+//                    else {
+//                        (*it)->setMovementDirection(LEFT);
+//                    }
+//                    (*it)->setPosition((*it)->getX(),
+//                                        (*it)->getY() + (*it)->getHeight()/4);
+//                }
+//            }
+//            secondRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
+//        }
+//    }
+//    else if(enemyCounter < secondRowOfEnemies.size()-1) {
+//        secondRowOfEnemies.at(enemyCounter)->checkCollision();
+//        if(secondRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+//            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                if((*it)->isAlive()) {
+//                    if((*it)->getMovementDirection() == LEFT) {
+//                        (*it)->setMovementDirection(RIGHT);
+//                    }
+//                    else {
+//                        (*it)->setMovementDirection(LEFT);
+//                    }
+//                    (*it)->setPosition((*it)->getX(),
+//                                            (*it)->getY() + (*it)->getHeight()/4);
+//                }
+//            }
+//            secondRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
+//        }
+//        else {
+//            int enemyCounter2 = secondRowOfEnemies.size()-1;
+//            //Tries to find an alive rightmost alien
+//            while(!(secondRowOfEnemies[enemyCounter2]->isAlive()) && enemyCounter2 > enemyCounter) {
+//                enemyCounter2--;
+//            }
+//            //It found another alien, which is the rightmost
+//            if(enemyCounter2 > enemyCounter) {
+//                secondRowOfEnemies.at(enemyCounter2)->checkCollision();
+//                if(secondRowOfEnemies.at(enemyCounter2)->hasCollidedWithScreen()) {
+//                    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                        if((*it)->isAlive()) {
+//                            (*it)->setMovementDirection(LEFT);
+//                            (*it)->setPosition((*it)->getX(),
+//                                                (*it)->getY() + (*it)->getHeight()/4);
+//                        }
+//                    }
+//                    secondRowOfEnemies.at(enemyCounter2)->setHasCollidedWithScreen(false);
+//                }
+//            }
+//        }
+//    }
+//
+//    enemyCounter = 0;
+//    //Tries to find an alive leftmost alien on the current row
+//    while(!(thirdRowOfEnemies[enemyCounter]->isAlive()) && enemyCounter < thirdRowOfEnemies.size()) {
+//        enemyCounter++;
+//    }
+//    // If the found alien is the only one alive on the row
+//    if(enemyCounter == thirdRowOfEnemies.size()-1) {
+//        thirdRowOfEnemies.at(enemyCounter)->checkCollision();
+//        if(thirdRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+//            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                if((*it)->isAlive()) {
+//                    if((*it)->getMovementDirection() == LEFT) {
+//                        (*it)->setMovementDirection(RIGHT);
+//                    }
+//                    else {
+//                        (*it)->setMovementDirection(LEFT);
+//                    }
+//                    (*it)->setPosition((*it)->getX(),
+//                                        (*it)->getY() + (*it)->getHeight()/4);
+//                }
+//            }
+//            thirdRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
+//        }
+//    }
+//    else if(enemyCounter < thirdRowOfEnemies.size()-1) {
+//        thirdRowOfEnemies.at(enemyCounter)->checkCollision();
+//        if(thirdRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+//            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                if((*it)->isAlive()) {
+//                    if((*it)->getMovementDirection() == LEFT) {
+//                        (*it)->setMovementDirection(RIGHT);
+//                    }
+//                    else {
+//                        (*it)->setMovementDirection(LEFT);
+//                    }
+//                    (*it)->setPosition((*it)->getX(),
+//                                            (*it)->getY() + (*it)->getHeight()/4);
+//                }
+//            }
+//            thirdRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
+//        }
+//        else {
+//            int enemyCounter2 = thirdRowOfEnemies.size()-1;
+//            //Tries to find an alive rightmost alien
+//            while(!(thirdRowOfEnemies[enemyCounter2]->isAlive()) && enemyCounter2 > enemyCounter) {
+//                enemyCounter2--;
+//            }
+//            //It found another alien, which is the rightmost
+//            if(enemyCounter2 > enemyCounter) {
+//                thirdRowOfEnemies.at(enemyCounter2)->checkCollision();
+//                if(thirdRowOfEnemies.at(enemyCounter2)->hasCollidedWithScreen()) {
+//                    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                        if((*it)->isAlive()) {
+//                            (*it)->setMovementDirection(LEFT);
+//                            (*it)->setPosition((*it)->getX(),
+//                                                (*it)->getY() + (*it)->getHeight()/4);
+//                        }
+//                    }
+//                    thirdRowOfEnemies.at(enemyCounter2)->setHasCollidedWithScreen(false);
+//                }
+//            }
+//        }
+//    }
+//
+//    enemyCounter = 0;
+//    //Tries to find an alive leftmost alien on the current row
+//    while(!(fourthRowOfEnemies[enemyCounter]->isAlive()) && enemyCounter < fourthRowOfEnemies.size()) {
+//        enemyCounter++;
+//    }
+//    // If the found alien is the only one alive on the row
+//    if(enemyCounter == fourthRowOfEnemies.size()-1) {
+//        fourthRowOfEnemies.at(enemyCounter)->checkCollision();
+//        if(fourthRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+//            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                if((*it)->isAlive()) {
+//                    if((*it)->getMovementDirection() == LEFT) {
+//                        (*it)->setMovementDirection(RIGHT);
+//                    }
+//                    else {
+//                        (*it)->setMovementDirection(LEFT);
+//                    }
+//                    (*it)->setPosition((*it)->getX(),
+//                                        (*it)->getY() + (*it)->getHeight()/4);
+//                }
+//            }
+//            fourthRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
+//        }
+//    }
+//    else if(enemyCounter < fourthRowOfEnemies.size()-1) {
+//        fourthRowOfEnemies.at(enemyCounter)->checkCollision();
+//        if(fourthRowOfEnemies.at(enemyCounter)->hasCollidedWithScreen()) {
+//            for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                if((*it)->isAlive()) {
+//                    if((*it)->getMovementDirection() == LEFT) {
+//                        (*it)->setMovementDirection(RIGHT);
+//                    }
+//                    else {
+//                        (*it)->setMovementDirection(LEFT);
+//                    }
+//                    (*it)->setPosition((*it)->getX(),
+//                                            (*it)->getY() + (*it)->getHeight()/4);
+//                }
+//            }
+//            fourthRowOfEnemies.at(enemyCounter)->setHasCollidedWithScreen(false);
+//        }
+//        else {
+//            int enemyCounter2 = fourthRowOfEnemies.size()-1;
+//            //Tries to find an alive rightmost alien
+//            while(!(fourthRowOfEnemies[enemyCounter2]->isAlive()) && enemyCounter2 > enemyCounter) {
+//                enemyCounter2--;
+//            }
+//            //It found another alien, which is the rightmost
+//            if(enemyCounter2 > enemyCounter) {
+//                fourthRowOfEnemies.at(enemyCounter2)->checkCollision();
+//                if(fourthRowOfEnemies.at(enemyCounter2)->hasCollidedWithScreen()) {
+//                    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+//                        if((*it)->isAlive()) {
+//                            (*it)->setMovementDirection(LEFT);
+//                            (*it)->setPosition((*it)->getX(),
+//                                                (*it)->getY() + (*it)->getHeight()/4);
+//                        }
+//                    }
+//                    fourthRowOfEnemies.at(enemyCounter2)->setHasCollidedWithScreen(false);
+//                }
+//            }
+//        }
+//    }
 }
 
 void GameObjectCollision::checkPlayerCollision() {
 
+}
+
+void GameObjectCollision::checkBulletCollision() {
+    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); it++) {
+        (*it)->checkCollision();
+        if((*it)->hasCollided()) {
+            delete (*it);
+            it = bullets.erase(it);
+        }
+    }
 }

@@ -1,23 +1,24 @@
 #ifndef ENEMY_H_INCLUDED
 #define ENEMY_H_INCLUDED
 
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>      /* time */
 #include "Direction.h"
-#include "BulletResources.h"
 #include "GameResources.h"
+#include "Texture.h"
 
 using namespace std;
 
 class Enemy {
 private:
-    bool _ECollidedWithScreen;
     Texture _ETexture;
     SDL_Rect _ERect;
     SDL_Point _EVelocity;
     Direction _EDirection;
+    int _EPoints;
+    bool _ECollidedWithScreen;
+    bool _EAlive;
+    bool _EShoot;
 public:
-    Enemy(Texture t, Direction dir);
+    Enemy(Texture t, Direction dir, int points);
     ~Enemy();
 
     void setPosition(int x, int y);
@@ -32,6 +33,8 @@ public:
 
     void setHasCollidedWithScreen(bool b);
 
+    void setIsAlive(bool b);
+
     int getX();
     int getY();
 
@@ -39,6 +42,10 @@ public:
     int getHeight();
 
     Direction getMovementDirection();
+
+    bool isAlive();
+
+    bool isToShooT();
 
     bool hasCollidedWithScreen();
 

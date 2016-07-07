@@ -1,8 +1,6 @@
 #include "Enemy.h"
 
-list<Bullet*> bullets;
-
-Enemy::Enemy(Texture t, Direction dir) {
+Enemy::Enemy(Texture t, Direction dir, int points) {
     _ETexture = t;
     _EDirection = dir;
     _ERect.x = 0;
@@ -11,7 +9,10 @@ Enemy::Enemy(Texture t, Direction dir) {
     _ERect.h = 0;
     _EVelocity.x = 0;
     _EVelocity.y = 0;
+    _EPoints = points;
     _ECollidedWithScreen = false;
+    _EAlive = true;
+    _EShoot = false;
 }
 
 Enemy::~Enemy() {
@@ -22,7 +23,10 @@ Enemy::~Enemy() {
     _ERect.h = 0;
     _EVelocity.x = 0;
     _EVelocity.y = 0;
+    _EPoints = 0;
     _ECollidedWithScreen = false;
+    _EAlive = false;
+    _EShoot = false;
 }
 
 void Enemy::setPosition(int x, int y) { _ERect.x = x;
@@ -38,6 +42,8 @@ void Enemy::setMovementDirection(Direction dir) { _EDirection = dir; }
 
 void Enemy::setHasCollidedWithScreen(bool b) { _ECollidedWithScreen = b; }
 
+void Enemy::setIsAlive(bool b) { _EAlive = b; }
+
 int Enemy::getX() { return _ERect.x; }
 int Enemy::getY() { return _ERect.y; }
 
@@ -48,6 +54,10 @@ Direction Enemy::getMovementDirection() { return _EDirection; }
 
 bool Enemy::hasCollidedWithScreen() { return _ECollidedWithScreen; }
 
+bool Enemy::isAlive() { return _EAlive; }
+
+bool Enemy::isToShooT() { return _EShoot; }
+
 void Enemy::update() {
     if(_EDirection == RIGHT) {
         _ERect.x += _EVelocity.x;
@@ -56,28 +66,22 @@ void Enemy::update() {
         _ERect.x -= _EVelocity.x;
     }
 
-    if((rand() % 2000) == 1) {
-        Bullet* bullet = new Bullet(/* texture = */ gBulletTexture, /* direction = */DOWN, /* velocity = */ 2*CURRENT_LEVEL);
-        bullet->SetWidth(20);
-        bullet->SetHeight(20);
-        bullet->SetX(_ERect.x + _ERect.w/2);
-        bullet->SetY(_ERect.y + _ERect.h);
-        bullets.push_back(bullet);
+    if((rand() % (SHOOTING_RNG/CURRENT_LEVEL)) == 1) {
+        _EShoot = true;
+    }
+    else {
+        _EShoot = false;
     }
 }
 
 void Enemy::checkCollision() {
     if(_ERect.x <= 0) {
         _ERect.x = 0;
-        _EDirection = RIGHT;
         _ECollidedWithScreen = true;
-        _ERect.y += _ERect.h/4;
     }
     else if(_ERect.x + _ERect.w >= System::SCREEN_WIDTH) {
         _ERect.x = System::SCREEN_WIDTH - _ERect.w;
-        _EDirection = LEFT;
         _ECollidedWithScreen = true;
-        _ERect.y += _ERect.h/4;
     }
 }
 

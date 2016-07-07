@@ -3,11 +3,13 @@
 
 #include "EnemyResources.h"
 #include "GameResources.h"
+#include "BulletResources.h"
 
 class GameObjectHandler {
 public:
     static void updateEnemies();
     static void updatePlayer();
+    static void updateBullets();
 };
 
 #endif // GAMEOBJECTHANDLER_H_INCLUDED

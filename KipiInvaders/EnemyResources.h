@@ -14,4 +14,5 @@ extern vector<Enemy*> secondRowOfEnemies;
 extern vector<Enemy*> thirdRowOfEnemies;
 extern vector<Enemy*> fourthRowOfEnemies;
 
+
 #endif // ENEMYRESOURCES_H_INCLUDED
