@@ -10,6 +10,8 @@ public:
     static void updateEnemies();
     static void updatePlayer();
     static void updateBullets();
+
+    static void destroyBullets();
 };
 
 #endif // GAMEOBJECTHANDLER_H_INCLUDED

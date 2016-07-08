@@ -7,5 +7,6 @@
 extern Texture gBulletTexture;
 
 extern list<Bullet*> bullets;
+extern list<Bullet*> destroyedBullets;
 
 #endif // BULLETRESOURCES_H_INCLUDED

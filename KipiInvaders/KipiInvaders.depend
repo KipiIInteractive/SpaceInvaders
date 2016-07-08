@@ -702,7 +702,7 @@
 	<SDL_mixer.h>
 	<SDL_ttf.h>
 
-1467906914 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\bullet.cpp
+1467978404 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\bullet.cpp
 	"Bullet.h"
 
 1467903288 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\bullet.h
@@ -719,15 +719,15 @@
 1467820156 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\button.h
 	"Texture.h"
 
-1467903902 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\enemy.cpp
+1467968119 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\enemy.cpp
 	"Enemy.h"
 
-1467907186 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\enemy.h
+1467967169 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\enemy.h
 	"Direction.h"
 	"GameResources.h"
 	"Texture.h"
 
-1467902170 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\bulletresources.h
+1467978521 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\bulletresources.h
 	<list>
 	"Bullet.h"
 
@@ -735,7 +735,7 @@
 	<stdlib.h>
 	<time.h>
 
-1467906956 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gamehandler.cpp
+1467981477 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gamehandler.cpp
 	"GameHandler.h"
 
 1467877856 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gamehandler.h
@@ -750,7 +750,7 @@
 	"EnemyResources.h"
 	"BulletResources.h"
 
-1467883354 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\enemyresources.h
+1467979821 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\enemyresources.h
 	<vector>
 	<list>
 	"Enemy.h"
@@ -759,12 +759,12 @@
 	"EnemyResources.h"
 	"BulletResources.h"
 
-1467903429 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjecthandler.h
+1467980232 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjecthandler.h
 	"EnemyResources.h"
 	"GameResources.h"
 	"BulletResources.h"
 
-1467903337 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectcollision.h
+1467979708 c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectcollision.h
 	"EnemyResources.h"
 	"BulletResources.h"
 
@@ -785,13 +785,13 @@
 	<SDL.h>
 	"MenuResources.h"
 
-1467906352 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectcollision.cpp
+1467980018 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectcollision.cpp
 	"GameObjectCollision.h"
 
-1467906024 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectgenerator.cpp
+1467981419 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectgenerator.cpp
 	"GameObjectGenerator.h"
 
-1467898963 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjecthandler.cpp
+1467980957 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjecthandler.cpp
 	"GameObjectHandler.h"
 
 1467900343 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\gameobjectrenderer.cpp
@@ -829,7 +829,7 @@
 1467877856 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\menuhandler.cpp
 	"MenuHandler.h"
 
-1467820156 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\system.cpp
+1467968090 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\system.cpp
 	"System.h"
 
 1467820156 source:c:\users\intern\documents\github\spaceinvaders\kipiinvaders\texture.cpp

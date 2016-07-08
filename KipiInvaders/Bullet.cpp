@@ -62,7 +62,8 @@ bool Bullet::hasCollidedWithEnemy() {
         if(rect.x + rect.w >= (*it)->getX()
            && rect.x <= (*it)->getX() + (*it)->getWidth()
            && rect.y < (*it)->getY() + (*it)->getHeight()
-           && (*it)->isAlive()) {
+           && (*it)->isAlive()
+           && direction == UP) {
             (*it)->setIsAlive(false);
             return true;
         }
@@ -75,7 +76,7 @@ bool Bullet::hasCollidedWithPlayer() {
 }
 
 void Bullet::checkCollision() {
-    if(rect.y < 0 || rect.y > System::SCREEN_HEIGHT || hasCollidedWithEnemy() || hasCollidedWithPlayer()) {
+    if(rect.y < 0 || rect.y > System::SCREEN_HEIGHT-200 || hasCollidedWithEnemy() || hasCollidedWithPlayer()) {
         collided = true;
     }
 }

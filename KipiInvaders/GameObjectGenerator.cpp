@@ -3,13 +3,10 @@
 const int ENEMY_ROWS = 4;
 const int MAX_ALIENS_ON_ROW = 12;
 int CURRENT_LEVEL = 1;
-const int SHOOTING_RNG = 2000;
+const int SHOOTING_RNG = 100;
 
 list<Enemy*> enemies;
 vector<Enemy*> firstRowOfEnemies;
-vector<Enemy*> secondRowOfEnemies;
-vector<Enemy*> thirdRowOfEnemies;
-vector<Enemy*> fourthRowOfEnemies;
 
 list<Bullet*> bullets;
 
@@ -37,9 +34,6 @@ void GameObjectGenerator::generateEnemies() {
         }
         list<Enemy*>::iterator it = enemies.begin();
         firstRowOfEnemies.insert(firstRowOfEnemies.end(), it, next(it, MAX_ALIENS_ON_ROW));
-        secondRowOfEnemies.insert(secondRowOfEnemies.end(), next(it, MAX_ALIENS_ON_ROW), next(it, 2*MAX_ALIENS_ON_ROW));
-        thirdRowOfEnemies.insert(thirdRowOfEnemies.end(), next(it, 2*MAX_ALIENS_ON_ROW), next(it, 3*MAX_ALIENS_ON_ROW));
-        fourthRowOfEnemies.insert(fourthRowOfEnemies.end(), next(it, 3*MAX_ALIENS_ON_ROW), next(it, 4*MAX_ALIENS_ON_ROW));
         GameObjectGenerator::enemiesGenerated = true;
     }
 }
