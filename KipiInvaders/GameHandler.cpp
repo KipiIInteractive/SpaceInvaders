@@ -34,4 +34,8 @@ void GameHandler::resetGame() {
     secondRowOfEnemies.clear();
     thirdRowOfEnemies.clear();
     fourthRowOfEnemies.clear();
+    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+        delete (*it);
+    }
+    bullets.clear();
 }

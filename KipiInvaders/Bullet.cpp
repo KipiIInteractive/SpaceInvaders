@@ -62,7 +62,8 @@ bool Bullet::hasCollidedWithEnemy() {
         if(rect.x + rect.w >= (*it)->getX()
            && rect.x <= (*it)->getX() + (*it)->getWidth()
            && rect.y < (*it)->getY() + (*it)->getHeight()
-           && (*it)->isAlive()) {
+           && (*it)->isAlive()
+           && direction == UP) {
             (*it)->setIsAlive(false);
             return true;
         }

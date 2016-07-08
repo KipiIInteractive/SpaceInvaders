@@ -262,11 +262,14 @@ void GameObjectCollision::checkPlayerCollision() {
 }
 
 void GameObjectCollision::checkBulletCollision() {
-    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); it++) {
+    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end();) {
         (*it)->checkCollision();
         if((*it)->hasCollided()) {
             delete (*it);
             it = bullets.erase(it);
+        }
+        else {
+            ++it;
         }
     }
 }

@@ -3,7 +3,7 @@
 const int ENEMY_ROWS = 4;
 const int MAX_ALIENS_ON_ROW = 12;
 int CURRENT_LEVEL = 1;
-const int SHOOTING_RNG = 2000;
+const int SHOOTING_RNG = 100;
 
 list<Enemy*> enemies;
 vector<Enemy*> firstRowOfEnemies;
@@ -51,8 +51,9 @@ void GameObjectGenerator::generatePlayer() {
 void GameObjectGenerator::generateBullets() {
     int i = 0;
     for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-        if((i + MAX_ALIENS_ON_ROW >= enemies.size() && (*it)->isToShooT())
-           || ((*it)->isToShooT() && !((*(next(enemies.begin(), MAX_ALIENS_ON_ROW)))->isAlive()))) {
+        if((*it)->isToShooT()
+           && (*it)->isAlive()
+           && (i + MAX_ALIENS_ON_ROW >= enemies.size() || !((*(next(enemies.begin(), MAX_ALIENS_ON_ROW)))->isAlive()))) {
             Bullet* bullet = new Bullet(/* texture = */ gBulletTexture, /* direction = */DOWN, /* velocity = */ 2*CURRENT_LEVEL);
             bullet->SetWidth(20);
             bullet->SetHeight(20);

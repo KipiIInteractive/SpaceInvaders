@@ -3,7 +3,7 @@
 SDL_Window* System::window = NULL;
 SDL_Renderer* System::renderer = NULL;
 
-const int System::SCREEN_WIDTH = GetSystemMetrics(SM_CXSCREEN);
+const int System::SCREEN_WIDTH = GetSystemMetrics(SM_CXSCREEN)-100;
 const int System::SCREEN_HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 
 const int System::AVG_FPS = 60;
