@@ -15,7 +15,7 @@ bool Texture::loadFromFile(string path) {
         cout << IMG_GetError() << endl;
     }
     else {
-        SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 255, 255));
+        SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0, 0));
 
         finalTexture = SDL_CreateTextureFromSurface(System::renderer, loadedSurface);
         if(finalTexture == NULL) {
@@ -98,10 +98,5 @@ void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double
 }
 
 void Texture::free() {
-    if(_Texture != NULL) {
-        SDL_DestroyTexture(_Texture);
-        _Texture = NULL;
-        _THeight = 0;
-        _TWidth = 0;
-    }
+    SDL_DestroyTexture(_Texture);
 }

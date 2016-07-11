@@ -3,6 +3,7 @@
 
 #include "EnemyResources.h"
 #include "BulletResources.h"
+#include "PlayerResources.h"
 
 class GameObjectRenderer {
 public:

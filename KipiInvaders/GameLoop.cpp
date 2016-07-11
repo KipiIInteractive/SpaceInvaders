@@ -115,6 +115,7 @@ void GameLoop::run() {
         else if(gExitButton.isClicked()) {
             isRunning = false;
             MenuHandler::showMainMenu();
+            GameHandler::shutdownGame();
         }
         else {
             MenuHandler::showMainMenu();

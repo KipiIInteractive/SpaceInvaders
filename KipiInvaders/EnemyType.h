@@ -1,0 +1,11 @@
+#ifndef ENEMYTYPE_H_INCLUDED
+#define ENEMYTYPE_H_INCLUDED
+
+enum EnemyType {
+    CRAB,
+    JELLYFISH,
+    SQUID,
+    MOTHERSHIP
+};
+
+#endif // ENEMYTYPE_H_INCLUDED

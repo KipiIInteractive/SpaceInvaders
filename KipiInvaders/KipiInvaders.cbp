@@ -54,10 +54,13 @@
 		<Unit filename="Enemy.cpp" />
 		<Unit filename="Enemy.h" />
 		<Unit filename="EnemyResources.h" />
+		<Unit filename="EnemyType.h" />
 		<Unit filename="GameHandler.cpp" />
 		<Unit filename="GameHandler.h" />
 		<Unit filename="GameLoop.cpp" />
 		<Unit filename="GameLoop.h" />
+		<Unit filename="GameObject.cpp" />
+		<Unit filename="GameObject.h" />
 		<Unit filename="GameObjectCollision.cpp" />
 		<Unit filename="GameObjectCollision.h" />
 		<Unit filename="GameObjectGenerator.cpp" />
@@ -74,6 +77,9 @@
 		<Unit filename="MenuHandler.cpp" />
 		<Unit filename="MenuHandler.h" />
 		<Unit filename="MenuResources.h" />
+		<Unit filename="Player.cpp" />
+		<Unit filename="Player.h" />
+		<Unit filename="PlayerResources.h" />
 		<Unit filename="System.cpp" />
 		<Unit filename="System.h" />
 		<Unit filename="Texture.cpp" />

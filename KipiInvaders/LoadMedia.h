@@ -6,6 +6,8 @@
 #include "MenuResources.h"
 #include "EnemyResources.h"
 #include "BulletResources.h"
+#include "GameResources.h"
+#include "PlayerResources.h"
 
 class LoadMedia {
 public:

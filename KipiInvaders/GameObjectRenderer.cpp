@@ -6,10 +6,15 @@ void GameObjectRenderer::renderEnemies() {
             (*it)->render();
         }
     }
+    if(UFO->isAlive()) {
+        UFO->render();
+    }
 }
 
 void GameObjectRenderer::renderPlayer() {
-
+    if(player->getLives()) {
+        player->render();
+    }
 }
 
 void GameObjectRenderer::renderBullets() {

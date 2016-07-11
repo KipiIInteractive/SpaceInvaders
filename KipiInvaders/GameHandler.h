@@ -16,5 +16,6 @@ public:
     static void handleSurvivalGameEvents(SDL_Event* e);
 
     static void resetGame();
+    static void shutdownGame();
 };
 #endif // GAMEHANDLER_H_INCLUDED

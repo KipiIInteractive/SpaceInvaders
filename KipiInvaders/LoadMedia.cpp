@@ -1,5 +1,9 @@
 #include "LoadMedia.h"
 
+//Game Borders
+Texture gLeftBorder;
+Texture gRightBorder;
+
 //Background
 Background gMenuBackground;
 
@@ -21,8 +25,12 @@ Texture gControlsMenuText[3];
 Texture gBulletTexture;
 
 //Enemies
-Texture gEnemy1Texture;
-Texture gEnemy2Texture;
+Texture gCrabTexture;
+Texture gJellyfishTexture;
+Texture gUFOTexture;
+
+//Player
+Texture gPlayerTexture;
 
 bool LoadMedia::load() {
     bool success = true;
@@ -150,11 +158,35 @@ bool LoadMedia::load() {
         success = false;
     }
 
-    if(!gEnemy1Texture.loadFromFile("./models/enemy1.png")) {
+    if(!gCrabTexture.loadFromFile("./models/crab.jpg")) {
         success = false;
     }
 
-    if(!gEnemy2Texture.loadFromFile("./models/enemy2.png")) {
+    if(!gJellyfishTexture.loadFromFile("./models/jellyfish.jpg")) {
+        success = false;
+    }
+
+    if(!gUFOTexture.loadFromFile("./models/UFO.jpg")) {
+        success = false;
+    }
+
+    if(!gLeftBorder.loadFromFile("./images/border.jpg")) {
+        success = false;
+    }
+    else {
+        gLeftBorder.setHeight(System::SCREEN_HEIGHT);
+        gLeftBorder.setWidth(10);
+    }
+
+    if(!gRightBorder.loadFromFile("./images/border.jpg")) {
+        success = false;
+    }
+    else {
+        gRightBorder.setHeight(System::SCREEN_HEIGHT);
+        gRightBorder.setWidth(10);
+    }
+
+    if(!gPlayerTexture.loadFromFile("./models/player.png")) {
         success = false;
     }
 

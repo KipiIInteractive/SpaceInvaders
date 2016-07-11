@@ -5,11 +5,13 @@
 #include <list>
 #include "Enemy.h"
 
-extern Texture gEnemy1Texture;
-extern Texture gEnemy2Texture;
+extern Texture gCrabTexture;
+extern Texture gJellyfishTexture;
+extern Texture gUFOTexture;
 
 extern list<Enemy*> enemies;
 extern vector<Enemy*> firstRowOfEnemies;
+extern Enemy* UFO;
 
 
 #endif // ENEMYRESOURCES_H_INCLUDED

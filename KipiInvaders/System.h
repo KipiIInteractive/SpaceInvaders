@@ -12,6 +12,8 @@ public:
     static SDL_Renderer* renderer;
     static const int SCREEN_WIDTH;
     static const int SCREEN_HEIGHT;
+    static const int LEFT_X_BORDER;
+    static const int RIGHT_X_BORDER;
 
     //FPS
     static const int AVG_FPS;

@@ -11,6 +11,13 @@ void GameObjectCollision::checkEnemyCollision() {
             }
         }
     }
+    if(UFO->isAlive()) {
+        UFO->checkCollisionWithScreen();
+        if(UFO->hasCollidedWithScreen()) {
+            UFO->setIsAlive(false);
+            UFO->setHasCollidedWithScreen(false);
+        }
+    }
 }
 
 void GameObjectCollision::handleEnemyCollision() {
@@ -21,12 +28,10 @@ void GameObjectCollision::handleEnemyCollision() {
     }
 }
 
-void GameObjectCollision::checkPlayerCollision() {
-
-}
-
-void GameObjectCollision::handlePlayerCollision() {
-
+void GameObjectCollision::checkAndHandlePlayerCollision() {
+    if(player->getLives() > 0) {
+        player->checkAndHandleCollisionWithScreen();
+    }
 }
 
 void GameObjectCollision::checkBulletCollision() {

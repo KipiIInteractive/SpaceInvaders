@@ -1,69 +1,31 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Texture t, Direction dir, int points) {
-    _ETexture = t;
-    _EDirection = dir;
-    _ERect.x = 0;
-    _ERect.y = 0;
-    _ERect.w = 0;
-    _ERect.h = 0;
-    _EVelocity.x = 0;
-    _EVelocity.y = 0;
+int Enemy::_EOffset = 0;
+
+Enemy::Enemy(Texture t, EnemyType type, Direction dir, int points) {
+    _GOTexture = t;
+    _GODirection = dir;
+    _EType = type;
     _EPoints = points;
-    _ECollidedWithScreen = false;
+    _GOCollidedWithScreen = false;
     _EAlive = true;
     _EShoot = false;
 }
 
-Enemy::~Enemy() {
-    _ETexture.free();
-    _ERect.x = 0;
-    _ERect.y = 0;
-    _ERect.w = 0;
-    _ERect.h = 0;
-    _EVelocity.x = 0;
-    _EVelocity.y = 0;
-    _EPoints = 0;
-    _ECollidedWithScreen = false;
-    _EAlive = false;
-    _EShoot = false;
-}
-
-void Enemy::setPosition(int x, int y) { _ERect.x = x;
-                                        _ERect.y = y; }
-
-void Enemy::setXVelocity(int x) { _EVelocity.x = x; }
-void Enemy::setYVelocity(int y) { _EVelocity.y = y; }
-
-void Enemy::setWidth(int w) { _ERect.w = w; _ETexture.setWidth(w); }
-void Enemy::setHeight(int h) { _ERect.h = h; _ETexture.setHeight(h); }
-
-void Enemy::setMovementDirection(Direction dir) { _EDirection = dir; }
-
-void Enemy::setHasCollidedWithScreen(bool b) { _ECollidedWithScreen = b; }
+void Enemy::setHasCollidedWithScreen(bool b) { _GOCollidedWithScreen = b; }
 
 void Enemy::setIsAlive(bool b) { _EAlive = b; }
-
-int Enemy::getX() { return _ERect.x; }
-int Enemy::getY() { return _ERect.y; }
-
-int Enemy::getWidth() { return _ERect.w; }
-int Enemy::getHeight() { return _ERect.h; }
-
-Direction Enemy::getMovementDirection() { return _EDirection; }
-
-bool Enemy::hasCollidedWithScreen() { return _ECollidedWithScreen; }
 
 bool Enemy::isAlive() { return _EAlive; }
 
 bool Enemy::isToShooT() { return _EShoot; }
 
 void Enemy::update() {
-    if(_EDirection == RIGHT) {
-        _ERect.x += _EVelocity.x;
+    if(_GODirection == RIGHT) {
+        _GORect.x += _GOVelocity;
     }
     else {
-        _ERect.x -= _EVelocity.x;
+        _GORect.x -= _GOVelocity;
     }
 
     if((rand() % (SHOOTING_RNG/CURRENT_LEVEL)) == 1) {
@@ -75,27 +37,42 @@ void Enemy::update() {
 }
 
 void Enemy::checkCollisionWithScreen() {
-    if(_ERect.x < 0) {
-        _ECollidedWithScreen = true;
-        _ERect.x = 0;
+    if(_EType != MOTHERSHIP) {
+        if(_GORect.x < System::LEFT_X_BORDER) {
+            _GOCollidedWithScreen = true;
+            _EOffset = System::LEFT_X_BORDER - _GORect.x;
+        }
+        else if(_GORect.x + _GORect.w > System::RIGHT_X_BORDER) {
+            _GOCollidedWithScreen = true;
+            _EOffset = (_GORect.x + _GORect.w) - System::RIGHT_X_BORDER;
+        }
+        else {
+            _GOCollidedWithScreen = false;
+        }
     }
-    else if(_ERect.x + _ERect.w > System::SCREEN_WIDTH) {
-        _ECollidedWithScreen = true;
-        _ERect.x = System::SCREEN_WIDTH - _ERect.w;
-    }
-    else {
-        _ECollidedWithScreen = false;
+    else { // UFO
+        if(_GORect.x < -_GORect.w) {
+            _GOCollidedWithScreen = true;
+            _GORect.x = -_GORect.w;
+        }
+        else if(_GORect.x > System::SCREEN_WIDTH) {
+            _GOCollidedWithScreen = true;
+            _GORect.x = System::SCREEN_WIDTH;
+        }
+        else {
+            _GOCollidedWithScreen = false;
+        }
     }
 }
 
 void Enemy::handleCollisionWithScreen() {
-    if(_EDirection == RIGHT) {
-        _EDirection = LEFT;
+    if(_GODirection == RIGHT) {
+        _GORect.x -= _EOffset;
+        _GODirection = LEFT;
     }
     else {
-        _EDirection = RIGHT;
+        _GORect.x += _EOffset;
+        _GODirection = RIGHT;
     }
-    _ERect.y += _ERect.h/4;
+    _GORect.y += _GORect.h/4;
 }
-
-void Enemy::render() { _ETexture.render(_ERect.x, _ERect.y); }

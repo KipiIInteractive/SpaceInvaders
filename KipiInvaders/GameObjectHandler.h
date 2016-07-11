@@ -4,6 +4,7 @@
 #include "EnemyResources.h"
 #include "GameResources.h"
 #include "BulletResources.h"
+#include "PlayerResources.h"
 
 class GameObjectHandler {
 public:

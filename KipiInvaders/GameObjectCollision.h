@@ -3,15 +3,15 @@
 
 #include "EnemyResources.h"
 #include "BulletResources.h"
+#include "PlayerResources.h"
 
 class GameObjectCollision {
 public:
     static void checkEnemyCollision();
-    static void checkPlayerCollision();
+    static void checkAndHandlePlayerCollision();
     static void checkBulletCollision();
 
     static void handleEnemyCollision();
-    static void handlePlayerCollision();
     static list<Bullet*>::iterator handleBulletCollision(list<Bullet*>::iterator it);
 };
 

@@ -4,10 +4,13 @@
 #include "GameResources.h"
 #include "EnemyResources.h"
 #include "BulletResources.h"
+#include "PlayerResources.h"
 
 class GameObjectGenerator {
 public:
     static bool enemiesGenerated;
+    static bool UFOGenerated;
+    static bool playerGenerated;
 
     static void generateEnemies();
     static void generatePlayer();
