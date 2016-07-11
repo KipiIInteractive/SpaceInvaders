@@ -74,15 +74,28 @@ void Enemy::update() {
     }
 }
 
-void Enemy::checkCollision() {
-    if(_ERect.x <= 0) {
+void Enemy::checkCollisionWithScreen() {
+    if(_ERect.x < 0) {
+        _ECollidedWithScreen = true;
         _ERect.x = 0;
-        _ECollidedWithScreen = true;
     }
-    else if(_ERect.x + _ERect.w >= System::SCREEN_WIDTH) {
+    else if(_ERect.x + _ERect.w > System::SCREEN_WIDTH) {
+        _ECollidedWithScreen = true;
         _ERect.x = System::SCREEN_WIDTH - _ERect.w;
-        _ECollidedWithScreen = true;
     }
+    else {
+        _ECollidedWithScreen = false;
+    }
+}
+
+void Enemy::handleCollisionWithScreen() {
+    if(_EDirection == RIGHT) {
+        _EDirection = LEFT;
+    }
+    else {
+        _EDirection = RIGHT;
+    }
+    _ERect.y += _ERect.h/4;
 }
 
 void Enemy::render() { _ETexture.render(_ERect.x, _ERect.y); }

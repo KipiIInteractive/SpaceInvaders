@@ -11,3 +11,10 @@ void GameObjectHandler::updateBullets() {
         (*it)->update();
     }
 }
+
+void GameObjectHandler::destroyBullets() {
+    for(list<Bullet*>::iterator it = destroyedBullets.begin(); it != destroyedBullets.end(); it++) {
+        //delete (*it);
+    }
+    destroyedBullets.clear();
+}

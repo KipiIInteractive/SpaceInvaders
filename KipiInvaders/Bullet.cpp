@@ -79,4 +79,7 @@ void Bullet::checkCollision() {
     if(rect.y < 0 || rect.y > System::SCREEN_HEIGHT || hasCollidedWithEnemy() || hasCollidedWithPlayer()) {
         collided = true;
     }
+    else {
+        collided = false;
+    }
 }

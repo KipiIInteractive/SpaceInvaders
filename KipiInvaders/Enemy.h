@@ -51,7 +51,9 @@ public:
 
     void update();
 
-    void checkCollision();
+    void checkCollisionWithScreen();
+
+    void handleCollisionWithScreen();
 
     void render();
 };

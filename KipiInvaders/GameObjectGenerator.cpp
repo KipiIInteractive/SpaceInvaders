@@ -7,9 +7,6 @@ const int SHOOTING_RNG = 100;
 
 list<Enemy*> enemies;
 vector<Enemy*> firstRowOfEnemies;
-vector<Enemy*> secondRowOfEnemies;
-vector<Enemy*> thirdRowOfEnemies;
-vector<Enemy*> fourthRowOfEnemies;
 
 list<Bullet*> bullets;
 
@@ -37,9 +34,6 @@ void GameObjectGenerator::generateEnemies() {
         }
         list<Enemy*>::iterator it = enemies.begin();
         firstRowOfEnemies.insert(firstRowOfEnemies.end(), it, next(it, MAX_ALIENS_ON_ROW));
-        secondRowOfEnemies.insert(secondRowOfEnemies.end(), next(it, MAX_ALIENS_ON_ROW), next(it, 2*MAX_ALIENS_ON_ROW));
-        thirdRowOfEnemies.insert(thirdRowOfEnemies.end(), next(it, 2*MAX_ALIENS_ON_ROW), next(it, 3*MAX_ALIENS_ON_ROW));
-        fourthRowOfEnemies.insert(fourthRowOfEnemies.end(), next(it, 3*MAX_ALIENS_ON_ROW), next(it, 4*MAX_ALIENS_ON_ROW));
         GameObjectGenerator::enemiesGenerated = true;
     }
 }
@@ -53,7 +47,7 @@ void GameObjectGenerator::generateBullets() {
     for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
         if((*it)->isToShooT()
            && (*it)->isAlive()
-           && (i + MAX_ALIENS_ON_ROW >= enemies.size() || !((*(next(enemies.begin(), MAX_ALIENS_ON_ROW)))->isAlive()))) {
+           && (i + MAX_ALIENS_ON_ROW >= enemies.size() || !((*(next(it, MAX_ALIENS_ON_ROW)))->isAlive()))) {
             Bullet* bullet = new Bullet(/* texture = */ gBulletTexture, /* direction = */DOWN, /* velocity = */ 2*CURRENT_LEVEL);
             bullet->SetWidth(20);
             bullet->SetHeight(20);

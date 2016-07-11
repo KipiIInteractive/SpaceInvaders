@@ -1,13 +1,14 @@
 #include "GameHandler.h"
 
 void GameHandler::startClassicGame() {
-    GameObjectGenerator::generateEnemies();
     gMenuBackground.render(0, 0);
+    GameObjectGenerator::generateEnemies();
     GameObjectHandler::updateEnemies();
     GameObjectGenerator::generateBullets();
     GameObjectHandler::updateBullets();
     GameObjectCollision::checkEnemyCollision();
     GameObjectCollision::checkBulletCollision();
+    //GameObjectHandler::destroyBullets();
     GameObjectRenderer::renderEnemies();
     GameObjectRenderer::renderBullets();
 }
@@ -31,10 +32,7 @@ void GameHandler::resetGame() {
     }
     enemies.clear();
     firstRowOfEnemies.clear();
-    secondRowOfEnemies.clear();
-    thirdRowOfEnemies.clear();
-    fourthRowOfEnemies.clear();
-    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
+    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); it++) {
         delete (*it);
     }
     bullets.clear();
