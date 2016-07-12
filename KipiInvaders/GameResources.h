@@ -13,4 +13,10 @@ extern const int SHOOTING_RNG;
 extern Texture gLeftBorder;
 extern Texture gRightBorder;
 
+extern Texture gScoreSignTexture;
+extern Texture gScoreDigitsTexture;
+
+extern Texture gLivesSignTexture;
+extern Texture gLivesDigitsTexture;
+
 #endif // GAMERESOURCES_H_INCLUDED

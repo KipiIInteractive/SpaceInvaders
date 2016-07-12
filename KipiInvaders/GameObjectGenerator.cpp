@@ -1,9 +1,9 @@
 #include "GameObjectGenerator.h"
 
-const int ENEMY_ROWS = 4;
-const int MAX_ALIENS_ON_ROW = (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/90;
+const int ENEMY_ROWS = 5;
+const int MAX_ALIENS_ON_ROW = 14;
 int CURRENT_LEVEL = 1;
-const int SHOOTING_RNG = 100;
+const int SHOOTING_RNG = 3000;
 
 list<Enemy*> enemies;
 vector<Enemy*> firstRowOfEnemies;
@@ -37,8 +37,8 @@ void GameObjectGenerator::generateEnemies() {
                 }
                 enemy->setWidth(40);
                 enemy->setHeight(40);
-                y = enemy->getHeight()*i + 20*(i+1);
-                enemy->setPosition(System::LEFT_X_BORDER + enemy->getWidth()*(j+1) + enemy->getWidth()*j, y);
+                y = enemy->getHeight()*i + (i == 0 ? enemy->getHeight() : enemy->getHeight() + 20*(i));
+                enemy->setPosition(System::LEFT_X_BORDER + enemy->getWidth()*(j+1) + 10*j, y);
                 enemy->setVelocity(1*CURRENT_LEVEL);
                 enemies.push_back(enemy);
             }
@@ -55,8 +55,8 @@ void GameObjectGenerator::generateEnemies() {
                          /*points= */ (rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
         UFO->setWidth(70);
         UFO->setHeight(50);
-        UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 0)
-                                            : UFO->setPosition(System::SCREEN_WIDTH, 0);
+        UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 20)
+                                            : UFO->setPosition(System::SCREEN_WIDTH, 20);
         UFO->setVelocity(2*CURRENT_LEVEL);
         GameObjectGenerator::UFOGenerated = true;
     }
@@ -79,14 +79,25 @@ void GameObjectGenerator::generateBullets() {
     int i = 0;
     for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
         if((*it)->isToShooT()
-           && (*it)->isAlive()
-           && (i + MAX_ALIENS_ON_ROW >= enemies.size() || !((*(next(it, MAX_ALIENS_ON_ROW)))->isAlive()))) {
-            Bullet* bullet = new Bullet(/* texture = */ gBulletTexture, /* direction = */DOWN, /* velocity = */ 2*CURRENT_LEVEL);
+           && (*it)->isAlive()) {
+            Bullet* bullet = new Bullet(/* texture = */ gBulletTexture,
+                                         /* direction = */DOWN,
+                                         /* velocity = */ 6*CURRENT_LEVEL);
             bullet->setWidth(20);
             bullet->setHeight(20);
             bullet->setPosition((*it)->getX() + (*it)->getWidth()/2, (*it)->getY() + (*it)->getHeight());
             bullets.push_back(bullet);
         }
         i++;
+    }
+    if(player->isToShooT()) {
+        Bullet* bullet = new Bullet(/* texture = */ gBulletTexture,
+                                         /* direction = */UP,
+                                         /* velocity = */ 12);
+        bullet->setWidth(20);
+        bullet->setHeight(20);
+        bullet->setPosition(player->getX() + player->getWidth()/2, player->getY());
+        bullets.push_back(bullet);
+        player->setIsToShooT(false);
     }
 }

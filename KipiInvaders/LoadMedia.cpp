@@ -32,6 +32,14 @@ Texture gUFOTexture;
 //Player
 Texture gPlayerTexture;
 
+//Score
+Texture gScoreDigitsTexture;
+Texture gScoreSignTexture;
+
+//Player Lives
+Texture gLivesDigitsTexture;
+Texture gLivesSignTexture;
+
 bool LoadMedia::load() {
     bool success = true;
 
@@ -43,7 +51,7 @@ bool LoadMedia::load() {
         gMenuBackground.setBackgroundClip(0, 0, System::SCREEN_WIDTH, System::SCREEN_HEIGHT);
     }
 
-    System::font = TTF_OpenFont("./fonts/earthorbiter.ttf",50);
+    System::font = TTF_OpenFont("./fonts/invaders.ttf",45);
     if(System::font == NULL) {
         success = false;
         cout << TTF_GetError() << endl;
@@ -154,10 +162,12 @@ bool LoadMedia::load() {
         }
     }
 
+    //Bullets
     if(!gBulletTexture.loadFromFile("./images/bullet.png")) {
         success = false;
     }
 
+    //Aliens
     if(!gCrabTexture.loadFromFile("./models/crab.jpg")) {
         success = false;
     }
@@ -170,6 +180,7 @@ bool LoadMedia::load() {
         success = false;
     }
 
+    //Borders
     if(!gLeftBorder.loadFromFile("./images/border.jpg")) {
         success = false;
     }
@@ -186,7 +197,18 @@ bool LoadMedia::load() {
         gRightBorder.setWidth(10);
     }
 
+    //Player
     if(!gPlayerTexture.loadFromFile("./models/player.png")) {
+        success = false;
+    }
+
+    //Score
+    if(!gScoreSignTexture.loadFromRenderedText("Score:", {255, 255, 255, 200})) {
+        success = false;
+    }
+
+    //Lives
+    if(!gLivesSignTexture.loadFromRenderedText("Lives:", {255, 255, 255, 200})) {
         success = false;
     }
 

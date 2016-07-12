@@ -6,7 +6,7 @@ void GameObjectHandler::updateEnemies() {
             (*it)->update();
         }
     }
-    if(UFO->isAlive() && firstRowOfEnemies[0]->getY() > UFO->getHeight()) {
+    if(UFO->isAlive() && firstRowOfEnemies[0]->getY() > UFO->getHeight() + 20) {
         UFO->update();
     }
     else if(!UFO->isAlive() && rand() % 500 == 1) {
@@ -19,6 +19,9 @@ void GameObjectHandler::updateEnemies() {
             UFO->setPosition(System::SCREEN_WIDTH, 0);
             UFO->setMovementDirection(LEFT);
         }
+        //New points
+        int rNum = rand() % 3;
+        UFO->setPoints((rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
     }
 }
 

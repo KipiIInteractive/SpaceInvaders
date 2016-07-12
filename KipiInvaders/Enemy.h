@@ -19,18 +19,18 @@ public:
     static int _EOffset;
 
     void setHasCollidedWithScreen(bool b);
+    void checkCollisionWithScreen();
+    void handleCollisionWithScreen();
 
     void setIsAlive(bool b);
-
     bool isAlive();
 
     bool isToShooT();
 
+    int getPoints();
+    void setPoints(int points);
+
     void update();
-
-    void checkCollisionWithScreen();
-
-    void handleCollisionWithScreen();
 };
 
 

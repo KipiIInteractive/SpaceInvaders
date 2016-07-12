@@ -8,7 +8,7 @@ bool InitSDL::init() {
         success = false;
     }
     else {
-        System::window = SDL_CreateWindow("Space Invaders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, System::SCREEN_WIDTH, System::SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+        System::window = SDL_CreateWindow("Space Invaders", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, System::SCREEN_WIDTH, System::SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_FULLSCREEN_DESKTOP);
         if(System::window == NULL) {
             cout << SDL_GetError() << endl;
             success = false;

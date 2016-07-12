@@ -4,6 +4,7 @@
 #include <SDL.h>
 #include "GameObject.h"
 #include "EnemyResources.h"
+#include "PlayerResources.h"
 
 class Bullet : public GameObject {
     private:

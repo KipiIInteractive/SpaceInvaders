@@ -24,9 +24,20 @@ bool Bullet::hasCollidedWithEnemy() {
         if(_GORect.x + _GORect.w >= (*it)->getX()
            && _GORect.x <= (*it)->getX() + (*it)->getWidth()
            && _GORect.y < (*it)->getY() + (*it)->getHeight()
+           && _GORect.y > (*it)->getY() + 2*(*it)->getHeight()/3
            && (*it)->isAlive()
            && _GODirection == UP) {
             (*it)->setIsAlive(false);
+            player->addToScore((*it)->getPoints());
+            return true;
+        }
+    }
+    if(UFO->isAlive()) {
+        if(_GORect.x + _GORect.w >= UFO->getX()
+           && _GORect.x <= UFO->getX() + UFO->getWidth()
+           && _GORect.y < UFO->getY() + UFO->getHeight()) {
+            player->addToScore(UFO->getPoints());
+            UFO->setIsAlive(false);
             return true;
         }
     }
@@ -34,6 +45,14 @@ bool Bullet::hasCollidedWithEnemy() {
 }
 
 bool Bullet::hasCollidedWithPlayer() {
+    if(player->getLives() > 0) {
+        if(_GORect.x + _GORect.w >= player->getX()
+           && _GORect.x <= player->getX() + player->getWidth()
+           && _GORect.y > player->getY()) {
+            player->decreaseLives();
+            return true;
+        }
+    }
     return false;
 }
 

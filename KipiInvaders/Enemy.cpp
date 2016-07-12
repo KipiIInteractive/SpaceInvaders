@@ -20,6 +20,10 @@ bool Enemy::isAlive() { return _EAlive; }
 
 bool Enemy::isToShooT() { return _EShoot; }
 
+int Enemy::getPoints() { return _EPoints; }
+
+void Enemy::setPoints(int points) { _EPoints = points; }
+
 void Enemy::update() {
     if(_GODirection == RIGHT) {
         _GORect.x += _GOVelocity;
@@ -74,5 +78,5 @@ void Enemy::handleCollisionWithScreen() {
         _GORect.x += _EOffset;
         _GODirection = RIGHT;
     }
-    _GORect.y += _GORect.h/4;
+    _GORect.y += _GORect.h;
 }

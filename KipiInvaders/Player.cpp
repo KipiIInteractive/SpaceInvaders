@@ -1,32 +1,28 @@
 #include "Player.h"
 
+const int Player::SHOOTING_DELAY_FRAMES = 50;
+
 Player::Player(Texture t, int lives) {
     _GOTexture = t;
     _PLives = lives;
+    _PCanShoot = true;
+    _PIsToShoot = false;
+    _PShootingDelayCounter = 0;
 }
 
-int Player::getLives() {
-    return _PLives;
-}
+int Player::getLives() { return _PLives; }
 
-void Player::handleEvents(SDL_Event *e) {
-    if(e->type == SDL_KEYDOWN) {
-        switch(e->key.keysym.sym) {
-            case SDLK_LEFT:
+void Player::decreaseLives() { _PLives--; }
 
-                break;
+bool Player::isToShooT() { return _PIsToShoot; }
 
-            case SDLK_RIGHT:
+void Player::setIsToShooT( bool b ) { _PIsToShoot = b; }
 
-                break;
+void Player::addToScore(int points) { _PScore += points; }
 
-            case SDLK_SPACE:
+int Player::getScore() { return _PScore; }
 
-                break;
-        }
-    }
-
-}
+void Player::handleEvents(SDL_Event *e) {}
 
 void Player::update() {
     const Uint8 *keyState = SDL_GetKeyboardState(NULL);
@@ -35,5 +31,20 @@ void Player::update() {
     }
     else if(keyState[SDL_SCANCODE_RIGHT]) {
         _GORect.x += _GOVelocity;
+    }
+
+    if(keyState[SDL_SCANCODE_SPACE]) {
+        if(_PCanShoot) {
+            _PIsToShoot = true;
+            _PCanShoot = false;
+        }
+    }
+
+    if(_PShootingDelayCounter == Player::SHOOTING_DELAY_FRAMES) {
+        _PShootingDelayCounter = 0;
+        _PCanShoot = true;
+    }
+    else if(!_PCanShoot && !_PIsToShoot) {
+        _PShootingDelayCounter++;
     }
 }
