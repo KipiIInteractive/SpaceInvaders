@@ -1,7 +1,7 @@
 #include "GameObjectGenerator.h"
 
 const int ENEMY_ROWS = 5;
-const int MAX_ALIENS_ON_ROW = 14;
+const int MAX_ALIENS_ON_ROW = 12;
 int CURRENT_LEVEL = 1;
 const int SHOOTING_RNG = 3000;
 

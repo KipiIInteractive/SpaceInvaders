@@ -18,17 +18,17 @@ void GameHandler::startClassicGame() {
     GameObjectRenderer::renderPlayer();
 
     if(gScoreDigitsTexture.loadFromRenderedText(("" + to_string(player->getScore())), {255, 255, 255, 255})) {
-        gScoreSignTexture.render(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/4 - gScoreSignTexture.getWidth())/2,
-                                    0);
-        gScoreDigitsTexture.render(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/4 - gScoreDigitsTexture.getWidth())/2,
+        gScoreSignTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreSignTexture.getWidth())/2,
+                                0);
+        gScoreDigitsTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreDigitsTexture.getWidth())/2,
                                    gScoreSignTexture.getHeight());
 
     }
 
     if(gLivesDigitsTexture.loadFromRenderedText(("" + to_string(player->getLives())), {255, 255, 255, 255})) {
-        gLivesSignTexture.render(((System::RIGHT_X_BORDER - (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/4) - gLivesSignTexture.getWidth())/2,
+        gLivesSignTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesSignTexture.getWidth())/2,
                                  0);
-        gLivesDigitsTexture.render(((System::RIGHT_X_BORDER - (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/4) - gLivesDigitsTexture.getWidth())/2,
+        gLivesDigitsTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesDigitsTexture.getWidth())/2,
                                  gLivesSignTexture.getHeight());
     }
 }
