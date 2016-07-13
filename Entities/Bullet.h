@@ -19,9 +19,9 @@ class Bullet
         void Render();
 
         bool isHitTheWall();
+        SDL_Rect rect;
 
     private:
-        SDL_Rect rect;
         SDL_Texture *texture;
         int movementSpeed;
         int direction;

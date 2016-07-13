@@ -15,13 +15,14 @@ class AliensManager
         static void Move();
 
         static void AddNewAlien(int type, int pos_x, int pos_y);
+        static std::vector<Alien*> allAliens;
 
     private:
-        static std::vector<Alien*> allAliens;
         static bool isAlienHitTheWall();
         static void ChangeTheDirection();
         static int direction;
-        #define CURRENT_ALIEN AliensManager::allAliens[i]
+        static int framesForMovement;
+        static int currentFrame;
 };
 
 #endif // ALIENSMANAGER_H_INCLUDED

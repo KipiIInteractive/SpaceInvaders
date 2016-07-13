@@ -7,22 +7,42 @@ SDL_Rect Game::Pannel;
 SDL_Rect Game::leftBorder;
 SDL_Rect Game::rightBorder;
 
+#define NUMBER_OF_BARRIERS 3
+Barrier *Game::barriers[NUMBER_OF_BARRIERS];
+
 const Uint8 *input = SDL_GetKeyboardState(NULL);
 bool canShoot = true;
 int Game::framesAfterShooting = 0;
 
+FPS_Controller *Game::fps;
+
 void Game::Init()
 {
+    //Initialize the resolution for the game panel
     Game::Pannel.h = System::Screen::Height;
     Game::Pannel.w = System::Screen::Height + (System::Screen::Height / 4);
     Game::Pannel.y = 0;
     Game::Pannel.x = System::Screen::Width / 2 - Game::Pannel.w / 2;
 
+    //Set borders to the game panel
     Game::leftBorder = {Game::Pannel.x - 5, 0, 5, Game::Pannel.h};
-    Game::rightBorder = {Game::Pannel.x + Game::Pannel.w + 5, 0, 5, Game::Pannel.h};
+    Game::rightBorder = {Game::Pannel.x + Game::Pannel.w, 0, 5, Game::Pannel.h};
 
     Game::background = System::CreateTexture("Resources/Textures/game_background.jpg", System::renderer);
     Game::borderTexture = System::CreateTexture("Resources/Textures/border.jpg", System::renderer);
+
+    //Initialize the barriers for the level
+    int offset = Game::Pannel.w / 3;
+    int firstBarrierX = Game::Pannel.x - offset / 1.5;
+
+    for(int i = 0; i < NUMBER_OF_BARRIERS; i++)
+    {
+        Barrier *newBarrier = new Barrier("Resources/Textures/barrier.png", firstBarrierX += offset, Game::Pannel.h - Game::Pannel.h / 4);
+        Game::barriers[i] = newBarrier;
+    }
+
+    //Initialize the FPS regulation controller
+    Game::fps = new FPS_Controller(60);
 }
 
 void Game::StartGame()
@@ -33,6 +53,8 @@ void Game::StartGame()
 
     while(Game::isRunning)
     {
+        Game::fps->SetTestTick();
+
         SDL_RenderClear(System::renderer);
 
         AliensManager::Move();
@@ -51,18 +73,29 @@ void Game::StartGame()
         }
         Game::RenderEverything();
         SDL_RenderPresent(System::renderer);
+
+        Game::fps->Delay();
     }
 
 }
 
 void Game::RenderEverything()
 {
+    //Render the game background
     SDL_RenderCopy(System::renderer, Game::background, NULL, NULL);
+
+    //Render the game panel borders
     SDL_RenderCopy(System::renderer, Game::borderTexture, NULL, &Game::leftBorder);
     SDL_RenderCopy(System::renderer, Game::borderTexture, NULL, &Game::rightBorder);
+
+    //Render the aliens, the player and the bullets
     AliensManager::RenderAll();
     BulletsManager::RenderAll();
     Player::Render();
+
+    //Render the barriers
+    for(int i = 0; i < NUMBER_OF_BARRIERS; i++)
+        Game::barriers[i]->Render();
 }
 
 void Game::GetPlayerInput()

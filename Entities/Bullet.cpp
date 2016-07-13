@@ -1,9 +1,10 @@
 #include "Bullet.h"
 #include "BulletsManager.h"
+#include "../Game/Game.h"
 
 Bullet::Bullet(int speed, int pos_x, int pos_y, int direction)
 {
-    this->rect.h = 20; this->rect.w = 20;
+    this->rect.h = Game::Pannel.h / 40 ; this->rect.w = this->rect.h / 2.5;
     this->rect.x = pos_x; this->rect.y = pos_y;
     this->texture = System::CreateTexture("Resources/Textures/bullet.png", System::renderer);
     this->movementSpeed = speed;

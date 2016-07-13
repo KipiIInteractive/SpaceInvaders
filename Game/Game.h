@@ -4,7 +4,9 @@
 #include "../level_management/LevelManager.h"
 #include "../Entities/AliensManager.h"
 #include "../Entities/Player.h"
+#include "../Entities/Barrier.h"
 #include "../Entities/BulletsManager.h"
+#include "../fps_conroller/FPS_Controller.h"
 
 class Game
 {
@@ -12,6 +14,7 @@ class Game
         static void StartGame();
         static void Init();
         static SDL_Rect Pannel;
+        static Barrier *barriers[];
 
     private:
         static void RenderEverything();
@@ -22,6 +25,7 @@ class Game
         static SDL_Rect rightBorder;
         static void GetPlayerInput();
         static int framesAfterShooting;
+        static FPS_Controller *fps;
 };
 
 #endif // GAME_H_INCLUDED

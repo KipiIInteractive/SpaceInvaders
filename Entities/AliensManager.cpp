@@ -1,10 +1,13 @@
 #include "AliensManager.h"
 #include "../Game/Game.h"
 
+#define CURRENT_ALIEN AliensManager::allAliens[i]
+
 int AliensManager::number = 0;
 int AliensManager::movementSpeed = 0;
 int AliensManager::shootingPowerCoefficient = 0;
 int AliensManager::direction = System::Direction::Right;
+int AliensManager::currentFrame;
 
 std::vector<Alien*> AliensManager::allAliens;
 
@@ -22,28 +25,42 @@ void AliensManager::RenderAll()
 
 void AliensManager::Move()
 {
-    for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
+    if(AliensManager::currentFrame == AliensManager::movementSpeed)
     {
-        if(AliensManager::isAlienHitTheWall())
+        for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
         {
-            AliensManager::ChangeTheDirection();
-            for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
+            if(AliensManager::isAlienHitTheWall())
             {
-                CURRENT_ALIEN->SetY(CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() / 2);
+                AliensManager::ChangeTheDirection();
+                for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
+                {
+                    CURRENT_ALIEN->SetY(CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() / 2);
 
+                    if(AliensManager::direction == System::Direction::Right)
+                        CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth());
+                    else if(AliensManager::direction == System::Direction::Left)
+                        CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetWidth());
+                }
+            }
+            else
+            {
                 if(AliensManager::direction == System::Direction::Right)
-                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetMovementSpeed());
+                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth());
                 else if(AliensManager::direction == System::Direction::Left)
-                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetMovementSpeed());
+                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetWidth());
+
+                //Animate the aliens
+                if(CURRENT_ALIEN->frame.x == 0)
+                    CURRENT_ALIEN->frame.x = CURRENT_ALIEN->frame.w;
+                else
+                    CURRENT_ALIEN->frame.x = 0;
             }
         }
-        else
-        {
-            if(AliensManager::direction == System::Direction::Right)
-                CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetMovementSpeed());
-            else if(AliensManager::direction == System::Direction::Left)
-                CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetMovementSpeed());
-        }
+        AliensManager::currentFrame = 0;
+    }
+    else
+    {
+        AliensManager::currentFrame++;
     }
 }
 
@@ -51,7 +68,7 @@ bool AliensManager::isAlienHitTheWall()
 {
     for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
     {
-        if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() > Game::Pannel.w + Game::Pannel.x)
+        if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() >= Game::Pannel.w + Game::Pannel.x)
             return true;
         else if(CURRENT_ALIEN->GetX() < Game::Pannel.x)
             return true;

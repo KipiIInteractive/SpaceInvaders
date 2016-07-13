@@ -44,6 +44,7 @@ bool LevelManager::LoadLevel(int lvl)
                 //Add the shooting power coefficient of the aliens in the AlienManager class
                 else if(line_num == 2)
                     level >> AliensManager::shootingPowerCoefficient;
+
                 //Read the aliens
                 else
                 {

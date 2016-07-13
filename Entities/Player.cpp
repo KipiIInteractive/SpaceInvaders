@@ -6,11 +6,11 @@ int Player::movementSpeed;
 
 void Player::Init()
 {
-    Player::rect.w = Game::Pannel.w / 7.89;
-    Player::rect.h = Game::Pannel.h / 10;
+    Player::rect.h = Game::Pannel.h / 13;
+    Player::rect.w = Player::rect.h * 1.62;
     Player::rect.x = (System::Screen::Width  / 2) - (Player::rect.w / 2);
-    Player::rect.y = System::Screen::Height - 150;
-    Player::texture = System::CreateTexture("Resources/Textures/player.png", System::renderer);
+    Player::rect.y = System::Screen::Height - Player::rect.h;
+    Player::texture = System::CreateTexture("Resources/Textures/p.png", System::renderer);
     Player::movementSpeed = 4;
 }
 
@@ -38,5 +38,5 @@ void Player::Move(int direction)
 
 void Player::Shoot()
 {
-    BulletsManager::AddNewBullet(10, Player::rect.x + (Player::rect.w / 2) - 10, Player::rect.y, System::Direction::Up);
+    BulletsManager::AddNewBullet(10, Player::rect.x + (Player::rect.w / 2) - 4, Player::rect.y, System::Direction::Up);
 }
