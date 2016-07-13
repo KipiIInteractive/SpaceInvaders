@@ -8,11 +8,8 @@ private:
     int _PLives;
     bool _PCanShoot;
     bool _PIsToShoot;
-    int _PShootingDelayCounter;
     int _PScore;
 public:
-    static const int SHOOTING_DELAY_FRAMES;
-
     Player(Texture t, int lives);
 
     int getLives();
@@ -20,6 +17,7 @@ public:
 
     bool isToShooT();
     void setIsToShooT(bool b);
+    void setCanShooT(bool b);
 
     void addToScore(int points);
     int getScore();

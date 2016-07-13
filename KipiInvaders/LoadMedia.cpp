@@ -25,8 +25,13 @@ Texture gControlsMenuText[3];
 Texture gBulletTexture;
 
 //Enemies
-Texture gCrabTexture;
-Texture gJellyfishTexture;
+Texture gAliensTexture;
+SDL_Rect gCrab1Clip;
+SDL_Rect gCrab2Clip;
+SDL_Rect gJellyfish1Clip;
+SDL_Rect gJellyfish2Clip;
+SDL_Rect gSquid1Clip;
+SDL_Rect gSquid2Clip;
 Texture gUFOTexture;
 
 //Player
@@ -168,15 +173,42 @@ bool LoadMedia::load() {
     }
 
     //Aliens
-    if(!gCrabTexture.loadFromFile("./models/crab.jpg")) {
+    if(!gAliensTexture.loadFromFile("./models/aliens.png")) {
         success = false;
     }
+    else {
+        gSquid1Clip.x = 0;
+        gSquid1Clip.y = 0;
+        gSquid1Clip.w = gAliensTexture.getWidth()/2;
+        gSquid1Clip.h = gAliensTexture.getHeight()/3;
 
-    if(!gJellyfishTexture.loadFromFile("./models/jellyfish.jpg")) {
-        success = false;
+        gSquid2Clip.x = gSquid1Clip.w;
+        gSquid2Clip.y = 0;
+        gSquid2Clip.w = gAliensTexture.getWidth()/2;
+        gSquid2Clip.h = gAliensTexture.getHeight()/3;
+
+        gCrab1Clip.x = 0;
+        gCrab1Clip.y = gSquid1Clip.h;
+        gCrab1Clip.w = gAliensTexture.getWidth()/2;
+        gCrab1Clip.h = gAliensTexture.getHeight()/3;
+
+        gCrab2Clip.x = gCrab1Clip.w;
+        gCrab2Clip.y = gSquid2Clip.h;
+        gCrab2Clip.w = gAliensTexture.getWidth()/2;
+        gCrab2Clip.h = gAliensTexture.getHeight()/3;
+
+        gJellyfish1Clip.x = 0;
+        gJellyfish1Clip.y = (2*gAliensTexture.getHeight())/3;
+        gJellyfish1Clip.w = gAliensTexture.getWidth()/2;
+        gJellyfish1Clip.h = gAliensTexture.getHeight()/3;
+
+        gJellyfish2Clip.x = gJellyfish1Clip.w;
+        gJellyfish2Clip.y = (2*gAliensTexture.getHeight())/3;
+        gJellyfish2Clip.w = gAliensTexture.getWidth()/2;
+        gJellyfish2Clip.h = gAliensTexture.getHeight()/3;
     }
 
-    if(!gUFOTexture.loadFromFile("./models/UFO.jpg")) {
+    if(!gUFOTexture.loadFromFile("./models/UFO.png")) {
         success = false;
     }
 

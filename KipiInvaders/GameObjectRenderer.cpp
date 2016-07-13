@@ -3,7 +3,15 @@
 void GameObjectRenderer::renderEnemies() {
     for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
         if((*it)->isAlive()) {
-            (*it)->render();
+            if((*it)->getType() == SQUID) {
+                (*it)->renderWithClip(gSquid1Clip);
+            }
+            else if((*it)->getType() == CRAB) {
+                (*it)->renderWithClip(gCrab1Clip);
+            }
+            else {
+                (*it)->renderWithClip(gJellyfish1Clip);
+            }
         }
     }
     if(UFO->isAlive()) {

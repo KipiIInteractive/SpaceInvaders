@@ -1,12 +1,14 @@
 #include "GameLoop.h"
 
+Uint8 startTime = 0;
+
 void GameLoop::run() {
     bool isRunning = true;
     bool isPaused = false;
     SDL_Event e;
     srand(time(NULL));
     while(isRunning) {
-        //Handles events when they occur
+        startTime = SDL_GetTicks();
         while(SDL_PollEvent(&e) != 0) {
             if(e.type == SDL_QUIT) {
                 isRunning = false;
@@ -122,5 +124,9 @@ void GameLoop::run() {
         }
         //Updates game window
         SDL_RenderPresent(System::renderer);
+
+        if(SDL_GetTicks() - startTime < System::TIME_PER_FRAME) {
+            SDL_Delay(System::TIME_PER_FRAME - (SDL_GetTicks() - startTime));
+        }
     }
 }

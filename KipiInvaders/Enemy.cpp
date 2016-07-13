@@ -24,6 +24,8 @@ int Enemy::getPoints() { return _EPoints; }
 
 void Enemy::setPoints(int points) { _EPoints = points; }
 
+EnemyType Enemy::getType() { return _EType; }
+
 void Enemy::update() {
     if(_GODirection == RIGHT) {
         _GORect.x += _GOVelocity;
@@ -32,7 +34,7 @@ void Enemy::update() {
         _GORect.x -= _GOVelocity;
     }
 
-    if((rand() % (SHOOTING_RNG/CURRENT_LEVEL)) == 1) {
+    if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) == 1) {
         _EShoot = true;
     }
     else {
@@ -80,3 +82,5 @@ void Enemy::handleCollisionWithScreen() {
     }
     _GORect.y += _GORect.h;
 }
+
+void Enemy::renderWithClip(SDL_Rect clip) { _GOTexture.render(_GORect.x, _GORect.y, &clip); }

@@ -6,6 +6,7 @@
 #include "GameObjectHandler.h"
 #include "GameObjectCollision.h"
 #include "MenuResources.h"
+#include "LevelManager.h"
 
 class GameHandler {
 public:

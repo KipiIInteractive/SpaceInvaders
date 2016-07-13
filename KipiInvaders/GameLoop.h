@@ -4,6 +4,7 @@
 #include "System.h"
 #include "MenuResources.h"
 #include "MenuHandler.h"
+#include "GameResources.h"
 #include "GameHandler.h"
 
 class GameLoop {

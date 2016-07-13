@@ -38,6 +38,9 @@ void GameObjectCollision::checkBulletCollision() {
     for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end();) {
         (*it)->checkCollision();
         if((*it)->hasCollided()) {
+            if((*it)->getMovementDirection() == UP) {
+                player->setCanShooT(true);
+            }
             Bullet* bullet = (*it);
             destroyedBullets.push_back(bullet);
             it = handleBulletCollision(it);

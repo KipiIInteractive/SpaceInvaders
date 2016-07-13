@@ -5,10 +5,14 @@
 #include <time.h>      /* time */
 #include "Texture.h"
 
-extern const int ENEMY_ROWS;
-extern const int MAX_ALIENS_ON_ROW;
-extern int CURRENT_LEVEL;
-extern const int SHOOTING_RNG;
+extern int ENEMY_ROWS;
+extern int MAX_ALIENS_ON_ROW;
+extern int SHOOTING_RNG;
+extern int ENEMY_MOVEMENT_SPEED;
+extern int ENEMY_SHOOTING_SPEED;
+extern int REMAINING_ENEMIES;
+
+extern Uint8 startTime;
 
 extern Texture gLeftBorder;
 extern Texture gRightBorder;

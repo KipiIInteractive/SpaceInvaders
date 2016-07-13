@@ -10,8 +10,10 @@ class System {
 public:
     static SDL_Window* window;
     static SDL_Renderer* renderer;
+
     static const int SCREEN_WIDTH;
     static const int SCREEN_HEIGHT;
+
     static const int LEFT_X_BORDER;
     static const int RIGHT_X_BORDER;
 

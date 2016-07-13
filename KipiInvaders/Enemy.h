@@ -4,12 +4,13 @@
 #include "GameResources.h"
 #include "GameObject.h"
 #include "EnemyType.h"
+#include "LevelManager.h"
 
 using namespace std;
 
 class Enemy : public GameObject {
 private:
-    int _EType;
+    EnemyType _EType;
     int _EPoints;
     bool _EAlive;
     bool _EShoot;
@@ -27,10 +28,14 @@ public:
 
     bool isToShooT();
 
+    EnemyType getType();
+
     int getPoints();
     void setPoints(int points);
 
     void update();
+
+    void renderWithClip(SDL_Rect clip);
 };
 
 

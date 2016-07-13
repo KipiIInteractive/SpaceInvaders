@@ -12,7 +12,9 @@ public:
     static void updatePlayer();
     static void updateBullets();
 
-    static void destroyBullets();
+    static void changeEnemiesShootingSpeed();
+
+    static int getRemainingEnemies();
 };
 
 #endif // GAMEOBJECTHANDLER_H_INCLUDED

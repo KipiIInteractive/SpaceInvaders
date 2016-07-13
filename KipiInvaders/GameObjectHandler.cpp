@@ -12,11 +12,11 @@ void GameObjectHandler::updateEnemies() {
     else if(!UFO->isAlive() && rand() % 500 == 1) {
         UFO->setIsAlive(true);
         if(rand() % 2 == 0) {
-            UFO->setPosition(-UFO->getWidth(), 0);
+            UFO->setPosition(-UFO->getWidth(), 20);
             UFO->setMovementDirection(RIGHT);
         }
         else {
-            UFO->setPosition(System::SCREEN_WIDTH, 0);
+            UFO->setPosition(System::SCREEN_WIDTH, 20);
             UFO->setMovementDirection(LEFT);
         }
         //New points
@@ -35,4 +35,26 @@ void GameObjectHandler::updateBullets() {
     for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
         (*it)->update();
     }
+}
+
+void GameObjectHandler::changeEnemiesShootingSpeed() {
+    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
+        REMAINING_ENEMIES = GameObjectHandler::getRemainingEnemies();
+        if(SHOOTING_RNG - 2000 > 0) {
+            SHOOTING_RNG -= 2000;
+        }
+        else if(SHOOTING_RNG - 200 > 0) {
+            SHOOTING_RNG -= 200;
+        }
+    }
+}
+
+int GameObjectHandler::getRemainingEnemies() {
+    int aliveEnemies = 0;
+    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
+        if((*it)->isAlive()) {
+            aliveEnemies++;
+        }
+    }
+    return aliveEnemies;
 }

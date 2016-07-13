@@ -1,18 +1,30 @@
 #include "GameHandler.h"
 
 void GameHandler::startClassicGame() {
+    if(LevelManager::loadNextLevel) {
+        LevelManager::InitCurrentLevel();
+        LevelManager::LoadLevel(LevelManager::GetCurrentLevel());
+        LevelManager::loadNextLevel = false;
+    }
+
     gMenuBackground.render(0, 0);
+
     gLeftBorder.render(System::LEFT_X_BORDER - gLeftBorder.getWidth(), 0);
     gRightBorder.render(System::RIGHT_X_BORDER, 0);
     GameObjectGenerator::generateEnemies();
     GameObjectGenerator::generatePlayer();
+
     GameObjectHandler::updateEnemies();
     GameObjectHandler::updatePlayer();
     GameObjectGenerator::generateBullets();
     GameObjectHandler::updateBullets();
+
     GameObjectCollision::checkEnemyCollision();
     GameObjectCollision::checkAndHandlePlayerCollision();
     GameObjectCollision::checkBulletCollision();
+
+    GameObjectHandler::changeEnemiesShootingSpeed();
+
     GameObjectRenderer::renderBullets();
     GameObjectRenderer::renderEnemies();
     GameObjectRenderer::renderPlayer();

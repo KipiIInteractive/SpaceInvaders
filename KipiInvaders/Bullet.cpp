@@ -24,7 +24,7 @@ bool Bullet::hasCollidedWithEnemy() {
         if(_GORect.x + _GORect.w >= (*it)->getX()
            && _GORect.x <= (*it)->getX() + (*it)->getWidth()
            && _GORect.y < (*it)->getY() + (*it)->getHeight()
-           && _GORect.y > (*it)->getY() + 2*(*it)->getHeight()/3
+           && _GORect.y > (*it)->getY() + (*it)->getHeight() - 20
            && (*it)->isAlive()
            && _GODirection == UP) {
             (*it)->setIsAlive(false);
