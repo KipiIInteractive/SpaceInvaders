@@ -19,6 +19,7 @@ void GameObject::setPosition(int x, int y) { _GORect.x = x;
                                             _GORect.y = y; }
 
 void GameObject::setVelocity(int x) { _GOVelocity = x; }
+int GameObject::getVelocity() { return _GOVelocity; }
 
 void GameObject::setWidth(int w) { _GORect.w = w; _GOTexture.setWidth(w); }
 void GameObject::setHeight(int h) { _GORect.h = h; _GOTexture.setHeight(h); }

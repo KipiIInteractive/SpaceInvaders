@@ -66,7 +66,6 @@ void GameHandler::shutdownGame() {
         delete (*it);
     }
     enemies.clear();
-    firstRowOfEnemies.clear();
     for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); it++) {
         delete (*it);
     }

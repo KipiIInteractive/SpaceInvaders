@@ -3,10 +3,10 @@
 list<Bullet*> destroyedBullets;
 
 void GameObjectCollision::checkEnemyCollision() {
-    for(int i = 0; i < firstRowOfEnemies.size(); i++) {
-        if(firstRowOfEnemies[i]->isAlive()) {
-            firstRowOfEnemies[i]->checkCollisionWithScreen();
-            if(firstRowOfEnemies[i]->hasCollidedWithScreen()) {
+    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+        if((*it)->isAlive()) {
+            (*it)->checkCollisionWithScreen();
+            if((*it)->hasCollidedWithScreen()) {
                 handleEnemyCollision();
             }
         }

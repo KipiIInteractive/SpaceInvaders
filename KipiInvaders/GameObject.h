@@ -20,6 +20,7 @@ public:
     int getY();
 
     void setVelocity(int x);
+    int getVelocity();
 
     void setWidth(int w);
     void setHeight(int h);

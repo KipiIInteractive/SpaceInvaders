@@ -12,6 +12,9 @@ extern int ENEMY_MOVEMENT_SPEED;
 extern int ENEMY_SHOOTING_SPEED;
 extern int REMAINING_ENEMIES;
 
+extern const int ENEMY_ANIMATION_FRAMES;
+extern int ENEMY_ANIMATION_FRAMES_COUNTER;
+
 extern Uint8 startTime;
 
 extern Texture gLeftBorder;

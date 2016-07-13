@@ -15,7 +15,6 @@ extern SDL_Rect gSquid2Clip;
 extern Texture gUFOTexture;
 
 extern list<Enemy*> enemies;
-extern vector<Enemy*> firstRowOfEnemies;
 extern Enemy* UFO;
 
 

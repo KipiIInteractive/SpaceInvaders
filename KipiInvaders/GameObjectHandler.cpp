@@ -6,7 +6,7 @@ void GameObjectHandler::updateEnemies() {
             (*it)->update();
         }
     }
-    if(UFO->isAlive() && firstRowOfEnemies[0]->getY() > UFO->getHeight() + 20) {
+    if(UFO->isAlive() && enemies.front()->getY() > UFO->getHeight() + 20) {
         UFO->update();
     }
     else if(!UFO->isAlive() && rand() % 500 == 1) {
@@ -23,6 +23,7 @@ void GameObjectHandler::updateEnemies() {
         int rNum = rand() % 3;
         UFO->setPoints((rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
     }
+    ENEMY_ANIMATION_FRAMES_COUNTER++;
 }
 
 void GameObjectHandler::updatePlayer() {

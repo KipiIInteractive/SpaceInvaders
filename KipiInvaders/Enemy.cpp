@@ -1,5 +1,8 @@
 #include "Enemy.h"
 
+const int ENEMY_ANIMATION_FRAMES = 50;
+int ENEMY_ANIMATION_FRAMES_COUNTER = 0;
+
 int Enemy::_EOffset = 0;
 
 Enemy::Enemy(Texture t, EnemyType type, Direction dir, int points) {
@@ -27,13 +30,6 @@ void Enemy::setPoints(int points) { _EPoints = points; }
 EnemyType Enemy::getType() { return _EType; }
 
 void Enemy::update() {
-    if(_GODirection == RIGHT) {
-        _GORect.x += _GOVelocity;
-    }
-    else {
-        _GORect.x -= _GOVelocity;
-    }
-
     if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) == 1) {
         _EShoot = true;
     }
