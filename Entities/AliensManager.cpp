@@ -8,6 +8,7 @@ int AliensManager::movementSpeed = 0;
 int AliensManager::shootingPowerCoefficient = 0;
 int AliensManager::direction = System::Direction::Right;
 int AliensManager::currentFrame;
+bool AliensManager::isAlienHitTheWall = false;
 
 std::vector<Alien*> AliensManager::allAliens;
 
@@ -27,53 +28,46 @@ void AliensManager::Move()
 {
     if(AliensManager::currentFrame == AliensManager::movementSpeed)
     {
-        for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
+        for(unsigned i = 0; i < AliensManager::allAliens.size(); i++)
         {
-            if(AliensManager::isAlienHitTheWall())
-            {
-                AliensManager::ChangeTheDirection();
-                for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
-                {
-                    CURRENT_ALIEN->SetY(CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() / 2);
+            if(AliensManager::direction == System::Direction::Right)
+                CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + AliensManager::movementSpeed );
+            else if(AliensManager::direction == System::Direction::Left)
+                CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - AliensManager::movementSpeed );
 
-                    if(AliensManager::direction == System::Direction::Right)
-                        CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth());
-                    else if(AliensManager::direction == System::Direction::Left)
-                        CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetWidth());
-                }
+            //Check if alien is hit the floor
+            if(!AliensManager::isAlienHitTheWall)
+            {
+                if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() >= Game::Pannel.w + Game::Pannel.x)
+                    AliensManager::isAlienHitTheWall = true;
+                else if(CURRENT_ALIEN->GetX() < Game::Pannel.x)
+                    AliensManager::isAlienHitTheWall = true;
             }
+
+            //Animate the aliens
+            if(CURRENT_ALIEN->frame.x == 0)
+                CURRENT_ALIEN->frame.x = CURRENT_ALIEN->frame.w;
             else
-            {
-                if(AliensManager::direction == System::Direction::Right)
-                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth());
-                else if(AliensManager::direction == System::Direction::Left)
-                    CURRENT_ALIEN->SetX(CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetWidth());
+                CURRENT_ALIEN->frame.x = 0;
 
-                //Animate the aliens
-                if(CURRENT_ALIEN->frame.x == 0)
-                    CURRENT_ALIEN->frame.x = CURRENT_ALIEN->frame.w;
-                else
-                    CURRENT_ALIEN->frame.x = 0;
+        }
+        if(AliensManager::isAlienHitTheWall)
+        {
+            AliensManager::ChangeTheDirection();
+            for(unsigned i = 0; i < AliensManager::allAliens.size(); i++)
+            {
+                CURRENT_ALIEN->SetY( CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() / 2 );
+
+                if(AliensManager::direction == System::Direction::Right)
+                    CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + AliensManager::movementSpeed );
+                else if(AliensManager::direction == System::Direction::Left)
+                    CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - AliensManager::movementSpeed );
             }
+            AliensManager::isAlienHitTheWall = false;
         }
         AliensManager::currentFrame = 0;
     }
-    else
-    {
-        AliensManager::currentFrame++;
-    }
-}
-
-bool AliensManager::isAlienHitTheWall()
-{
-    for(unsigned i = 0; i < AliensManager::allAliens.size(); ++i)
-    {
-        if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() >= Game::Pannel.w + Game::Pannel.x)
-            return true;
-        else if(CURRENT_ALIEN->GetX() < Game::Pannel.x)
-            return true;
-    }
-    return false;
+    else AliensManager::currentFrame++;
 }
 
 void AliensManager::ChangeTheDirection()

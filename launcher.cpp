@@ -74,6 +74,10 @@ void InitEverything()
     if(System::Fonts::Errors == NULL)
         std::cout << "Failed to open the halo font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
 
+    System::Fonts::Score = TTF_OpenFont("Resources/Fonts/invaders.ttf", 55);
+    if(System::Fonts::Score == NULL)
+        std::cout << "Failed to open the invaders font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
+
     //Initialize the log-in window
     LoginWindow::Init();
 

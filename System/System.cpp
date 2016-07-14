@@ -18,6 +18,7 @@ TTF_Font *System::Fonts::Buttons_Small = NULL;
 TTF_Font *System::Fonts::InputFields = NULL;
 TTF_Font *System::Fonts::Labels = NULL;
 TTF_Font *System::Fonts::Errors = NULL;
+TTF_Font *System::Fonts::Score = NULL;
 
 SDL_Texture *System::CreateTexture(std::string filePath, SDL_Renderer* textureRenderer)
 {

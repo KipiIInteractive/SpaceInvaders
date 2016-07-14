@@ -36,6 +36,7 @@ class System
                 static TTF_Font *Buttons;
                 static TTF_Font *Buttons_Small;
                 static TTF_Font *Errors;
+                static TTF_Font *Score;
         };
 
         //Directions

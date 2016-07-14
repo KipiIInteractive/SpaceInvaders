@@ -7,6 +7,8 @@
 #include "../Entities/Barrier.h"
 #include "../Entities/BulletsManager.h"
 #include "../fps_conroller/FPS_Controller.h"
+#include "../GUI/Label.h"
+#include <string>
 
 class Game
 {
@@ -15,8 +17,11 @@ class Game
         static void Init();
         static SDL_Rect Pannel;
         static Barrier *barriers[];
+        static int score;
 
     private:
+        static Label ScoreText;
+
         static void RenderEverything();
         static bool isRunning;
         static SDL_Texture *background;

@@ -18,7 +18,7 @@ class AliensManager
         static std::vector<Alien*> allAliens;
 
     private:
-        static bool isAlienHitTheWall();
+        static bool isAlienHitTheWall;
         static void ChangeTheDirection();
         static int direction;
         static int framesForMovement;

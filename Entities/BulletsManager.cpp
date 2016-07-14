@@ -9,37 +9,27 @@ bool BulletsManager::isBulletHitWall = false;
 void BulletsManager::RenderAll()
 {
     for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
-    {
         CURRENT_BULLET->Render();
-    }
 }
 
 std::vector<Alien*> aliensToDelete;
 
 void BulletsManager::UpdateAll()
 {
-    for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
-        CURRENT_BULLET->Update();
-
-    //Delete the bullet that was hit one of the walls
-    if(BulletsManager::isBulletHitWall)
-    {
-        for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
-        {
-            if(CURRENT_BULLET->isHitTheWall())
-            {
-                BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
-                BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
-            }
-            CURRENT_BULLET->Update();
-        }
-        BulletsManager::isBulletHitWall = false;
-    }
-
-    //Check for collision between bullet and alien
     #define CURRENT_ALIEN AliensManager::allAliens[j]
     for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
     {
+        CURRENT_BULLET->Update();
+
+        //Delete the bullet that was hit one of the walls
+        if(BulletsManager::isBulletHitWall && CURRENT_BULLET->isHitTheWall())
+        {
+            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+            BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+            BulletsManager::isBulletHitWall = false;
+        }
+
+        //Check for collision between bullet and alien
         for(unsigned j = 0; j < AliensManager::allAliens.size(); j++)
         {
             if(CURRENT_BULLET->rect.x >= CURRENT_ALIEN->GetX())
@@ -56,16 +46,15 @@ void BulletsManager::UpdateAll()
                             //Delete the alien
                             aliensToDelete.push_back(CURRENT_ALIEN);
                             AliensManager::allAliens.erase(AliensManager::allAliens.begin() + j);
+
+                            Game::score += 50;
                         }
                     }
                 }
             }
         }
-    }
 
-    //Check for collision between bullet and barrier
-    for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
-    {
+        //Check for collision between bullet and barrier
         for(unsigned j = 0; j < 3; j++)
         {
             if(CURRENT_BULLET->rect.x >= Game::barriers[j]->GetX())

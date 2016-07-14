@@ -6,6 +6,8 @@ SDL_Texture *Game::borderTexture = NULL;
 SDL_Rect Game::Pannel;
 SDL_Rect Game::leftBorder;
 SDL_Rect Game::rightBorder;
+Label Game::ScoreText;
+int Game::score = 0;
 
 #define NUMBER_OF_BARRIERS 3
 Barrier *Game::barriers[NUMBER_OF_BARRIERS];
@@ -41,6 +43,13 @@ void Game::Init()
         Game::barriers[i] = newBarrier;
     }
 
+    //Initialize the score text
+    Game::ScoreText.SetText("Score: " + to_string(Game::score));
+    Game::ScoreText.SetColor(255, 255, 255);
+    Game::ScoreText.SetFont(System::Fonts::Score);
+    Game::ScoreText.SetX(System::Screen::Width / 2 - Game::ScoreText.GetWidth() / 2);
+    Game::ScoreText.SetY(0);
+
     //Initialize the FPS regulation controller
     Game::fps = new FPS_Controller(60);
 }
@@ -56,6 +65,10 @@ void Game::StartGame()
         Game::fps->SetTestTick();
 
         SDL_RenderClear(System::renderer);
+
+        Game::ScoreText.SetText("Score: " + to_string(Game::score));
+        Game::ScoreText.SetFont(System::Fonts::Score);
+        Game::ScoreText.SetX(System::Screen::Width / 2 - Game::ScoreText.GetWidth() / 2);
 
         AliensManager::Move();
         BulletsManager::UpdateAll();
@@ -96,6 +109,9 @@ void Game::RenderEverything()
     //Render the barriers
     for(int i = 0; i < NUMBER_OF_BARRIERS; i++)
         Game::barriers[i]->Render();
+
+    //Render the score
+    Game::ScoreText.Render();
 }
 
 void Game::GetPlayerInput()
@@ -116,5 +132,4 @@ void Game::GetPlayerInput()
             canShoot = false;
         }
     }
-
 }

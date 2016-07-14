@@ -11,7 +11,7 @@ void Player::Init()
     Player::rect.x = (System::Screen::Width  / 2) - (Player::rect.w / 2);
     Player::rect.y = System::Screen::Height - Player::rect.h;
     Player::texture = System::CreateTexture("Resources/Textures/p.png", System::renderer);
-    Player::movementSpeed = 4;
+    Player::movementSpeed = 6;
 }
 
 void Player::Render()
