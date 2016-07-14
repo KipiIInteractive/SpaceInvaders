@@ -1,14 +1,22 @@
 #include "GameHandler.h"
 
 void GameHandler::startClassicGame() {
+    gMenuBackground.render(0, 0);
+
     if(LevelManager::loadNextLevel) {
         LevelManager::InitCurrentLevel();
-        LevelManager::LoadLevel(LevelManager::GetCurrentLevel());
+        if(LevelManager::LoadLevel(LevelManager::GetCurrentLevel())) {
+            LevelManager::renderedLevel = false;
+            GameObjectGenerator::enemiesGenerated = false;
+            SHOOTING_RNG = 5000;
+            ENEMY_ANIMATION_FRAMES = 50;
+        }
         LevelManager::loadNextLevel = false;
     }
 
-    gMenuBackground.render(0, 0);
-
+    if(!LevelManager::renderedLevel) {
+        LevelManager::RenderCurrentLevel();
+    }
     gLeftBorder.render(System::LEFT_X_BORDER - gLeftBorder.getWidth(), 0);
     gRightBorder.render(System::RIGHT_X_BORDER, 0);
     GameObjectGenerator::generateEnemies();
@@ -24,6 +32,8 @@ void GameHandler::startClassicGame() {
     GameObjectCollision::checkBulletCollision();
 
     GameObjectHandler::changeEnemiesShootingSpeed();
+    GameObjectHandler::changeEnemiesMovementSpeed();
+    GameObjectHandler::changeEnemiesBulletSpeed();
 
     GameObjectRenderer::renderBullets();
     GameObjectRenderer::renderEnemies();
@@ -43,6 +53,15 @@ void GameHandler::startClassicGame() {
         gLivesDigitsTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesDigitsTexture.getWidth())/2,
                                  gLivesSignTexture.getHeight());
     }
+
+    if(GameObjectHandler::getRemainingEnemies() == 0) {
+        ofstream file("./levels/current.level");
+        if(file.is_open()) {
+            file << LevelManager::GetCurrentLevel() + 1;
+            file.close();
+        }
+        LevelManager::loadNextLevel = true;
+    }
 }
 
 void GameHandler::startSurvivalGame() {
@@ -58,20 +77,34 @@ void GameHandler::handleSurvivalGameEvents(SDL_Event* e) {
 }
 
 void GameHandler::resetGame() {
-
+//    ofstream file("./levels/current.level");
+//    if(file.is_open()) {
+//        file << 1;
+//        file.close();
+//    }
+//    LevelManager::renderedLevel = false;
+//    GameObjectGenerator::enemiesGenerated = false;
+//    SHOOTING_RNG = 5000;
+//    ENEMY_ANIMATION_FRAMES = 50;
+//    LevelManager::loadNextLevel = true;
 }
 
 void GameHandler::shutdownGame() {
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
+    for(vector<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
         delete (*it);
     }
     enemies.clear();
-    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); it++) {
+    for(vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); it++) {
         delete (*it);
     }
     bullets.clear();
-    for(list<Bullet*>::iterator it = destroyedBullets.begin(); it != destroyedBullets.end(); it++) {
+    for(vector<Bullet*>::iterator it = destroyedBullets.begin(); it != destroyedBullets.end(); it++) {
         delete (*it);
     }
     destroyedBullets.clear();
+    ofstream file("./levels/current.level");
+    if(file.is_open()) {
+        file << 1;
+        file.close();
+    }
 }

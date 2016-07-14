@@ -33,9 +33,11 @@ SDL_Rect gJellyfish2Clip;
 SDL_Rect gSquid1Clip;
 SDL_Rect gSquid2Clip;
 Texture gUFOTexture;
+Texture gAlienDestroyedTexture;
 
 //Player
 Texture gPlayerTexture;
+Texture gPlayerDestroyedTexture;
 
 //Score
 Texture gScoreDigitsTexture;
@@ -44,6 +46,16 @@ Texture gScoreSignTexture;
 //Player Lives
 Texture gLivesDigitsTexture;
 Texture gLivesSignTexture;
+
+//Current level texture
+Texture gLevelSignTexture;
+Texture gLevelDigitTexture;
+
+// Sound effects
+Mix_Chunk* gPlayerExplosionSound;
+Mix_Chunk* gAlienExplosionSound;
+Mix_Chunk* gLaserSound;
+Mix_Chunk* gUFOSound;
 
 bool LoadMedia::load() {
     bool success = true;
@@ -212,6 +224,10 @@ bool LoadMedia::load() {
         success = false;
     }
 
+    if(!gAlienDestroyedTexture.loadFromFile("./models/alienExplosion.png")) {
+        success = false;
+    }
+
     //Borders
     if(!gLeftBorder.loadFromFile("./images/border.jpg")) {
         success = false;
@@ -234,6 +250,10 @@ bool LoadMedia::load() {
         success = false;
     }
 
+    if(!gPlayerDestroyedTexture.loadFromFile("./models/playerExplosion.png")) {
+        success = false;
+    }
+
     //Score
     if(!gScoreSignTexture.loadFromRenderedText("Score:", {255, 255, 255, 200})) {
         success = false;
@@ -241,6 +261,32 @@ bool LoadMedia::load() {
 
     //Lives
     if(!gLivesSignTexture.loadFromRenderedText("Lives:", {255, 255, 255, 200})) {
+        success = false;
+    }
+
+    //Current lvl
+    if(!gLevelSignTexture.loadFromRenderedText("Level ", {255, 255, 255, 200})) {
+        success = false;
+    }
+
+    //Sound Effects
+    gLaserSound = Mix_LoadWAV("./sounds/laser.wav");
+    if(gLaserSound == NULL) {
+        success = false;
+    }
+
+    gPlayerExplosionSound = Mix_LoadWAV("./sounds/playerExplosion.wav");
+    if(gPlayerExplosionSound == NULL) {
+        success = false;
+    }
+
+    gAlienExplosionSound = Mix_LoadWAV("./sounds/alienExplosion.wav");
+    if(gAlienExplosionSound == NULL) {
+        success = false;
+    }
+
+    gUFOSound = Mix_LoadWAV("./sounds/UFO.wav");
+    if(gUFOSound == NULL) {
         success = false;
     }
 

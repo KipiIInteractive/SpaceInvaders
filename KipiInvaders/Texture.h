@@ -32,6 +32,10 @@ public:
 
     int getHeight();
 
+    SDL_Texture* getTexture();
+
+    void applyTexture(SDL_Texture *pt);
+
     void render(int x, int y, SDL_Rect* clip = NULL, SDL_RendererFlip flip = SDL_FLIP_NONE, double angle = 0.0, SDL_Point* center = NULL);
 
     void free();

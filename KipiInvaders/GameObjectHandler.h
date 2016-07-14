@@ -8,11 +8,15 @@
 
 class GameObjectHandler {
 public:
+    static bool playedUFOSound;
+
     static void updateEnemies();
     static void updatePlayer();
     static void updateBullets();
 
     static void changeEnemiesShootingSpeed();
+    static void changeEnemiesMovementSpeed();
+    static void changeEnemiesBulletSpeed();
 
     static int getRemainingEnemies();
 };

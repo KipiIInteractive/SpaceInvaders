@@ -1,12 +1,12 @@
 #include "GameObjectCollision.h"
 
-list<Bullet*> destroyedBullets;
+vector<Bullet*> destroyedBullets;
 
 void GameObjectCollision::checkEnemyCollision() {
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-        if((*it)->isAlive()) {
-            (*it)->checkCollisionWithScreen();
-            if((*it)->hasCollidedWithScreen()) {
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->isAlive()) {
+            enemies[i]->checkCollisionWithScreen();
+            if(enemies[i]->hasCollidedWithScreen()) {
                 handleEnemyCollision();
             }
         }
@@ -21,9 +21,9 @@ void GameObjectCollision::checkEnemyCollision() {
 }
 
 void GameObjectCollision::handleEnemyCollision() {
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-        if((*it)->isAlive()) {
-            (*it)->handleCollisionWithScreen();
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->isAlive()) {
+            enemies[i]->handleCollisionWithScreen();
         }
     }
 }
@@ -35,7 +35,7 @@ void GameObjectCollision::checkAndHandlePlayerCollision() {
 }
 
 void GameObjectCollision::checkBulletCollision() {
-    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end();) {
+    for(vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();) {
         (*it)->checkCollision();
         if((*it)->hasCollided()) {
             if((*it)->getMovementDirection() == UP) {
@@ -51,6 +51,6 @@ void GameObjectCollision::checkBulletCollision() {
     }
 }
 
-list<Bullet*>::iterator GameObjectCollision::handleBulletCollision(list<Bullet*>::iterator it) {
+vector<Bullet*>::iterator GameObjectCollision::handleBulletCollision(vector<Bullet*>::iterator it) {
     return bullets.erase(it);
 }

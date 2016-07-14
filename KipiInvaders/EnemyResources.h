@@ -13,8 +13,9 @@ extern SDL_Rect gJellyfish2Clip;
 extern SDL_Rect gSquid1Clip;
 extern SDL_Rect gSquid2Clip;
 extern Texture gUFOTexture;
+extern Texture gAlienDestroyedTexture;
 
-extern list<Enemy*> enemies;
+extern vector<Enemy*> enemies;
 extern Enemy* UFO;
 
 

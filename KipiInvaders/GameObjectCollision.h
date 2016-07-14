@@ -12,7 +12,7 @@ public:
     static void checkBulletCollision();
 
     static void handleEnemyCollision();
-    static list<Bullet*>::iterator handleBulletCollision(list<Bullet*>::iterator it);
+    static vector<Bullet*>::iterator handleBulletCollision(vector<Bullet*>::iterator it);
 };
 
 #endif // GAMEOBJECTCOLLISION_H_INCLUDED

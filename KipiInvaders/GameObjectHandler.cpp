@@ -1,15 +1,24 @@
 #include "GameObjectHandler.h"
 
+bool GameObjectHandler::playedUFOSound = false;
+
 void GameObjectHandler::updateEnemies() {
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
-        if((*it)->isAlive()) {
-            (*it)->update();
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->isAlive()) {
+            enemies[i]->update();
+        }
+        else if(enemies[i]->hasBeenHit()) {
+            ENEMY_DESTROYED_FRAMES_COUNTER++;
         }
     }
-    if(UFO->isAlive() && enemies.front()->getY() > UFO->getHeight() + 20) {
+    if(UFO->isAlive() && enemies[0]->getY() > UFO->getY() + UFO->getHeight()) {
         UFO->update();
+        if(!GameObjectHandler::playedUFOSound) {
+            Mix_PlayChannel(-1, gUFOSound, 0);
+            GameObjectHandler::playedUFOSound = true;
+        }
     }
-    else if(!UFO->isAlive() && rand() % 500 == 1) {
+    else if(!UFO->isAlive() && rand() % 700 == 1) {
         UFO->setIsAlive(true);
         if(rand() % 2 == 0) {
             UFO->setPosition(-UFO->getWidth(), 20);
@@ -22,6 +31,7 @@ void GameObjectHandler::updateEnemies() {
         //New points
         int rNum = rand() % 3;
         UFO->setPoints((rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
+        GameObjectHandler::playedUFOSound = false;
     }
     ENEMY_ANIMATION_FRAMES_COUNTER++;
 }
@@ -29,20 +39,22 @@ void GameObjectHandler::updateEnemies() {
 void GameObjectHandler::updatePlayer() {
     if(player->getLives() > 0) {
         player->update();
+        if(player->hasBeenHit()) {
+            PLAYER_DESTROYED_FRAMES_COUNTER++;
+        }
     }
 }
 
 void GameObjectHandler::updateBullets() {
-    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-        (*it)->update();
+    for(unsigned int i = 0; i < bullets.size(); i++) {
+        bullets[i]->update();
     }
 }
 
 void GameObjectHandler::changeEnemiesShootingSpeed() {
     if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
-        REMAINING_ENEMIES = GameObjectHandler::getRemainingEnemies();
-        if(SHOOTING_RNG - 2000 > 0) {
-            SHOOTING_RNG -= 2000;
+        if(SHOOTING_RNG - 1200 > 0) {
+            SHOOTING_RNG -= 1200;
         }
         else if(SHOOTING_RNG - 200 > 0) {
             SHOOTING_RNG -= 200;
@@ -50,10 +62,26 @@ void GameObjectHandler::changeEnemiesShootingSpeed() {
     }
 }
 
+void GameObjectHandler::changeEnemiesMovementSpeed() {
+    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
+        if(ENEMY_ANIMATION_FRAMES - 10 > 0) {
+           ENEMY_ANIMATION_FRAMES -= 10;
+           ENEMY_ANIMATION_FRAMES_COUNTER = 0;
+        }
+    }
+}
+
+void GameObjectHandler::changeEnemiesBulletSpeed() {
+    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
+        REMAINING_ENEMIES = GameObjectHandler::getRemainingEnemies();
+        ENEMY_SHOOTING_SPEED += 1;
+    }
+}
+
 int GameObjectHandler::getRemainingEnemies() {
     int aliveEnemies = 0;
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
-        if((*it)->isAlive()) {
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->isAlive()) {
             aliveEnemies++;
         }
     }

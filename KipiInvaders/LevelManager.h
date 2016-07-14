@@ -16,6 +16,10 @@ class LevelManager
         static bool LoadLevel(int level);
         static bool loadNextLevel;
 
+        static void RenderCurrentLevel();
+        static bool renderedLevel;
+        static int LEVEL_SIGN_FRAME_COUNTER;
+
     private:
         static int currentLevel;
         static bool FileIsExisting(string filename);

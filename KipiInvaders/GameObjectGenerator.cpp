@@ -8,10 +8,10 @@ int ENEMY_MOVEMENT_SPEED = 0;
 int ENEMY_SHOOTING_SPEED = 0;
 int REMAINING_ENEMIES = 0;
 
-list<Enemy*> enemies;
+vector<Enemy*> enemies;
 Enemy* UFO = NULL;
 
-list<Bullet*> bullets;
+vector<Bullet*> bullets;
 
 Player* player = NULL;
 
@@ -50,7 +50,7 @@ void GameObjectGenerator::generateEnemies() {
                     enemy->setWidth(gJellyfish1Clip.w);
                     enemy->setHeight(gJellyfish1Clip.h);
                 }
-                y = enemy->getHeight()*i + (i == 0 ? enemy->getHeight() : enemy->getHeight() + 20*(i));
+                y = enemy->getHeight()*i + (i == 0 ? 2*enemy->getHeight() + 20 : 2*enemy->getHeight() + 20 + 20*(i));
                 enemy->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*gJellyfish1Clip.w - 5*(MAX_ALIENS_ON_ROW-1))/2 + gJellyfish1Clip.w*(j) + 5*j, y);
                 enemy->setVelocity(ENEMY_MOVEMENT_SPEED);
                 enemies.push_back(enemy);
@@ -80,7 +80,7 @@ void GameObjectGenerator::generatePlayer() {
         player->setWidth(70);
         player->setHeight(40);
         player->setPosition((System::SCREEN_WIDTH - player->getWidth())/2,
-                             System::SCREEN_HEIGHT - player->getHeight());
+                             System::SCREEN_HEIGHT - player->getHeight() - 20);
         player->setVelocity(4);
         GameObjectGenerator::playerGenerated = true;
     }
@@ -88,16 +88,17 @@ void GameObjectGenerator::generatePlayer() {
 
 void GameObjectGenerator::generateBullets() {
     int i = 0;
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-        if((*it)->isToShooT()
-           && (*it)->isAlive()) {
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->isToShooT()
+           && enemies[i]->isAlive()) {
             Bullet* bullet = new Bullet(/* texture = */ gBulletTexture,
                                          /* direction = */DOWN,
                                          /* velocity = */ ENEMY_SHOOTING_SPEED);
             bullet->setWidth(3);
             bullet->setHeight(20);
-            bullet->setPosition((*it)->getX() + (*it)->getWidth()/2, (*it)->getY() + (*it)->getHeight());
+            bullet->setPosition(enemies[i]->getX() + enemies[i]->getWidth()/2, enemies[i]->getY() + enemies[i]->getHeight());
             bullets.push_back(bullet);
+            Mix_PlayChannel(-1, gLaserSound, 0);
         }
         i++;
     }
@@ -110,5 +111,6 @@ void GameObjectGenerator::generateBullets() {
         bullet->setPosition(player->getX() + player->getWidth()/2 - 3, player->getY());
         bullets.push_back(bullet);
         player->setIsToShooT(false);
+        Mix_PlayChannel(-1, gLaserSound, 0);
     }
 }

@@ -4,6 +4,7 @@
 #include "Player.h"
 
 extern Texture gPlayerTexture;
+extern Texture gPlayerDestroyedTexture;
 
 extern Player* player;
 

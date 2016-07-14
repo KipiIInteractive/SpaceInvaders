@@ -1,39 +1,48 @@
 #include "GameObjectRenderer.h"
 
 void GameObjectRenderer::renderEnemies() {
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
-        if((*it)->isAlive()) {
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(enemies[i]->isAlive()) {
             if(ENEMY_ANIMATION_FRAMES_COUNTER == 1 || ENEMY_ANIMATION_FRAMES_COUNTER == ENEMY_ANIMATION_FRAMES) {
-                if((*it)->getMovementDirection() == RIGHT) {
-                    (*it)->setPosition((*it)->getX() + (*it)->getVelocity(),(*it)->getY());
+                if(enemies[i]->getMovementDirection() == RIGHT) {
+                    enemies[i]->setPosition(enemies[i]->getX() + enemies[i]->getVelocity(),enemies[i]->getY());
                 }
                 else {
-                    (*it)->setPosition((*it)->getX() - (*it)->getVelocity(),(*it)->getY());
+                    enemies[i]->setPosition(enemies[i]->getX() - enemies[i]->getVelocity(),enemies[i]->getY());
                 }
             }
-            if((*it)->getType() == SQUID) {
+            if(enemies[i]->getType() == SQUID) {
                 if(ENEMY_ANIMATION_FRAMES_COUNTER < ENEMY_ANIMATION_FRAMES) {
-                    (*it)->renderWithClip(gSquid1Clip);
+                    enemies[i]->renderWithClipAndTexture(&gSquid1Clip, gAliensTexture);
                 }
                 else if(ENEMY_ANIMATION_FRAMES_COUNTER < 2*ENEMY_ANIMATION_FRAMES) {
-                    (*it)->renderWithClip(gSquid2Clip);
+                    enemies[i]->renderWithClipAndTexture(&gSquid2Clip, gAliensTexture);
                 }
             }
-            else if((*it)->getType() == CRAB) {
+            else if(enemies[i]->getType() == CRAB) {
                 if(ENEMY_ANIMATION_FRAMES_COUNTER < ENEMY_ANIMATION_FRAMES) {
-                    (*it)->renderWithClip(gCrab1Clip);
+                    enemies[i]->renderWithClipAndTexture(&gCrab1Clip, gAliensTexture);
                 }
                 else if(ENEMY_ANIMATION_FRAMES_COUNTER < 2*ENEMY_ANIMATION_FRAMES) {
-                    (*it)->renderWithClip(gCrab2Clip);
+                    enemies[i]->renderWithClipAndTexture(&gCrab2Clip, gAliensTexture);
                 }
             }
             else {
                 if(ENEMY_ANIMATION_FRAMES_COUNTER < ENEMY_ANIMATION_FRAMES) {
-                    (*it)->renderWithClip(gJellyfish1Clip);
+                    enemies[i]->renderWithClipAndTexture(&gJellyfish1Clip, gAliensTexture);
                 }
                 else if(ENEMY_ANIMATION_FRAMES_COUNTER < 2*ENEMY_ANIMATION_FRAMES) {
-                    (*it)->renderWithClip(gJellyfish2Clip);
+                    enemies[i]->renderWithClipAndTexture(&gJellyfish2Clip, gAliensTexture);
                 }
+            }
+        }
+        else if(enemies[i]->hasBeenHit()) {
+            if(ENEMY_DESTROYED_FRAMES_COUNTER < 40) {
+                enemies[i]->renderWithClipAndTexture(NULL, gAlienDestroyedTexture);
+            }
+            else {
+                enemies[i]->setHasBeenHit(false);
+                ENEMY_DESTROYED_FRAMES_COUNTER = 0;
             }
         }
     }
@@ -46,13 +55,23 @@ void GameObjectRenderer::renderEnemies() {
 }
 
 void GameObjectRenderer::renderPlayer() {
-    if(player->getLives()) {
-        player->render();
+    if(player->getLives() > 0) {
+        if(PLAYER_DESTROYED_FRAMES_COUNTER < 40 && player->hasBeenHit()) {
+            player->renderWithTexture(gPlayerDestroyedTexture);
+        }
+        else if(!player->hasBeenHit()) {
+            player->renderWithTexture(gPlayerTexture);
+        }
+        else {
+            player->setHasBeenHit(false);
+            player->setPosition((System::RIGHT_X_BORDER - System::LEFT_X_BORDER - player->getWidth())/2, System::SCREEN_HEIGHT - player->getHeight() - 20);
+            PLAYER_DESTROYED_FRAMES_COUNTER = 0;
+        }
     }
 }
 
 void GameObjectRenderer::renderBullets() {
-    for(list<Bullet*>::iterator it = bullets.begin(); it != bullets.end(); ++it) {
-        (*it)->render();
+    for(unsigned int i = 0; i < bullets.size(); i++) {
+        bullets[i]->render();
     }
 }

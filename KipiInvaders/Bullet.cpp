@@ -20,15 +20,17 @@ void Bullet::update() {
 bool Bullet::hasCollided() { return collided; }
 
 bool Bullet::hasCollidedWithEnemy() {
-    for(list<Enemy*>::iterator it = enemies.begin(); it != enemies.end(); it++) {
-        if(_GORect.x + _GORect.w >= (*it)->getX()
-           && _GORect.x <= (*it)->getX() + (*it)->getWidth()
-           && _GORect.y < (*it)->getY() + (*it)->getHeight()
-           && _GORect.y > (*it)->getY() + (*it)->getHeight() - 20
-           && (*it)->isAlive()
+    for(unsigned int i = 0; i < enemies.size(); i++) {
+        if(_GORect.x + _GORect.w >= enemies[i]->getX()
+           && _GORect.x <= enemies[i]->getX() + enemies[i]->getWidth()
+           && _GORect.y < enemies[i]->getY() + enemies[i]->getHeight()
+           && _GORect.y > enemies[i]->getY() + enemies[i]->getHeight() - 20
+           && enemies[i]->isAlive()
            && _GODirection == UP) {
-            (*it)->setIsAlive(false);
-            player->addToScore((*it)->getPoints());
+            enemies[i]->setIsAlive(false);
+            enemies[i]->setHasBeenHit(true);
+            player->addToScore(enemies[i]->getPoints());
+            Mix_PlayChannel(-1, gAlienExplosionSound, 0);
             return true;
         }
     }
@@ -38,6 +40,7 @@ bool Bullet::hasCollidedWithEnemy() {
            && _GORect.y < UFO->getY() + UFO->getHeight()) {
             player->addToScore(UFO->getPoints());
             UFO->setIsAlive(false);
+            Mix_PlayChannel(-1, gAlienExplosionSound, 0);
             return true;
         }
     }
@@ -48,8 +51,10 @@ bool Bullet::hasCollidedWithPlayer() {
     if(player->getLives() > 0) {
         if(_GORect.x + _GORect.w >= player->getX()
            && _GORect.x <= player->getX() + player->getWidth()
-           && _GORect.y > player->getY()) {
+           && _GORect.y > player->getY() && !player->hasBeenHit()) {
             player->decreaseLives();
+            player->setHasBeenHit(true);
+            Mix_PlayChannel(-1, gPlayerExplosionSound, 0);
             return true;
         }
     }

@@ -14,6 +14,7 @@ private:
     int _EPoints;
     bool _EAlive;
     bool _EShoot;
+    bool _EHasBeenHit;
 public:
     Enemy(Texture t, EnemyType type, Direction dir, int points);
 
@@ -26,6 +27,9 @@ public:
     void setIsAlive(bool b);
     bool isAlive();
 
+    void setHasBeenHit(bool b);
+    bool hasBeenHit();
+
     bool isToShooT();
 
     EnemyType getType();
@@ -35,7 +39,7 @@ public:
 
     void update();
 
-    void renderWithClip(SDL_Rect clip);
+    void renderWithClipAndTexture(SDL_Rect *clip, Texture t);
 };
 
 

@@ -1,8 +1,12 @@
 #include "LevelManager.h"
 
+int LevelManager::LEVEL_SIGN_FRAME_COUNTER = 0;
+
 int LevelManager::currentLevel = 0;
 
 bool LevelManager::loadNextLevel = true;
+
+bool LevelManager::renderedLevel = false;
 
 bool LevelManager::FileIsExisting(string filename)
 {
@@ -55,4 +59,20 @@ bool LevelManager::LoadLevel(int lvl)
         else return false;
     }
     else return false;
+}
+
+void LevelManager::RenderCurrentLevel() {
+    if(gLevelDigitTexture.loadFromRenderedText("" + to_string(LevelManager::currentLevel), {255, 255, 255, 200})) {
+        if(LevelManager::LEVEL_SIGN_FRAME_COUNTER < 80) {
+            gLevelSignTexture.render((System::RIGHT_X_BORDER - System::LEFT_X_BORDER - gLevelSignTexture.getWidth() - gLevelDigitTexture.getWidth())/2,
+                                    (System::SCREEN_HEIGHT - gLevelSignTexture.getHeight())/2);
+            gLevelDigitTexture.render((System::RIGHT_X_BORDER - System::LEFT_X_BORDER - gLevelSignTexture.getWidth() - gLevelDigitTexture.getWidth())/2 + gLevelSignTexture.getWidth(),
+                                    (System::SCREEN_HEIGHT - gLevelDigitTexture.getHeight())/2);
+            LevelManager::LEVEL_SIGN_FRAME_COUNTER++;
+        }
+        else {
+            LevelManager::LEVEL_SIGN_FRAME_COUNTER = 0;
+            LevelManager::renderedLevel = true;
+        }
+    }
 }

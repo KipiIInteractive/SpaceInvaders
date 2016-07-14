@@ -23,9 +23,6 @@ public:
 
     //Font
     static TTF_Font* font;
-
-    //Music
-    static Mix_Music* music;
 };
 
 #endif // SYSTEM_H_INCLUDED

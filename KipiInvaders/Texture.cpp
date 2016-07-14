@@ -87,6 +87,10 @@ string Texture::getText() {
     return _TText;
 }
 
+SDL_Texture* Texture::getTexture() { return _Texture; }
+
+void Texture::applyTexture(SDL_Texture *pt) { _Texture = pt; }
+
 void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double angle, SDL_Point* center) {
     SDL_Rect renderQuad;
     renderQuad = {x, y, _TWidth, _THeight};

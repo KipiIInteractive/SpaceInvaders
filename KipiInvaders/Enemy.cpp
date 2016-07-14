@@ -1,7 +1,8 @@
 #include "Enemy.h"
 
-const int ENEMY_ANIMATION_FRAMES = 50;
+int ENEMY_ANIMATION_FRAMES = 50;
 int ENEMY_ANIMATION_FRAMES_COUNTER = 0;
+int ENEMY_DESTROYED_FRAMES_COUNTER = 0;
 
 int Enemy::_EOffset = 0;
 
@@ -13,6 +14,7 @@ Enemy::Enemy(Texture t, EnemyType type, Direction dir, int points) {
     _GOCollidedWithScreen = false;
     _EAlive = true;
     _EShoot = false;
+    _EHasBeenHit = false;
 }
 
 void Enemy::setHasCollidedWithScreen(bool b) { _GOCollidedWithScreen = b; }
@@ -29,12 +31,27 @@ void Enemy::setPoints(int points) { _EPoints = points; }
 
 EnemyType Enemy::getType() { return _EType; }
 
+bool Enemy::hasBeenHit() { return _EHasBeenHit; }
+
+void Enemy::setHasBeenHit(bool b) { _EHasBeenHit = b; }
+
 void Enemy::update() {
-    if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) == 1) {
-        _EShoot = true;
+
+    if(_EType == MOTHERSHIP) {
+        if(_GODirection == RIGHT) {
+            _GORect.x += _GOVelocity/3;
+        }
+        else {
+            _GORect.x -= _GOVelocity/3;
+        }
     }
     else {
-        _EShoot = false;
+        if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) == 1) {
+            _EShoot = true;
+        }
+        else {
+            _EShoot = false;
+        }
     }
 }
 
@@ -69,14 +86,17 @@ void Enemy::checkCollisionWithScreen() {
 
 void Enemy::handleCollisionWithScreen() {
     if(_GODirection == RIGHT) {
-        _GORect.x -= _EOffset;
+        _GORect.x -= 4*_EOffset;
         _GODirection = LEFT;
     }
     else {
-        _GORect.x += _EOffset;
+        _GORect.x += 4*_EOffset;
         _GODirection = RIGHT;
     }
-    _GORect.y += _GORect.h;
+    _GORect.y += _GORect.h/2;
 }
 
-void Enemy::renderWithClip(SDL_Rect clip) { _GOTexture.render(_GORect.x, _GORect.y, &clip); }
+void Enemy::renderWithClipAndTexture(SDL_Rect *clip, Texture t) {
+    _GOTexture.applyTexture(t.getTexture());
+    _GOTexture.render(_GORect.x, _GORect.y, clip);
+}
