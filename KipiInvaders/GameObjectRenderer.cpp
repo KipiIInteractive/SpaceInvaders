@@ -75,3 +75,8 @@ void GameObjectRenderer::renderBullets() {
         bullets[i]->render();
     }
 }
+
+void GameObjectRenderer::renderBarriers() {
+    barrier1->render();
+    barrier2->render();
+}

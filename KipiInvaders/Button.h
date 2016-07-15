@@ -3,8 +3,6 @@
 
 #include "Texture.h"
 
-using namespace std;
-
 class Button {
 protected:
     Texture _BTexture;

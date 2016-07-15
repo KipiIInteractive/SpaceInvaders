@@ -12,12 +12,9 @@ Button::Button() {
 
 Button::~Button() {
     _BTexture.free();
-    _BPosition.x = 0;
-    _BPosition.y = 0;
-    _BPosition.w = 0;
-    _BPosition.h = 0;
-    _BColor = {0, 0, 0, 0};
-    _BClip = {0, 0, 0, 0};
+    delete &(_BPosition);
+    delete &(_BColor);
+    delete &(_BClip);
     clicked = false;
 }
 

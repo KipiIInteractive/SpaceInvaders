@@ -3,8 +3,6 @@
 
 #include "Texture.h"
 
-using namespace std;
-
 class Background {
 private:
     Texture _BTexture;

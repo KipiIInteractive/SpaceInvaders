@@ -18,6 +18,7 @@ Player* player = NULL;
 bool GameObjectGenerator::enemiesGenerated = false;
 bool GameObjectGenerator::UFOGenerated = false;
 bool GameObjectGenerator::playerGenerated = false;
+bool GameObjectGenerator::barriersGenerated = false;
 
 void GameObjectGenerator::generateEnemies() {
     if(!GameObjectGenerator::enemiesGenerated) {
@@ -87,7 +88,6 @@ void GameObjectGenerator::generatePlayer() {
 }
 
 void GameObjectGenerator::generateBullets() {
-    int i = 0;
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isToShooT()
            && enemies[i]->isAlive()) {
@@ -112,5 +112,17 @@ void GameObjectGenerator::generateBullets() {
         bullets.push_back(bullet);
         player->setIsToShooT(false);
         Mix_PlayChannel(-1, gLaserSound, 0);
+    }
+}
+
+void GameObjectGenerator::generateBarriers() {
+    if(!GameObjectGenerator::barriersGenerated) {
+        barrier1->setPosition(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier1->getWidth())/2,
+                              System::SCREEN_HEIGHT - 3*barrier1->getHeight());
+
+        barrier2->setPosition(System::LEFT_X_BORDER,
+                              System::SCREEN_HEIGHT - 3*barrier2->getHeight());
+
+        GameObjectGenerator::barriersGenerated = true;
     }
 }

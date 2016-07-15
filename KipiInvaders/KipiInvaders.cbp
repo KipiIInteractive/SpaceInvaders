@@ -45,6 +45,9 @@
 		</Linker>
 		<Unit filename="Background.cpp" />
 		<Unit filename="Background.h" />
+		<Unit filename="Barrier.cpp" />
+		<Unit filename="Barrier.h" />
+		<Unit filename="BarrierResources.h" />
 		<Unit filename="Bullet.cpp" />
 		<Unit filename="Bullet.h" />
 		<Unit filename="BulletResources.h" />

@@ -4,6 +4,7 @@
 #include "EnemyResources.h"
 #include "BulletResources.h"
 #include "PlayerResources.h"
+#include "BarrierResources.h"
 
 class GameObjectCollision {
 public:

@@ -52,10 +52,15 @@ Texture gLevelSignTexture;
 Texture gLevelDigitTexture;
 
 // Sound effects
-Mix_Chunk* gPlayerExplosionSound;
-Mix_Chunk* gAlienExplosionSound;
-Mix_Chunk* gLaserSound;
-Mix_Chunk* gUFOSound;
+Mix_Chunk* gPlayerExplosionSound = NULL;
+Mix_Chunk* gAlienExplosionSound = NULL;
+Mix_Chunk* gLaserSound = NULL;
+Mix_Chunk* gUFOSound = NULL;
+
+//Barriers
+Barrier* barrier1 = NULL;
+Barrier* barrier2 = NULL;
+Barrier* barrier3 = NULL;
 
 bool LoadMedia::load() {
     bool success = true;
@@ -288,6 +293,31 @@ bool LoadMedia::load() {
     gUFOSound = Mix_LoadWAV("./sounds/UFO.wav");
     if(gUFOSound == NULL) {
         success = false;
+    }
+
+    //Barriers
+    barrier1 = new Barrier();
+    if(!barrier1->loadInitialTextures()) {
+        success = false;
+    }
+    else {
+        barrier1->setDimensions();
+    }
+
+    barrier2 = new Barrier();
+    if(!barrier2->loadInitialTextures()) {
+        success = false;
+    }
+    else {
+        barrier2->setDimensions();
+    }
+
+    barrier3 = new Barrier();
+    if(!barrier3->loadInitialTextures()) {
+        success = false;
+    }
+    else {
+        barrier3->setDimensions();
     }
 
     return success;
