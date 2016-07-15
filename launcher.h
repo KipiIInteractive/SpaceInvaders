@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <SDL_ttf.h>
 
 #include "profile_managment/ProfileManager.h"
@@ -12,6 +13,7 @@
 #include "level_management/LevelManager.h"
 #include "Entities/Player.h"
 #include "Game/Game.h"
+#include "sounds_management/SoundManager.h"
 
 void InitEverything();
 

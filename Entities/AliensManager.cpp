@@ -30,6 +30,8 @@ void AliensManager::Move()
     {
         for(unsigned i = 0; i < AliensManager::allAliens.size(); i++)
         {
+            CURRENT_ALIEN->Shoot();
+
             if(AliensManager::direction == System::Direction::Right)
                 CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + AliensManager::movementSpeed );
             else if(AliensManager::direction == System::Direction::Left)

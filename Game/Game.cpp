@@ -1,13 +1,16 @@
 #include "Game.h"
 
-bool Game::isRunning = true;
+bool Game::isRunning;
 SDL_Texture *Game::background = NULL;
 SDL_Texture *Game::borderTexture = NULL;
 SDL_Rect Game::Pannel;
 SDL_Rect Game::leftBorder;
 SDL_Rect Game::rightBorder;
 Label Game::ScoreText;
+Label Game::LevelText;
 int Game::score = 0;
+int Game::framesToShowTheLevelNumber = 300;
+int framesAfterStart = 0;
 
 #define NUMBER_OF_BARRIERS 3
 Barrier *Game::barriers[NUMBER_OF_BARRIERS];
@@ -52,11 +55,20 @@ void Game::Init()
 
     //Initialize the FPS regulation controller
     Game::fps = new FPS_Controller(60);
+
+    Game::isRunning = true;
 }
 
 void Game::StartGame()
 {
     LevelManager::LoadLevel(LevelManager::GetCurrentLevel());
+
+    //Initialize the level text
+    Game::LevelText.SetText("Level " + to_string(LevelManager::GetCurrentLevel()));
+    Game::LevelText.SetColor(255, 20, 20);
+    Game::LevelText.SetFont(System::Fonts::Score);
+    Game::LevelText.SetX(System::Screen::Width / 2 - Game::ScoreText.GetWidth() / 2);
+    Game::LevelText.SetY(System::Screen::Height / 10);
 
     Player::Init();
 
@@ -87,6 +99,15 @@ void Game::StartGame()
         Game::RenderEverything();
         SDL_RenderPresent(System::renderer);
 
+
+        if(AliensManager::allAliens.size() == 0)
+        {
+            framesAfterStart = 0;
+            Game::isRunning = false;
+            LevelManager::LoadLevel(LevelManager::GetCurrentLevel() + 1);
+            Game::Init();
+        }
+
         Game::fps->Delay();
     }
 
@@ -102,8 +123,8 @@ void Game::RenderEverything()
     SDL_RenderCopy(System::renderer, Game::borderTexture, NULL, &Game::rightBorder);
 
     //Render the aliens, the player and the bullets
-    AliensManager::RenderAll();
     BulletsManager::RenderAll();
+    AliensManager::RenderAll();
     Player::Render();
 
     //Render the barriers
@@ -112,6 +133,13 @@ void Game::RenderEverything()
 
     //Render the score
     Game::ScoreText.Render();
+
+    //Render the level number
+    if(framesAfterStart <= framesToShowTheLevelNumber && framesAfterStart % 1 == 0)
+    {
+        Game::LevelText.Render();
+        framesAfterStart++;
+    }
 }
 
 void Game::GetPlayerInput()
@@ -128,6 +156,7 @@ void Game::GetPlayerInput()
     {
         if(canShoot)
         {
+            //SoundManager::Play(SoundManager::Sounds::Shoot);
             Player::Shoot();
             canShoot = false;
         }

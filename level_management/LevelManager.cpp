@@ -60,6 +60,11 @@ bool LevelManager::LoadLevel(int lvl)
             }
 
             level.close();
+
+            ofstream curr_lvl((string)LEVELS_PATH + "current.level");
+            curr_lvl << lvl;
+            curr_lvl.close();
+            LevelManager::currentLevel = lvl;
             return true;
         }
         else return false;

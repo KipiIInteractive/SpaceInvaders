@@ -11,8 +11,11 @@ int main(int argc, char ** argv)
     //Go to Log-in window
     LoginWindow::Show();
 
+
+    SoundManager::Close();
     System::Free();
 
+    Mix_Quit();
     TTF_Quit();
     SDL_Quit();
 
@@ -36,6 +39,8 @@ void InitEverything()
     if(!IMG_Init( imgFlags ))
         std::cout << "Failed to initialize SDL_IMAGE. File: launcher.cpp/Initializations() \n" << IMG_GetError() << std::endl;
 
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) < 0 )
+        std::cout << "Failed to initialize SDL_MIXER. File: launcher.cpp/Initializations() \n" << Mix_GetError() << std::endl;
     //Create the window
     System::window = SDL_CreateWindow("Space Invaders",
                      SDL_WINDOWPOS_UNDEFINED,
@@ -92,4 +97,7 @@ void InitEverything()
 
     //Initialize the game window
     Game::Init();
+
+    //Initialize the sounds manager
+    SoundManager::Init();
 }

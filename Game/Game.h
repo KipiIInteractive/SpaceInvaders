@@ -8,6 +8,7 @@
 #include "../Entities/BulletsManager.h"
 #include "../fps_conroller/FPS_Controller.h"
 #include "../GUI/Label.h"
+#include "../sounds_management/SoundManager.h"
 #include <string>
 
 class Game
@@ -18,12 +19,14 @@ class Game
         static SDL_Rect Pannel;
         static Barrier *barriers[];
         static int score;
+        static bool isRunning;
 
     private:
         static Label ScoreText;
+        static Label LevelText;
+        static int framesToShowTheLevelNumber;
 
         static void RenderEverything();
-        static bool isRunning;
         static SDL_Texture *background;
         static SDL_Texture *borderTexture;
         static SDL_Rect leftBorder;

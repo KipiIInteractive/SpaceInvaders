@@ -1,6 +1,7 @@
 #include "BulletsManager.h"
 #include "AliensManager.h"
 #include "../Game/Game.h"
+#include "Player.h"
 
 std::vector<Bullet*> BulletsManager::allBullets;
 std::vector<Bullet*> BulletsManager::bulletsToDelete;
@@ -40,14 +41,17 @@ void BulletsManager::UpdateAll()
                     {
                         if(CURRENT_BULLET->rect.y >= CURRENT_ALIEN->GetY())
                         {
-                            //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
-                            BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
-                            //Delete the alien
-                            aliensToDelete.push_back(CURRENT_ALIEN);
-                            AliensManager::allAliens.erase(AliensManager::allAliens.begin() + j);
-
-                            Game::score += 50;
+                            if(CURRENT_BULLET->GetDirection() == System::Direction::Up)
+                            {
+                                //Delete the bullet
+                                BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                                BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+                                //Delete the alien
+                                aliensToDelete.push_back(CURRENT_ALIEN);
+                                AliensManager::allAliens.erase(AliensManager::allAliens.begin() + j);
+                                ///SoundManager::Play(SoundManager::Sounds::KillAlien);
+                                Game::score += CURRENT_ALIEN->score;
+                            }
                         }
                     }
                 }
@@ -68,6 +72,24 @@ void BulletsManager::UpdateAll()
                             //Delete the bullet
                             BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+                        }
+                    }
+                }
+            }
+        }
+
+        //Check for collision between bullet and the player
+        if(CURRENT_BULLET->rect.x >= Player::rect.x)
+        {
+            if(CURRENT_BULLET->rect.x <= Player::rect.x + Player::rect.w)
+            {
+                if(CURRENT_BULLET->rect.y + CURRENT_BULLET->rect.h >= Player::rect.y)
+                {
+                    if(CURRENT_BULLET->rect.y <= Player::rect.y + Player::rect.h)
+                    {
+                        if(CURRENT_BULLET->GetDirection() == System::Direction::Down)
+                        {
+
                         }
                     }
                 }

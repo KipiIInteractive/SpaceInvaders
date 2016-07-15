@@ -2,6 +2,7 @@
 #define ALIEN_H_INCLUDED
 
 #include "Entity.h"
+#include <time.h>
 
 class Alien : public Entity
 {
@@ -12,6 +13,9 @@ class Alien : public Entity
         int type;
 
         SDL_Rect frame;
+        int score;
+
+        void Shoot();
 };
 
 #endif // ALIEN_H_INCLUDED

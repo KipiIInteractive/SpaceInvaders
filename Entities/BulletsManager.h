@@ -3,6 +3,8 @@
 
 #include "Bullet.h"
 #include <vector>
+#include <time.h>
+#include "../sounds_management/SoundManager.h"
 
 class BulletsManager
 {

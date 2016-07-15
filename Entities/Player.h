@@ -13,9 +13,9 @@ class Player
         static void Render();
         static void Move(int direction);
         static void Shoot();
+        static SDL_Rect rect;
 
     private:
-        static SDL_Rect rect;
         static SDL_Texture *texture;
         static int movementSpeed;
 };
