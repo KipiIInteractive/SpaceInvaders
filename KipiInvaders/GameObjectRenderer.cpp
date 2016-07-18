@@ -37,7 +37,7 @@ void GameObjectRenderer::renderEnemies() {
             }
         }
         else if(enemies[i]->hasBeenHit()) {
-            if(ENEMY_DESTROYED_FRAMES_COUNTER < 40) {
+            if(ENEMY_DESTROYED_FRAMES_COUNTER < 30) {
                 enemies[i]->renderWithClipAndTexture(NULL, gAlienDestroyedTexture);
             }
             else {
