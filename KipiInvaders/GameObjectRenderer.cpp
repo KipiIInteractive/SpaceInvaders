@@ -77,6 +77,13 @@ void GameObjectRenderer::renderBullets() {
 }
 
 void GameObjectRenderer::renderBarriers() {
-    barrier1->render();
-    barrier2->render();
+    if(!barrier1->isDestroyed()) {
+        barrier1->render();
+    }
+    if(!barrier2->isDestroyed()) {
+        barrier2->render();
+    }
+    if(!barrier3->isDestroyed()) {
+        barrier3->render();
+    }
 }

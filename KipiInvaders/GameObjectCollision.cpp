@@ -2,12 +2,12 @@
 
 vector<Bullet*> destroyedBullets;
 
-void GameObjectCollision::checkEnemyCollision() {
+void GameObjectCollision::checkEnemyCollisionWithScreen() {
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isAlive()) {
             enemies[i]->checkCollisionWithScreen();
             if(enemies[i]->hasCollidedWithScreen()) {
-                handleEnemyCollision();
+                handleEnemyCollisionWithScreen();
             }
         }
     }
@@ -20,7 +20,7 @@ void GameObjectCollision::checkEnemyCollision() {
     }
 }
 
-void GameObjectCollision::handleEnemyCollision() {
+void GameObjectCollision::handleEnemyCollisionWithScreen() {
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isAlive()) {
             enemies[i]->handleCollisionWithScreen();
@@ -28,7 +28,7 @@ void GameObjectCollision::handleEnemyCollision() {
     }
 }
 
-void GameObjectCollision::checkAndHandlePlayerCollision() {
+void GameObjectCollision::checkAndHandlePlayerCollisionWithScreen() {
     if(player->getLives() > 0) {
         player->checkAndHandleCollisionWithScreen();
     }
@@ -53,4 +53,16 @@ void GameObjectCollision::checkBulletCollision() {
 
 vector<Bullet*>::iterator GameObjectCollision::handleBulletCollision(vector<Bullet*>::iterator it) {
     return bullets.erase(it);
+}
+
+void GameObjectCollision::checkAndHandleBarrierCollisionWithBullets() {
+    if(!barrier1->isDestroyed()) {
+        barrier1->checkAndHandleCollisionWithBullets();
+    }
+    if(!barrier2->isDestroyed()) {
+        barrier2->checkAndHandleCollisionWithBullets();
+    }
+    if(!barrier3->isDestroyed()) {
+        barrier3->checkAndHandleCollisionWithBullets();
+    }
 }

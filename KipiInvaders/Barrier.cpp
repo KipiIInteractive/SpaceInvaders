@@ -5,6 +5,17 @@ Barrier::Barrier() {
     _BRect.y = 0;
     _BRect.w = 0;
     _BRect.h = 0;
+    _BTopLeftCornerHitCounter = 0;
+    _BTopRightCornerHitCounter = 0;
+    _BBottomLeftHitCounter = 0;
+    _BBottomRightHitCounter = 0;
+    _BMiddleLeftHitCounter = 0;
+    _BMiddleRightHitCounter = 0;
+    _BInnerTopLeftHitCounter = 0;
+    _BInnerTopRightHitCounter = 0;
+    _BInnerBottomLeftHitCounter = 0;
+    _BInnerBottomRightHitCounter = 0;
+    destroyed = false;
 }
 
 Barrier::~Barrier() {
@@ -128,15 +139,182 @@ void Barrier::setPosition(int x, int y) {
 int Barrier::getX() { return _BRect.x; }
 int Barrier::getY() { return _BRect.y; }
 
+bool Barrier::isDestroyed() { return destroyed; }
+
+void Barrier::checkAndHandleCollisionWithBullets() {
+    for(unsigned i = 0; i < bullets.size(); i++) {
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BTopLeftCornerPos.x
+            && bullets[i]->getX() < _BTopLeftCornerPos.x + _BTopLeftCorner.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BTopLeftCornerPos.y
+                                                            : bullets[i]->getY() <= _BTopLeftCornerPos.y + _BTopLeftCorner.getHeight()) ) {
+            _BTopLeftCornerHitCounter++;
+            if(_BTopLeftCornerHitCounter < 3) {
+                _BTopLeftCorner.loadFromFile("./images/upperLeftCorner" + to_string(_BTopLeftCornerHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BTopLeftCornerHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BTopRightCornerPos.x
+            && bullets[i]->getX() < _BTopRightCornerPos.x + _BTopRightCorner.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BTopRightCornerPos.y
+                                                            : bullets[i]->getY() <= _BTopRightCornerPos.y + _BTopRightCorner.getHeight())) {
+            _BTopRightCornerHitCounter++;
+            if(_BTopRightCornerHitCounter < 3) {
+                _BTopLeftCorner.loadFromFile("./images/upperRightCorner" + to_string(_BTopLeftCornerHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BTopRightCornerHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BBottomLeftPos.x
+            && bullets[i]->getX() < _BBottomLeftPos.x + _BBottomLeft.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BBottomLeftPos.y
+                                                            : bullets[i]->getY() <= _BBottomLeftPos.y + _BBottomLeft.getHeight())) {
+            _BBottomLeftHitCounter++;
+            if(_BBottomLeftHitCounter < 3) {
+                _BBottomLeft.loadFromFile("./images/fullSquare" + to_string(_BBottomLeftHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BBottomLeftHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BBottomRightPos.x
+            && bullets[i]->getX() < _BBottomRightPos.x + _BBottomRight.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BBottomRightPos.y
+                                                            : bullets[i]->getY() <= _BBottomRightPos.y + _BBottomRight.getHeight())) {
+            _BBottomRightHitCounter++;
+            if(_BBottomRightHitCounter < 3) {
+                _BBottomRight.loadFromFile("./images/fullSquare" + to_string(_BBottomRightHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BBottomRightHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BMiddleLeftPos.x
+            && bullets[i]->getX() < _BMiddleLeftPos.x + _BMiddleLeft.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BMiddleLeftPos.y
+                                                            : bullets[i]->getY() <= _BMiddleLeftPos.y + _BMiddleLeft.getHeight())) {
+            _BMiddleLeftHitCounter++;
+            if(_BMiddleLeftHitCounter < 3) {
+                _BMiddleLeft.loadFromFile("./images/fullSquare" + to_string(_BMiddleLeftHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BMiddleLeftHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BMiddleRightPos.x
+            && bullets[i]->getX() < _BMiddleRightPos.x + _BMiddleRight.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BMiddleRightPos.y
+                                                            : bullets[i]->getY() <= _BMiddleRightPos.y + _BMiddleRight.getHeight())) {
+            _BMiddleRightHitCounter++;
+            if(_BMiddleRightHitCounter < 3) {
+                _BMiddleRight.loadFromFile("./images/fullSquare" + to_string(_BMiddleRightHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BMiddleRightHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerBottomLeftPos.x
+            && bullets[i]->getX() < _BInnerBottomLeftPos.x + _BInnerBottomLeft.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerBottomLeftPos.y
+                                                            : bullets[i]->getY() <= _BInnerBottomLeftPos.y + _BInnerBottomLeft.getHeight())) {
+            _BInnerBottomLeftHitCounter++;
+            if(_BInnerBottomLeftHitCounter < 3) {
+                _BInnerBottomLeft.loadFromFile("./images/innerLeftCorner" + to_string(_BInnerBottomLeftHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BInnerBottomLeftHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerBottomRightPos.x
+            && bullets[i]->getX() < _BInnerBottomRightPos.x + _BInnerBottomRight.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerBottomRightPos.y
+                                                            : bullets[i]->getY() <= _BInnerBottomRightPos.y + _BInnerBottomRight.getHeight())) {
+            _BInnerBottomRightHitCounter++;
+            if(_BInnerBottomRightHitCounter < 3) {
+                _BInnerBottomRight.loadFromFile("./images/innerRightCorner" + to_string(_BInnerBottomRightHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BInnerBottomRightHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerTopLeftPos.x
+            && bullets[i]->getX() < _BInnerTopLeftPos.x + _BInnerTopLeft.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerTopLeftPos.y
+                                                            : bullets[i]->getY() <= _BInnerTopLeftPos.y + _BInnerTopLeft.getHeight())) {
+            _BInnerTopLeftHitCounter++;
+            if(_BInnerTopLeftHitCounter < 3) {
+                _BInnerTopLeft.loadFromFile("./images/fullSquare" + to_string(_BInnerTopLeftHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BInnerTopLeftHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerTopRightPos.x
+            && bullets[i]->getX() < _BInnerTopRightPos.x + _BInnerTopRight.getWidth()
+            && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerTopRightPos.y
+                                                            : bullets[i]->getY() <= _BInnerTopRightPos.y + _BInnerTopRight.getHeight())) {
+            _BInnerTopRightHitCounter++;
+            if(_BInnerTopRightHitCounter < 3) {
+                _BInnerTopRight.loadFromFile("./images/fullSquare" + to_string(_BInnerTopRightHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else {
+                _BInnerTopRightHitCounter = 3;
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+        }
+    }
+}
+
 void Barrier::render() {
-    _BTopLeftCorner.render(_BTopLeftCornerPos.x, _BTopLeftCornerPos.y);
-    _BMiddleLeft.render(_BMiddleLeftPos.x, _BMiddleLeftPos.y);
-    _BBottomLeft.render(_BBottomLeftPos.x, _BBottomLeftPos.y);
-    _BInnerTopLeft.render(_BInnerTopLeftPos.x, _BInnerTopLeftPos.y);
-    _BInnerBottomLeft.render(_BInnerBottomLeftPos.x, _BInnerBottomLeftPos.y);
-    _BInnerTopRight.render(_BInnerTopRightPos.x, _BInnerTopRightPos.y);
-    _BInnerBottomRight.render(_BInnerBottomRightPos.x, _BInnerBottomRightPos.y);
-    _BTopRightCorner.render(_BTopRightCornerPos.x, _BTopRightCornerPos.y);
-    _BMiddleRight.render(_BMiddleRightPos.x, _BMiddleRightPos.y);
-    _BBottomRight.render(_BBottomRightPos.x, _BBottomRightPos.y);
+    if(_BTopLeftCornerHitCounter < 3) {
+        _BTopLeftCorner.render(_BTopLeftCornerPos.x, _BTopLeftCornerPos.y);
+    }
+    if(_BMiddleLeftHitCounter < 3) {
+        _BMiddleLeft.render(_BMiddleLeftPos.x, _BMiddleLeftPos.y);
+    }
+    if(_BBottomLeftHitCounter < 3) {
+        _BBottomLeft.render(_BBottomLeftPos.x, _BBottomLeftPos.y);
+    }
+    if(_BInnerTopLeftHitCounter < 3) {
+        _BInnerTopLeft.render(_BInnerTopLeftPos.x, _BInnerTopLeftPos.y);
+    }
+    if(_BInnerBottomLeftHitCounter < 3) {
+        _BInnerBottomLeft.render(_BInnerBottomLeftPos.x, _BInnerBottomLeftPos.y);
+    }
+    if(_BInnerTopRightHitCounter < 3) {
+        _BInnerTopRight.render(_BInnerTopRightPos.x, _BInnerTopRightPos.y);
+    }
+    if(_BInnerBottomRightHitCounter < 3) {
+        _BInnerBottomRight.render(_BInnerBottomRightPos.x, _BInnerBottomRightPos.y);
+    }
+    if(_BTopRightCornerHitCounter < 3) {
+        _BTopRightCorner.render(_BTopRightCornerPos.x, _BTopRightCornerPos.y);
+    }
+    if(_BMiddleRightHitCounter < 3) {
+        _BMiddleRight.render(_BMiddleRightPos.x, _BMiddleRightPos.y);
+    }
+    if(_BBottomRightHitCounter < 3) {
+        _BBottomRight.render(_BBottomRightPos.x, _BBottomRightPos.y);
+    }
 }

@@ -61,11 +61,11 @@ bool Bullet::hasCollidedWithPlayer() {
     return false;
 }
 
+bool Bullet::hasCollidedWithBarrier() { return collidedWithBarrier; }
+void Bullet::setHasCollidedWithBarrier(bool b) { collidedWithBarrier = b; }
+
 void Bullet::checkCollision() {
-    if(_GORect.y < 0 || _GORect.y > System::SCREEN_HEIGHT || hasCollidedWithEnemy() || hasCollidedWithPlayer()) {
+    if(_GORect.y < 0 || _GORect.y > System::SCREEN_HEIGHT || hasCollidedWithEnemy() || hasCollidedWithPlayer() || hasCollidedWithBarrier()) {
         collided = true;
-    }
-    else {
-        collided = false;
     }
 }

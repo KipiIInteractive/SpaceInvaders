@@ -120,8 +120,11 @@ void GameObjectGenerator::generateBarriers() {
         barrier1->setPosition(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier1->getWidth())/2,
                               System::SCREEN_HEIGHT - 3*barrier1->getHeight());
 
-        barrier2->setPosition(System::LEFT_X_BORDER,
+        barrier2->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier2->getWidth())/2,
                               System::SCREEN_HEIGHT - 3*barrier2->getHeight());
+
+        barrier3->setPosition(System::LEFT_X_BORDER + 2*(System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier3->getWidth())/2,
+                            System::SCREEN_HEIGHT - 3*barrier3->getHeight());
 
         GameObjectGenerator::barriersGenerated = true;
     }

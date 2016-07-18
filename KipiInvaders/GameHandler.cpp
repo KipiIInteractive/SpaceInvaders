@@ -30,8 +30,9 @@ void GameHandler::startClassicGame() {
     GameObjectGenerator::generateBullets();
     GameObjectHandler::updateBullets();
 
-    GameObjectCollision::checkEnemyCollision();
-    GameObjectCollision::checkAndHandlePlayerCollision();
+    GameObjectCollision::checkEnemyCollisionWithScreen();
+    GameObjectCollision::checkAndHandlePlayerCollisionWithScreen();
+    GameObjectCollision::checkAndHandleBarrierCollisionWithBullets();
     GameObjectCollision::checkBulletCollision();
 
     GameObjectHandler::changeEnemiesShootingSpeed();

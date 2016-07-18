@@ -9,6 +9,7 @@
 class Bullet : public GameObject {
     private:
         bool collided;
+        bool collidedWithBarrier;
     public:
         Bullet(Texture texture, Direction direction, int speed);
 
@@ -17,6 +18,9 @@ class Bullet : public GameObject {
         bool hasCollided();
         bool hasCollidedWithEnemy();
         bool hasCollidedWithPlayer();
+        bool hasCollidedWithBarrier();
+        void setHasCollidedWithBarrier(bool b);
+
 
         void checkCollision();
 };
