@@ -10,6 +10,7 @@ class User
         string username;
         string password;
         int highScore;
+        int currentLevel;
 
     public:
         User();
@@ -18,10 +19,12 @@ class User
         string GetUsername();
         string GetPassword();
         int GetHighScore();
+        int GetCurrentLevel();
 
         void SetUsername(string username);
         void SetPassword(string password);
         void SetNewHighScore(int newScore);
+        void SetCurrentLevel(int lvl);
 };
 
 #endif // USER_H_INCLUDED

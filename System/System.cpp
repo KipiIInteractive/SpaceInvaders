@@ -20,6 +20,8 @@ TTF_Font *System::Fonts::Labels = NULL;
 TTF_Font *System::Fonts::Errors = NULL;
 TTF_Font *System::Fonts::Score = NULL;
 
+User System::Users::Current;
+
 SDL_Texture *System::CreateTexture(std::string filePath, SDL_Renderer* textureRenderer)
 {
     SDL_Surface *temp_surface = IMG_Load(filePath.c_str());

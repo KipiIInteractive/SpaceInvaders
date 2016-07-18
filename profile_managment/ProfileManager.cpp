@@ -27,7 +27,7 @@ bool ProfileManager::CreateNewProfile(string username, string password)
 
     ofstream userFile;
     userFile.open("Users/" + newUser.GetUsername() + USER_FILES_EXTENSION);
-    userFile << newUser.GetPassword() << ' ' << 0 << '\n';
+    userFile << newUser.GetPassword() << ' ' << 0 << ' ' << 1 << '\n';
     userFile.close();
 
     return true;
@@ -60,11 +60,13 @@ void ProfileManager::LoadTheUsersData()
 
             string password;
             int highScore;
+            int currentLevel;
 
-            while (file >> password >> highScore)
+            while (file >> password >> highScore >> currentLevel)
             {
                 tmpUser.SetPassword(password);
                 tmpUser.SetNewHighScore(highScore);
+                tmpUser.SetCurrentLevel(currentLevel);
                 Users.push_back(tmpUser);
             }
 
@@ -85,6 +87,10 @@ bool ProfileManager::LogIn(string username, string password)
         {
             if(currentUser.GetPassword() == password)
             {
+                System::Users::Current.SetCurrentLevel(currentUser.GetCurrentLevel());
+                System::Users::Current.SetUsername(currentUser.GetUsername());
+                System::Users::Current.SetNewHighScore(currentUser.GetHighScore());
+                System::Users::Current.SetPassword(currentUser.GetPassword());
                 return true;
             }
         }

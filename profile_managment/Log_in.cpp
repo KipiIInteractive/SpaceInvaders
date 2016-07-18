@@ -236,6 +236,7 @@ void LoginWindow::LogIn()
         LoginWindow::Text_Error.SetFont(System::Fonts::Errors);
         LoginWindow::Text_Error.SetX(System::Screen::Width / 2 - LoginWindow::Text_Error.GetWidth() / 2);
 
+        LoginWindow::isActive = false;
         Game::StartGame();
     }
 }

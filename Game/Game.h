@@ -9,6 +9,7 @@
 #include "../fps_conroller/FPS_Controller.h"
 #include "../GUI/Label.h"
 #include "../sounds_management/SoundManager.h"
+#include "GameOverWindow.h"
 #include <string>
 
 class Game
@@ -16,6 +17,7 @@ class Game
     public:
         static void StartGame();
         static void Init();
+        static void FreeCurrentLevel();
         static SDL_Rect Pannel;
         static Barrier *barriers[];
         static int score;
@@ -24,6 +26,8 @@ class Game
     private:
         static Label ScoreText;
         static Label LevelText;
+        static Label LivesText;
+
         static int framesToShowTheLevelNumber;
 
         static void RenderEverything();

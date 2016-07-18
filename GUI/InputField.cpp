@@ -54,15 +54,6 @@ void InputField::Input()
         else if(System::event.key.keysym.sym == SDLK_TAB)
             this->isTabPressed = true;
 
-        if(System::event.key.keysym.sym == SDLK_LSHIFT)
-        {
-            SDL_Delay(1000);
-            if(System::event.key.keysym.sym == SDLK_a)
-            {
-                cout << "ASD";
-            }
-        }
-
         else if((System::event.key.keysym.sym >= SDLK_a && System::event.key.keysym.sym <= SDLK_z)
                 || (System::event.key.keysym.sym >= SDLK_0 && System::event.key.keysym.sym <= SDLK_9))
         {

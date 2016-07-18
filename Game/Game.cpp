@@ -8,6 +8,7 @@ SDL_Rect Game::leftBorder;
 SDL_Rect Game::rightBorder;
 Label Game::ScoreText;
 Label Game::LevelText;
+Label Game::LivesText;
 int Game::score = 0;
 int Game::framesToShowTheLevelNumber = 300;
 int framesAfterStart = 0;
@@ -50,8 +51,8 @@ void Game::Init()
     Game::ScoreText.SetText("Score: " + to_string(Game::score));
     Game::ScoreText.SetColor(255, 255, 255);
     Game::ScoreText.SetFont(System::Fonts::Score);
-    Game::ScoreText.SetX(System::Screen::Width / 2 - Game::ScoreText.GetWidth() / 2);
-    Game::ScoreText.SetY(0);
+    Game::ScoreText.SetX(Game::Pannel.x + 5);
+    Game::ScoreText.SetY(5);
 
     //Initialize the FPS regulation controller
     Game::fps = new FPS_Controller(60);
@@ -61,14 +62,21 @@ void Game::Init()
 
 void Game::StartGame()
 {
-    LevelManager::LoadLevel(LevelManager::GetCurrentLevel());
+    LevelManager::LoadLevel(System::Users::Current.GetCurrentLevel());
 
     //Initialize the level text
-    Game::LevelText.SetText("Level " + to_string(LevelManager::GetCurrentLevel()));
+    Game::LevelText.SetText("Level " + to_string(System::Users::Current.GetCurrentLevel()));
     Game::LevelText.SetColor(255, 20, 20);
     Game::LevelText.SetFont(System::Fonts::Score);
-    Game::LevelText.SetX(System::Screen::Width / 2 - Game::ScoreText.GetWidth() / 2);
+    Game::LevelText.SetX(System::Screen::Width / 2 - Game::LevelText.GetWidth() / 2);
     Game::LevelText.SetY(System::Screen::Height / 10);
+
+    //Initialize the left lives text
+    Game::LivesText.SetText("Lives: " + to_string(Player::lives));
+    Game::LivesText.SetColor(255, 255, 255);
+    Game::LivesText.SetFont(System::Fonts::Score);
+    Game::LivesText.SetX(Game::Pannel.x + Game::Pannel.w - System::GetSurfaceWidth() - 5);
+    Game::LivesText.SetY(5);
 
     Player::Init();
 
@@ -80,7 +88,13 @@ void Game::StartGame()
 
         Game::ScoreText.SetText("Score: " + to_string(Game::score));
         Game::ScoreText.SetFont(System::Fonts::Score);
-        Game::ScoreText.SetX(System::Screen::Width / 2 - Game::ScoreText.GetWidth() / 2);
+
+        Game::LivesText.SetText("Lives: " + to_string(Player::lives));
+        Game::LivesText.SetColor(255, 255, 255);
+        Game::LivesText.SetFont(System::Fonts::Score);
+
+        Game::LevelText.SetText("Level " + to_string(System::Users::Current.GetCurrentLevel()));
+        Game::LevelText.SetFont(System::Fonts::Score);
 
         AliensManager::Move();
         BulletsManager::UpdateAll();
@@ -99,13 +113,19 @@ void Game::StartGame()
         Game::RenderEverything();
         SDL_RenderPresent(System::renderer);
 
-
+        //Go to the next level if all the aliens are killed
         if(AliensManager::allAliens.size() == 0)
         {
             framesAfterStart = 0;
             Game::isRunning = false;
-            LevelManager::LoadLevel(LevelManager::GetCurrentLevel() + 1);
+            LevelManager::LoadLevel(System::Users::Current.GetCurrentLevel() + 1);
             Game::Init();
+        }
+        //If the player is dead
+        if(Player::isDead && Player::lives == 0)
+        {
+            Game::isRunning = false;
+            GameOver::Show();
         }
 
         Game::fps->Delay();
@@ -134,6 +154,9 @@ void Game::RenderEverything()
     //Render the score
     Game::ScoreText.Render();
 
+    //Render the lives left
+    Game::LivesText.Render();
+
     //Render the level number
     if(framesAfterStart <= framesToShowTheLevelNumber && framesAfterStart % 1 == 0)
     {
@@ -160,5 +183,24 @@ void Game::GetPlayerInput()
             Player::Shoot();
             canShoot = false;
         }
+    }
+}
+
+void Game::FreeCurrentLevel()
+{
+    delete(&Game::ScoreText);
+    delete(&Game::LevelText);
+    delete(&Game::LivesText);
+
+    for(int i = 0; i < AliensManager::allAliens.size(); i++)
+    {
+        AliensManager::allAliens.erase(AliensManager::allAliens.begin() + i);
+        delete(AliensManager::allAliens[i]);
+    }
+
+    for(int i = 0; i < BulletsManager::allBullets.size(); i++)
+    {
+        BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+        delete(BulletsManager::allBullets[i]);
     }
 }

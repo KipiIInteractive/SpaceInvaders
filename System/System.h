@@ -6,6 +6,7 @@
 #include <SDL_ttf.h>
 #include <windows.h>
 #include <iostream>
+#include "../profile_managment/User.h"
 
 class System
 {
@@ -13,6 +14,12 @@ class System
         static SDL_Window *window;
         static SDL_Renderer *renderer;
         static SDL_Event event;
+
+        class Users
+        {
+            public:
+                static User Current;
+        };
 
         //Screen properties
         class Screen

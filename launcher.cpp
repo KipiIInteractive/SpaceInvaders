@@ -11,9 +11,7 @@ int main(int argc, char ** argv)
     //Go to Log-in window
     LoginWindow::Show();
 
-
-    SoundManager::Close();
-    System::Free();
+    FreeEverything();
 
     Mix_Quit();
     TTF_Quit();
@@ -79,7 +77,7 @@ void InitEverything()
     if(System::Fonts::Errors == NULL)
         std::cout << "Failed to open the halo font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
 
-    System::Fonts::Score = TTF_OpenFont("Resources/Fonts/invaders.ttf", 55);
+    System::Fonts::Score = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
     if(System::Fonts::Score == NULL)
         std::cout << "Failed to open the invaders font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
 
@@ -100,4 +98,16 @@ void InitEverything()
 
     //Initialize the sounds manager
     SoundManager::Init();
+
+    //Initialize the Game over window
+    GameOver::Init();
+
+}
+
+void FreeEverything()
+{
+    SoundManager::Close();
+    GameOver::Free();
+    Player::Free();
+    System::Free();
 }

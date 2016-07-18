@@ -5,6 +5,7 @@ int LevelManager::currentLevel;
 
 #define LEVELS_PATH "Resources/Levels/"
 #define MAX_ALIENS_ON_ROW 15
+#define USER_FILES_EXTENSION ".user_data"
 
 bool LevelManager::FileIsExisting(string filename)
 {
@@ -14,12 +15,10 @@ bool LevelManager::FileIsExisting(string filename)
 
 void LevelManager::InitCurrentLevel()
 {
-    ifstream level((string)LEVELS_PATH + "current.level");
-    level >> LevelManager::currentLevel;
-    level.close();
+    LevelManager::currentLevel = System::Users::Current.GetCurrentLevel();
 }
 
-int LevelManager::GetCurrentLevel() { return currentLevel; }
+int LevelManager::GetCurrentLevel() { return LevelManager::currentLevel; }
 
 bool LevelManager::LoadLevel(int lvl)
 {
@@ -60,11 +59,14 @@ bool LevelManager::LoadLevel(int lvl)
             }
 
             level.close();
+            System::Users::Current.SetCurrentLevel(lvl);
+            LevelManager::InitCurrentLevel();
 
-            ofstream curr_lvl((string)LEVELS_PATH + "current.level");
-            curr_lvl << lvl;
-            curr_lvl.close();
-            LevelManager::currentLevel = lvl;
+            ofstream cl;
+            cl.open("Users/" + System::Users::Current.GetUsername());
+            cl << System::Users::Current.GetPassword() << ' ' << System::Users::Current.GetHighScore() << ' ' << System::Users::Current.GetCurrentLevel() << '\n';
+            cl.close();
+
             return true;
         }
         else return false;

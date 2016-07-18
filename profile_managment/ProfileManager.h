@@ -6,6 +6,7 @@
 #include <list>
 #include <dirent.h>
 #include "User.h"
+#include "../System/System.h"
 using namespace std;
 
 #define USER_FILES_EXTENSION ".user_data"

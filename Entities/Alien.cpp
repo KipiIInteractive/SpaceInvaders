@@ -13,7 +13,7 @@ Alien::Alien(int type, int pos_x, int pos_y)
     this->rect.x = pos_x;
     this->rect.y = pos_y;
     this->rect.w = (Game::Pannel.w - MAX_ALIENS_ON_ROW * 5) / MAX_ALIENS_ON_ROW;
-    this->rect.h = this->rect.w;
+    this->rect.h = this->rect.w / 1.3;
 
     SDL_QueryTexture(this->texture, NULL, NULL, &frame.w, &frame.h);
     this->frame.w /= 2;
@@ -55,7 +55,7 @@ void Alien::Shoot()
         if( rand() % 45  == 22 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 35)
@@ -63,7 +63,7 @@ void Alien::Shoot()
         if( rand() % 40  == 20 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 30)
@@ -71,7 +71,7 @@ void Alien::Shoot()
         if( rand() % 30  == 15 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 25)
@@ -79,7 +79,7 @@ void Alien::Shoot()
         if( rand() % 25  == 12 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 20)
@@ -87,7 +87,7 @@ void Alien::Shoot()
         if( rand() % 20  == 10 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 15)
@@ -95,7 +95,7 @@ void Alien::Shoot()
         if( rand() % 18  == 9 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 10)
@@ -103,7 +103,7 @@ void Alien::Shoot()
         if( rand() % 16  ==  8)
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else if(AliensManager::allAliens.size() >= 5)
@@ -111,7 +111,7 @@ void Alien::Shoot()
         if( rand() % 14  == 7 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
     else
@@ -119,7 +119,7 @@ void Alien::Shoot()
         if( rand() % 12  == 6 )
         {
             ///SoundManager::Play(SoundManager::Sounds::Shoot);
-            BulletsManager::AddNewBullet(10, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
         }
     }
 

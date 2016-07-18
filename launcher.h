@@ -14,7 +14,9 @@
 #include "Entities/Player.h"
 #include "Game/Game.h"
 #include "sounds_management/SoundManager.h"
+#include "Game/GameOverWindow.h"
 
 void InitEverything();
+void FreeEverything();
 
 #endif // LAUNCHER_H_INCLUDED
