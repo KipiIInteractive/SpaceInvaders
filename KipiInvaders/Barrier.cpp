@@ -146,32 +146,36 @@ void Barrier::checkAndHandleCollisionWithBullets() {
         if(bullets[i]->getX() + bullets[i]->getWidth() > _BTopLeftCornerPos.x
             && bullets[i]->getX() < _BTopLeftCornerPos.x + _BTopLeftCorner.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BTopLeftCornerPos.y
-                                                            : bullets[i]->getY() <= _BTopLeftCornerPos.y + _BTopLeftCorner.getHeight()) ) {
+                                                            : bullets[i]->getY() <= _BTopLeftCornerPos.y + _BTopLeftCorner.getHeight())) {
             _BTopLeftCornerHitCounter++;
             if(_BTopLeftCornerHitCounter < 3) {
                 _BTopLeftCorner.loadFromFile("./images/upperLeftCorner" + to_string(_BTopLeftCornerHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BTopLeftCornerHitCounter = 3;
+            else if(_BTopLeftCornerHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BTopLeftCornerHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BTopRightCornerPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BTopRightCornerPos.x
             && bullets[i]->getX() < _BTopRightCornerPos.x + _BTopRightCorner.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BTopRightCornerPos.y
                                                             : bullets[i]->getY() <= _BTopRightCornerPos.y + _BTopRightCorner.getHeight())) {
             _BTopRightCornerHitCounter++;
             if(_BTopRightCornerHitCounter < 3) {
-                _BTopLeftCorner.loadFromFile("./images/upperRightCorner" + to_string(_BTopLeftCornerHitCounter) + ".png");
+                _BTopRightCorner.loadFromFile("./images/upperRightCorner" + to_string(_BTopRightCornerHitCounter) + ".png");
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
+            else if(_BTopRightCornerHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else {
                 _BTopRightCornerHitCounter = 3;
-                bullets[i]->setHasCollidedWithBarrier(true);
             }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BBottomLeftPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BBottomLeftPos.x
             && bullets[i]->getX() < _BBottomLeftPos.x + _BBottomLeft.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BBottomLeftPos.y
                                                             : bullets[i]->getY() <= _BBottomLeftPos.y + _BBottomLeft.getHeight())) {
@@ -180,12 +184,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BBottomLeft.loadFromFile("./images/fullSquare" + to_string(_BBottomLeftHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BBottomLeftHitCounter = 3;
+            else if(_BBottomLeftHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BBottomLeftHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BBottomRightPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BBottomRightPos.x
             && bullets[i]->getX() < _BBottomRightPos.x + _BBottomRight.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BBottomRightPos.y
                                                             : bullets[i]->getY() <= _BBottomRightPos.y + _BBottomRight.getHeight())) {
@@ -194,12 +200,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BBottomRight.loadFromFile("./images/fullSquare" + to_string(_BBottomRightHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BBottomRightHitCounter = 3;
+            else if(_BBottomRightHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BBottomRightHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BMiddleLeftPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BMiddleLeftPos.x
             && bullets[i]->getX() < _BMiddleLeftPos.x + _BMiddleLeft.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BMiddleLeftPos.y
                                                             : bullets[i]->getY() <= _BMiddleLeftPos.y + _BMiddleLeft.getHeight())) {
@@ -208,12 +216,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BMiddleLeft.loadFromFile("./images/fullSquare" + to_string(_BMiddleLeftHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BMiddleLeftHitCounter = 3;
+            else if(_BMiddleLeftHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BMiddleLeftHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BMiddleRightPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BMiddleRightPos.x
             && bullets[i]->getX() < _BMiddleRightPos.x + _BMiddleRight.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BMiddleRightPos.y
                                                             : bullets[i]->getY() <= _BMiddleRightPos.y + _BMiddleRight.getHeight())) {
@@ -222,12 +232,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BMiddleRight.loadFromFile("./images/fullSquare" + to_string(_BMiddleRightHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BMiddleRightHitCounter = 3;
+            else if(_BMiddleRightHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BMiddleRightHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerBottomLeftPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerBottomLeftPos.x
             && bullets[i]->getX() < _BInnerBottomLeftPos.x + _BInnerBottomLeft.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerBottomLeftPos.y
                                                             : bullets[i]->getY() <= _BInnerBottomLeftPos.y + _BInnerBottomLeft.getHeight())) {
@@ -236,12 +248,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BInnerBottomLeft.loadFromFile("./images/innerLeftCorner" + to_string(_BInnerBottomLeftHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BInnerBottomLeftHitCounter = 3;
+            else if(_BInnerBottomLeftHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BInnerBottomLeftHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerBottomRightPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerBottomRightPos.x
             && bullets[i]->getX() < _BInnerBottomRightPos.x + _BInnerBottomRight.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerBottomRightPos.y
                                                             : bullets[i]->getY() <= _BInnerBottomRightPos.y + _BInnerBottomRight.getHeight())) {
@@ -250,12 +264,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BInnerBottomRight.loadFromFile("./images/innerRightCorner" + to_string(_BInnerBottomRightHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BInnerBottomRightHitCounter = 3;
+            else if(_BInnerBottomRightHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BInnerBottomRightHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerTopLeftPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerTopLeftPos.x
             && bullets[i]->getX() < _BInnerTopLeftPos.x + _BInnerTopLeft.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerTopLeftPos.y
                                                             : bullets[i]->getY() <= _BInnerTopLeftPos.y + _BInnerTopLeft.getHeight())) {
@@ -264,12 +280,14 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BInnerTopLeft.loadFromFile("./images/fullSquare" + to_string(_BInnerTopLeftHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
-            else {
-                _BInnerTopLeftHitCounter = 3;
+            else if(_BInnerTopLeftHitCounter == 3){
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else {
+                _BInnerTopLeftHitCounter = 3;
+            }
         }
-        else if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerTopRightPos.x
+        if(bullets[i]->getX() + bullets[i]->getWidth() > _BInnerTopRightPos.x
             && bullets[i]->getX() < _BInnerTopRightPos.x + _BInnerTopRight.getWidth()
             && (bullets[i]->getMovementDirection() == DOWN ? bullets[i]->getY() + bullets[i]->getHeight() >= _BInnerTopRightPos.y
                                                             : bullets[i]->getY() <= _BInnerTopRightPos.y + _BInnerTopRight.getHeight())) {
@@ -278,9 +296,11 @@ void Barrier::checkAndHandleCollisionWithBullets() {
                 _BInnerTopRight.loadFromFile("./images/fullSquare" + to_string(_BInnerTopRightHitCounter) + ".png");
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
+            else if(_BInnerTopRightHitCounter == 3){
+                bullets[i]->setHasCollidedWithBarrier(true);
+            }
             else {
                 _BInnerTopRightHitCounter = 3;
-                bullets[i]->setHasCollidedWithBarrier(true);
             }
         }
     }
