@@ -7,13 +7,9 @@ GameObject::GameObject() {
     _GORect.h = 0;
     _GOVelocity = 0;
     _GODirection = NONE;
-    _GOCollidedWithScreen = false;
+    _GOCollidedWithScreenHorizontally = false;
+    _GOCollidedWithScreenVertically = false;
 };
-
-GameObject::~GameObject() {
-    _GOTexture.free();
-    delete (&_GORect);
-}
 
 void GameObject::setPosition(int x, int y) { _GORect.x = x;
                                             _GORect.y = y; }
@@ -36,18 +32,18 @@ Direction GameObject::getMovementDirection() { return _GODirection; }
 
 void GameObject::render() { _GOTexture.render(_GORect.x, _GORect.y); }
 
-void GameObject::checkAndHandleCollisionWithScreen() {
+void GameObject::checkAndHandleCollisionWithScreenHorizontally() {
     if(_GORect.x < System::LEFT_X_BORDER) {
-        _GOCollidedWithScreen = true;
+        _GOCollidedWithScreenHorizontally = true;
         _GORect.x = System::LEFT_X_BORDER;
     }
     else if(_GORect.x + _GORect.w > System::RIGHT_X_BORDER) {
-        _GOCollidedWithScreen = true;
+        _GOCollidedWithScreenHorizontally = true;
         _GORect.x = System::RIGHT_X_BORDER - _GORect.w;
     }
     else {
-        _GOCollidedWithScreen = false;
+        _GOCollidedWithScreenHorizontally = false;
     }
 }
 
-bool GameObject::hasCollidedWithScreen() { return _GOCollidedWithScreen; }
+bool GameObject::hasCollidedWithScreenHorizontally() { return _GOCollidedWithScreenHorizontally; }

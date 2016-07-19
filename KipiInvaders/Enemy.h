@@ -16,13 +16,13 @@ private:
     bool _EShoot;
     bool _EHasBeenHit;
 public:
-    Enemy(Texture t, EnemyType type, Direction dir, int points);
+    Enemy(Texture& t, EnemyType type, Direction dir, int points);
 
     static int _EOffset;
 
-    void setHasCollidedWithScreen(bool b);
+    void setHasCollidedWithScreenHorizontally(bool b);
     void checkCollisionWithScreen();
-    void handleCollisionWithScreen();
+    void handleCollisionWithScreenHorizontally();
 
     void setIsAlive(bool b);
     bool isAlive();
@@ -39,7 +39,7 @@ public:
 
     void update();
 
-    void renderWithClipAndTexture(SDL_Rect *clip, Texture t);
+    void renderWithClipAndTexture(SDL_Rect *clip, Texture& t);
 };
 
 

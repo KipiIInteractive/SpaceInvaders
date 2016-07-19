@@ -33,9 +33,11 @@ void GameLoop::run() {
                             isPaused = false;
                             GameHandler::resetGame();
                         }
+                        else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
+                            isPaused = false;
+                        }
                     }
                     else {
-                        GameHandler::handleClassicGameEvents(&e);
                         if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = true;
                         }
@@ -56,7 +58,6 @@ void GameLoop::run() {
                         }
                     }
                     else {
-                        GameHandler::handleSurvivalGameEvents(&e);
                         if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = true;
                         }

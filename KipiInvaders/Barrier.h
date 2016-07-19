@@ -49,7 +49,6 @@ class Barrier {
     bool destroyed;
 public:
     Barrier();
-    ~Barrier();
 
     bool loadInitialTextures();
 
@@ -61,7 +60,11 @@ public:
     int getX();
     int getY();
 
+    void resetHitCounters();
+
     bool isDestroyed();
+
+    void update();
 
     void checkAndHandleCollisionWithBullets();
 

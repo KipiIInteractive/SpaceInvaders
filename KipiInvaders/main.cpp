@@ -6,6 +6,7 @@ int main(int argc, char *argv[])
         if(LoadMedia::load()) {
             GameLoop::run();
         }
+        ShutdownSDL::shutdown();
     }
     return 0;
 }

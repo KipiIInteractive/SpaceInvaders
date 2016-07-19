@@ -1,6 +1,7 @@
 #include "Barrier.h"
 
-Barrier::Barrier() {
+Barrier::Barrier() : _BTopLeftCorner(), _BTopRightCorner(), _BBottomLeft(), _BBottomRight(), _BMiddleLeft(),
+                    _BMiddleRight(), _BInnerTopLeft(), _BInnerTopRight(), _BInnerBottomLeft(), _BInnerBottomRight(){
     _BRect.x = 0;
     _BRect.y = 0;
     _BRect.w = 0;
@@ -16,30 +17,6 @@ Barrier::Barrier() {
     _BInnerBottomLeftHitCounter = 0;
     _BInnerBottomRightHitCounter = 0;
     destroyed = false;
-}
-
-Barrier::~Barrier() {
-    delete &(_BRect);
-    delete &(_BTopLeftCornerPos);
-    delete &(_BTopRightCornerPos);
-    delete &(_BBottomLeftPos);
-    delete &(_BBottomRightPos);
-    delete &(_BMiddleLeftPos);
-    delete &(_BMiddleRightPos);
-    delete &(_BInnerBottomLeftPos);
-    delete &(_BInnerBottomRightPos);
-    delete &(_BInnerTopLeftPos);
-    delete &(_BInnerTopRightPos);
-    _BTopLeftCorner.free();
-    _BTopRightCorner.free();
-    _BBottomLeft.free();
-    _BBottomRight.free();
-    _BMiddleLeft.free();
-    _BMiddleRight.free();
-    _BInnerTopLeft.free();
-    _BInnerTopRight.free();
-    _BInnerBottomLeft.free();
-    _BInnerBottomRight.free();
 }
 
 bool Barrier::loadInitialTextures() {
@@ -140,6 +117,28 @@ int Barrier::getX() { return _BRect.x; }
 int Barrier::getY() { return _BRect.y; }
 
 bool Barrier::isDestroyed() { return destroyed; }
+
+void Barrier::resetHitCounters() {
+    _BTopLeftCornerHitCounter = 0;
+    _BTopRightCornerHitCounter = 0;
+    _BBottomLeftHitCounter = 0;
+    _BBottomRightHitCounter = 0;
+    _BMiddleLeftHitCounter = 0;
+    _BMiddleRightHitCounter = 0;
+    _BInnerBottomLeftHitCounter = 0;
+    _BInnerBottomRightHitCounter = 0;
+    _BInnerTopLeftHitCounter = 0;
+    _BInnerTopRightHitCounter = 0;
+}
+
+void Barrier::update() {
+    if(_BTopLeftCornerHitCounter >= 3 && _BTopRightCornerHitCounter >= 3 && _BBottomLeftHitCounter >= 3
+       && _BBottomRightHitCounter >= 3 && _BMiddleLeftHitCounter >= 3 && _BMiddleRightHitCounter >= 3
+       && _BInnerBottomLeftHitCounter >= 3 && _BInnerBottomRightHitCounter >= 3 && _BInnerTopLeftHitCounter >= 3
+       && _BInnerTopRightHitCounter >= 3) {
+        destroyed = true;
+    }
+}
 
 void Barrier::checkAndHandleCollisionWithBullets() {
     for(unsigned i = 0; i < bullets.size(); i++) {

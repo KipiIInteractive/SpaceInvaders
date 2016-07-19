@@ -10,10 +10,10 @@ protected:
     SDL_Rect _GORect;
     int _GOVelocity;
     Direction _GODirection;
-    bool _GOCollidedWithScreen;
+    bool _GOCollidedWithScreenHorizontally;
+    bool _GOCollidedWithScreenVertically;
 public:
     GameObject();
-    virtual ~GameObject();
 
     void setPosition(int x, int y);
     int getX();
@@ -30,8 +30,8 @@ public:
     void setMovementDirection(Direction dir);
     Direction getMovementDirection();
 
-    void checkAndHandleCollisionWithScreen();
-    bool hasCollidedWithScreen();
+    void checkAndHandleCollisionWithScreenHorizontally();
+    bool hasCollidedWithScreenHorizontally();
 
     virtual void update() = 0;
 

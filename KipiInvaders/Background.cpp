@@ -1,15 +1,10 @@
 #include "Background.h"
 
-Background::Background() {
+Background::Background() : _BTexture() {
     _BClip.x = 0;
     _BClip.y = 0;
     _BClip.w = 0;
     _BClip.h = 0;
-}
-
-Background::~Background() {
-    _BTexture.free();
-    delete &(_BClip);
 }
 
 bool Background::loadBackgroundFromFile(string path) {

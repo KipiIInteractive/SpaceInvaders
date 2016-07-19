@@ -5,6 +5,7 @@
 #include "GameResources.h"
 #include "BulletResources.h"
 #include "PlayerResources.h"
+#include "BarrierResources.h"
 
 class GameObjectHandler {
 public:
@@ -13,6 +14,7 @@ public:
     static void updateEnemies();
     static void updatePlayer();
     static void updateBullets();
+    static void updateBarriers();
 
     static void changeEnemiesShootingSpeed();
     static void changeEnemiesMovementSpeed();

@@ -15,6 +15,7 @@ class Texture {
     string _TText;
 public:
     Texture();
+    ~Texture();
 
     bool loadFromFile(string path);
 

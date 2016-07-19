@@ -9,7 +9,6 @@ private:
     SDL_Rect _BClip;
 public:
     Background();
-    ~Background();
 
     //Background initialization
     bool loadBackgroundFromFile(string path);

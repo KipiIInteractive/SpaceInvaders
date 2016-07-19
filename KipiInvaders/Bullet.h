@@ -11,16 +11,16 @@ class Bullet : public GameObject {
         bool collided;
         bool collidedWithBarrier;
     public:
-        Bullet(Texture texture, Direction direction, int speed);
+        Bullet(Texture& texture, Direction direction, int speed);
 
         void update();
 
         bool hasCollided();
+        void setHasCollided(bool b);
         bool hasCollidedWithEnemy();
         bool hasCollidedWithPlayer();
         bool hasCollidedWithBarrier();
         void setHasCollidedWithBarrier(bool b);
-
 
         void checkCollision();
 };

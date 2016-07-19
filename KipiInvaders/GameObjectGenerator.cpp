@@ -3,7 +3,7 @@
 //Game vars
 int ENEMY_ROWS = 0;
 int MAX_ALIENS_ON_ROW = 0;
-int SHOOTING_RNG = 5000;
+int SHOOTING_RNG = 4000;
 int ENEMY_MOVEMENT_SPEED = 0;
 int ENEMY_SHOOTING_SPEED = 0;
 int REMAINING_ENEMIES = 0;
@@ -14,6 +14,10 @@ Enemy* UFO = NULL;
 vector<Bullet*> bullets;
 
 Player* player = NULL;
+
+Barrier* barrier1 = NULL;
+Barrier* barrier2 = NULL;
+Barrier* barrier3 = NULL;
 
 bool GameObjectGenerator::enemiesGenerated = false;
 bool GameObjectGenerator::UFOGenerated = false;
@@ -78,6 +82,7 @@ void GameObjectGenerator::generatePlayer() {
     if(!GameObjectGenerator::playerGenerated) {
         player = new Player(/* texture = */ gPlayerTexture,
                             /* lives = */ 3);
+
         player->setWidth(70);
         player->setHeight(40);
         player->setPosition((System::SCREEN_WIDTH - player->getWidth())/2,
@@ -117,15 +122,26 @@ void GameObjectGenerator::generateBullets() {
 
 void GameObjectGenerator::generateBarriers() {
     if(!GameObjectGenerator::barriersGenerated) {
-        barrier1->setPosition(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier1->getWidth())/2,
+        barrier1 = new Barrier();
+        if(barrier1->loadInitialTextures()) {
+            barrier1->setDimensions();
+            barrier1->setPosition(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier1->getWidth())/2,
                               System::SCREEN_HEIGHT - 3*barrier1->getHeight());
+        }
 
-        barrier2->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier2->getWidth())/2,
+        barrier2 = new Barrier();
+        if(barrier2->loadInitialTextures()) {
+            barrier2->setDimensions();
+            barrier2->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier2->getWidth())/2,
                               System::SCREEN_HEIGHT - 3*barrier2->getHeight());
+        }
 
-        barrier3->setPosition(System::LEFT_X_BORDER + 2*(System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier3->getWidth())/2,
+        barrier3 = new Barrier();
+        if(barrier3->loadInitialTextures()) {
+            barrier3->setDimensions();
+            barrier3->setPosition(System::LEFT_X_BORDER + 2*(System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 + ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/3 - barrier3->getWidth())/2,
                             System::SCREEN_HEIGHT - 3*barrier3->getHeight());
-
+        }
         GameObjectGenerator::barriersGenerated = true;
     }
 }

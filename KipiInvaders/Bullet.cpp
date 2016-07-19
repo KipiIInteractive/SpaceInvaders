@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-Bullet::Bullet(Texture texture, Direction direction, int speed)
+Bullet::Bullet(Texture& texture, Direction direction, int speed)
 {
     _GODirection = direction;
     _GOTexture = texture;
@@ -18,6 +18,7 @@ void Bullet::update() {
 }
 
 bool Bullet::hasCollided() { return collided; }
+void Bullet::setHasCollided(bool b) { collided = b; }
 
 bool Bullet::hasCollidedWithEnemy() {
     for(unsigned int i = 0; i < enemies.size(); i++) {

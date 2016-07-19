@@ -85,6 +85,8 @@
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
 		<Unit filename="PlayerResources.h" />
+		<Unit filename="ShutdownSDL.cpp" />
+		<Unit filename="ShutdownSDL.h" />
 		<Unit filename="System.cpp" />
 		<Unit filename="System.h" />
 		<Unit filename="Texture.cpp" />

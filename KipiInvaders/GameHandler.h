@@ -10,11 +10,10 @@
 
 class GameHandler {
 public:
+    static bool gameOver;
+
     static void startClassicGame();
     static void startSurvivalGame();
-
-    static void handleClassicGameEvents(SDL_Event* e);
-    static void handleSurvivalGameEvents(SDL_Event* e);
 
     static void resetGame();
     static void shutdownGame();

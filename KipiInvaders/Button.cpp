@@ -10,14 +10,6 @@ Button::Button() {
     clicked = false;
 }
 
-Button::~Button() {
-    _BTexture.free();
-    delete &(_BPosition);
-    delete &(_BColor);
-    delete &(_BClip);
-    clicked = false;
-}
-
 bool Button::loadButtonFromFile(string path) {
     return _BTexture.loadFromFile(path);
 }

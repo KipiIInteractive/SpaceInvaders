@@ -12,7 +12,6 @@ protected:
     bool clicked;
 public:
     Button();
-    ~Button();
 
     //Button Initialization
     bool loadButtonFromFile(string path);

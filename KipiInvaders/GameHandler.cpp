@@ -1,5 +1,7 @@
 #include "GameHandler.h"
 
+bool GameHandler::gameOver = false;
+
 void GameHandler::startClassicGame() {
     gMenuBackground.render(0, 0);
 
@@ -8,8 +10,11 @@ void GameHandler::startClassicGame() {
         if(LevelManager::LoadLevel(LevelManager::GetCurrentLevel())) {
             LevelManager::renderedLevel = false;
             GameObjectGenerator::enemiesGenerated = false;
-            SHOOTING_RNG = 5000;
+            SHOOTING_RNG = 4000;
             ENEMY_ANIMATION_FRAMES = 50;
+        }
+        else {
+            GameHandler::gameOver = true;
         }
         LevelManager::loadNextLevel = false;
     }
@@ -29,9 +34,10 @@ void GameHandler::startClassicGame() {
     GameObjectHandler::updatePlayer();
     GameObjectGenerator::generateBullets();
     GameObjectHandler::updateBullets();
+    GameObjectHandler::updateBarriers();
 
     GameObjectCollision::checkEnemyCollisionWithScreen();
-    GameObjectCollision::checkAndHandlePlayerCollisionWithScreen();
+    GameObjectCollision::checkAndHandlePlayerCollisionWithScreenHorizontally();
     GameObjectCollision::checkAndHandleBarrierCollisionWithBullets();
     GameObjectCollision::checkBulletCollision();
 
@@ -67,25 +73,69 @@ void GameHandler::startClassicGame() {
         }
         LevelManager::loadNextLevel = true;
     }
+    else if(player->getLives() == 0) {
+        GameHandler::gameOver = true;
+    }
 }
 
 void GameHandler::startSurvivalGame() {
 
 }
 
-void GameHandler::handleClassicGameEvents(SDL_Event *e) {
-    //player->handleEvents(e);
-}
-
-void GameHandler::handleSurvivalGameEvents(SDL_Event* e) {
-
-}
-
 void GameHandler::resetGame() {
+    if(LevelManager::GetCurrentLevel() != 1) {
+        ofstream file("./levels/current.level");
+        if(file.is_open()) {
+            file << 1;
+            file.close();
+        }
+        LevelManager::InitCurrentLevel();
+        if(LevelManager::LoadLevel(LevelManager::GetCurrentLevel())) {
+            LevelManager::renderedLevel = false;
+            SHOOTING_RNG = 4000;
+            ENEMY_ANIMATION_FRAMES = 50;
+        }
+    }
+    int y;
+    for(int i = 0; i < ENEMY_ROWS; i++) {
+        for(int j = 0; j < MAX_ALIENS_ON_ROW; j++) {
+            if(!enemies[j+(i*MAX_ALIENS_ON_ROW)]->isAlive()) {
+                enemies[j+(i*MAX_ALIENS_ON_ROW)]->setIsAlive(true);
+            }
+            y = enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight()*i + (i == 0 ? 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 : 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 + 20*(i));
+            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*gJellyfish1Clip.w - 5*(MAX_ALIENS_ON_ROW-1))/2 + gJellyfish1Clip.w*(j) + 5*j, y);
+            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setVelocity(ENEMY_MOVEMENT_SPEED);
+        }
+    }
 
+    UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 20)
+                                            : UFO->setPosition(System::SCREEN_WIDTH, 20);
+
+    player->setPosition((System::SCREEN_WIDTH - player->getWidth())/2,
+                             System::SCREEN_HEIGHT - player->getHeight() - 20);
+    player->resetScore();
+    player->resetLives();
+
+    for(unsigned int i = 0; i < bullets.size(); i++) {
+        bullets[i]->setHasCollided(true);
+    }
+
+    barrier1->loadInitialTextures();
+    barrier1->resetHitCounters();
+
+    barrier2->loadInitialTextures();
+    barrier2->resetHitCounters();
+
+    barrier3->loadInitialTextures();
+    barrier3->resetHitCounters();
 }
 
 void GameHandler::shutdownGame() {
+    ofstream file("./levels/current.level");
+    if(file.is_open()) {
+        file << 1;
+        file.close();
+    }
     for(unsigned int i = 0; i < enemies.size(); i++) {
         delete enemies[i];
     }
@@ -107,9 +157,22 @@ void GameHandler::shutdownGame() {
     if(barrier3 != NULL) {
         delete barrier3;
     }
-    ofstream file("./levels/current.level");
-    if(file.is_open()) {
-        file << 1;
-        file.close();
+    if(player != NULL) {
+        delete player;
+    }
+    if(UFO != NULL) {
+        delete UFO;
+    }
+    if(gUFOSound != NULL) {
+        Mix_FreeChunk(gUFOSound);
+    }
+    if(gPlayerExplosionSound != NULL) {
+        Mix_FreeChunk(gPlayerExplosionSound);
+    }
+    if(gAlienExplosionSound != NULL) {
+        Mix_FreeChunk(gAlienExplosionSound);
+    }
+    if(gLaserSound != NULL) {
+        Mix_FreeChunk(gLaserSound);
     }
 }

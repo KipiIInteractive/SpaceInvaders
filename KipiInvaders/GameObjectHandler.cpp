@@ -51,10 +51,22 @@ void GameObjectHandler::updateBullets() {
     }
 }
 
+void GameObjectHandler::updateBarriers() {
+    if(!barrier1->isDestroyed()) {
+        barrier1->update();
+    }
+    if(!barrier2->isDestroyed()) {
+        barrier2->update();
+    }
+    if(!barrier3->isDestroyed()) {
+        barrier3->update();
+    }
+}
+
 void GameObjectHandler::changeEnemiesShootingSpeed() {
-    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
-        if(SHOOTING_RNG - 1200 > 0) {
-            SHOOTING_RNG -= 1200;
+    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 6) {
+        if(SHOOTING_RNG - 1000 > 0) {
+            SHOOTING_RNG -= 1000;
         }
         else if(SHOOTING_RNG - 200 > 0) {
             SHOOTING_RNG -= 200;
@@ -63,7 +75,7 @@ void GameObjectHandler::changeEnemiesShootingSpeed() {
 }
 
 void GameObjectHandler::changeEnemiesMovementSpeed() {
-    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
+    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 6) {
         if(ENEMY_ANIMATION_FRAMES - 10 > 0) {
            ENEMY_ANIMATION_FRAMES -= 10;
            ENEMY_ANIMATION_FRAMES_COUNTER = 0;
@@ -72,7 +84,7 @@ void GameObjectHandler::changeEnemiesMovementSpeed() {
 }
 
 void GameObjectHandler::changeEnemiesBulletSpeed() {
-    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 8) {
+    if(REMAINING_ENEMIES - GameObjectHandler::getRemainingEnemies() >= 6) {
         REMAINING_ENEMIES = GameObjectHandler::getRemainingEnemies();
         ENEMY_SHOOTING_SPEED += 1;
     }

@@ -7,6 +7,10 @@ Texture::Texture() {
     _TText = "";
 }
 
+Texture::~Texture() {
+    Texture::free();
+}
+
 bool Texture::loadFromFile(string path) {
     SDL_Texture* finalTexture = NULL;
 
@@ -102,5 +106,7 @@ void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double
 }
 
 void Texture::free() {
-    SDL_DestroyTexture(_Texture);
+    if(_Texture != NULL) {
+        SDL_DestroyTexture(_Texture);
+    }
 }

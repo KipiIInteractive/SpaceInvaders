@@ -2,7 +2,7 @@
 
 int PLAYER_DESTROYED_FRAMES_COUNTER = 0;
 
-Player::Player(Texture t, int lives) {
+Player::Player(Texture& t, int lives) {
     _GOTexture = t;
     _PLives = lives;
     _PCanShoot = true;
@@ -13,6 +13,8 @@ Player::Player(Texture t, int lives) {
 int Player::getLives() { return _PLives; }
 
 void Player::decreaseLives() { _PLives--; }
+
+void Player::resetLives() { _PLives = 3; }
 
 bool Player::isToShooT() { return _PIsToShoot; }
 
@@ -28,7 +30,7 @@ void Player::addToScore(int points) { _PScore += points; }
 
 int Player::getScore() { return _PScore; }
 
-void Player::handleEvents(SDL_Event *e) {}
+void Player::resetScore() { _PScore = 0; }
 
 void Player::update() {
     const Uint8 *keyState = SDL_GetKeyboardState(NULL);
@@ -49,4 +51,4 @@ void Player::update() {
     }
 }
 
-void Player::renderWithTexture(Texture t) { _GOTexture.applyTexture(t.getTexture()); render(); }
+void Player::renderWithTexture(Texture& t) { _GOTexture.applyTexture(t.getTexture()); render(); }

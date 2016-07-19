@@ -11,10 +11,11 @@ private:
     bool _PHasBeenHit;
     int _PScore;
 public:
-    Player(Texture t, int lives);
+    Player(Texture& t, int lives);
 
     int getLives();
     void decreaseLives();
+    void resetLives();
 
     bool isToShooT();
     void setIsToShooT(bool b);
@@ -25,12 +26,13 @@ public:
 
     void addToScore(int points);
     int getScore();
+    void resetScore();
 
     void handleEvents(SDL_Event *e);
 
     void update();
 
-    void renderWithTexture(Texture t);
+    void renderWithTexture(Texture& t);
 };
 
 #endif // PLAYER_H_INCLUDED

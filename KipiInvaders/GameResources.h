@@ -2,7 +2,8 @@
 #define GAMERESOURCES_H_INCLUDED
 
 #include <stdlib.h>     /* srand, rand */
-#include <time.h>      /* time */
+#include <time.h>       /* time */
+#include <SDL_mixer.h>
 #include "Texture.h"
 
 extern int ENEMY_ROWS;

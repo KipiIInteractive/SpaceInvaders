@@ -6,31 +6,31 @@ void GameObjectCollision::checkEnemyCollisionWithScreen() {
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isAlive()) {
             enemies[i]->checkCollisionWithScreen();
-            if(enemies[i]->hasCollidedWithScreen()) {
-                handleEnemyCollisionWithScreen();
+            if(enemies[i]->hasCollidedWithScreenHorizontally()) {
+                handleEnemyCollisionWithScreenHorizontally();
             }
         }
     }
     if(UFO->isAlive()) {
         UFO->checkCollisionWithScreen();
-        if(UFO->hasCollidedWithScreen()) {
+        if(UFO->hasCollidedWithScreenHorizontally()) {
             UFO->setIsAlive(false);
-            UFO->setHasCollidedWithScreen(false);
+            UFO->setHasCollidedWithScreenHorizontally(false);
         }
     }
 }
 
-void GameObjectCollision::handleEnemyCollisionWithScreen() {
+void GameObjectCollision::handleEnemyCollisionWithScreenHorizontally() {
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isAlive()) {
-            enemies[i]->handleCollisionWithScreen();
+            enemies[i]->handleCollisionWithScreenHorizontally();
         }
     }
 }
 
-void GameObjectCollision::checkAndHandlePlayerCollisionWithScreen() {
+void GameObjectCollision::checkAndHandlePlayerCollisionWithScreenHorizontally() {
     if(player->getLives() > 0) {
-        player->checkAndHandleCollisionWithScreen();
+        player->checkAndHandleCollisionWithScreenHorizontally();
     }
 }
 

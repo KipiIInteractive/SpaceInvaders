@@ -9,11 +9,11 @@
 class GameObjectCollision {
 public:
     static void checkEnemyCollisionWithScreen();
-    static void checkAndHandlePlayerCollisionWithScreen();
+    static void checkAndHandlePlayerCollisionWithScreenHorizontally();
     static void checkBulletCollision();
     static void checkAndHandleBarrierCollisionWithBullets();
 
-    static void handleEnemyCollisionWithScreen();
+    static void handleEnemyCollisionWithScreenHorizontally();
     static vector<Bullet*>::iterator handleBulletCollision(vector<Bullet*>::iterator it);
 };
 
