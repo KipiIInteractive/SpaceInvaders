@@ -2,12 +2,17 @@
 
 vector<Bullet*> destroyedBullets;
 
+bool GameObjectCollision::enemyHasCollidedWithScreenVertically = false;
+
 void GameObjectCollision::checkEnemyCollisionWithScreen() {
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isAlive()) {
             enemies[i]->checkCollisionWithScreen();
             if(enemies[i]->hasCollidedWithScreenHorizontally()) {
                 handleEnemyCollisionWithScreenHorizontally();
+            }
+            else if(enemies[i]->hasCollidedWithScreenVertically()) {
+                GameObjectCollision::enemyHasCollidedWithScreenVertically = true;
             }
         }
     }

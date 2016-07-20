@@ -37,6 +37,14 @@ void MenuHandler::showPauseMenu() {
     gMainMenuButton.render();
 }
 
+void MenuHandler::showGameOverMenu() {
+    gMenuBackground.render(0, 0);
+    gGameOverMenuText.render((System::SCREEN_WIDTH - gGameOverMenuText.getWidth())/2,
+                             (System::SCREEN_HEIGHT - gGameOverMenuText.getHeight())/2 - 4*gNewGameButton.getHeight());
+    gNewGameButton.render();
+    gMainMenuButton.render();
+}
+
 void MenuHandler::handleMainMenuEvents(SDL_Event *e) {
     gPlayButton.handleEvents(e);
     gControlsButton.handleEvents(e);
@@ -60,5 +68,10 @@ void MenuHandler::handleRankingMenuEvents(SDL_Event *e) {
 
 void MenuHandler::handlePauseMenuEvents(SDL_Event *e) {
     gResumeButton.handleEvents(e);
+    gMainMenuButton.handleEvents(e);
+}
+
+void MenuHandler::handleGameOverMenuEvents(SDL_Event *e) {
+    gNewGameButton.handleEvents(e);
     gMainMenuButton.handleEvents(e);
 }

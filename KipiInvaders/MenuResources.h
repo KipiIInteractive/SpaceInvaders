@@ -16,5 +16,7 @@ extern Button gResumeButton;
 extern Button gBackButton;
 extern Button gMainMenuButton;
 extern Texture gControlsMenuText[3];
+extern Button gNewGameButton;
+extern Texture gGameOverMenuText;
 
 #endif // MENURESOURCES_H_INCLUDED

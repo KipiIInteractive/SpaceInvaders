@@ -10,7 +10,7 @@ void GameHandler::startClassicGame() {
         if(LevelManager::LoadLevel(LevelManager::GetCurrentLevel())) {
             LevelManager::renderedLevel = false;
             GameObjectGenerator::enemiesGenerated = false;
-            SHOOTING_RNG = 4000;
+            SHOOTING_RNG = 5000;
             ENEMY_ANIMATION_FRAMES = 50;
         }
         else {
@@ -73,8 +73,9 @@ void GameHandler::startClassicGame() {
         }
         LevelManager::loadNextLevel = true;
     }
-    else if(player->getLives() == 0) {
+    else if(player->getLives() == 0 || GameObjectCollision::enemyHasCollidedWithScreenVertically) {
         GameHandler::gameOver = true;
+        GameObjectCollision::enemyHasCollidedWithScreenVertically = false;
     }
 }
 
@@ -90,13 +91,17 @@ void GameHandler::resetGame() {
             file.close();
         }
         LevelManager::InitCurrentLevel();
-        if(LevelManager::LoadLevel(LevelManager::GetCurrentLevel())) {
-            LevelManager::renderedLevel = false;
-            SHOOTING_RNG = 4000;
-            ENEMY_ANIMATION_FRAMES = 50;
+        LevelManager::LoadLevel(LevelManager::GetCurrentLevel());
+    }
+    LevelManager::renderedLevel = false;
+    SHOOTING_RNG = 5000;
+    ENEMY_ANIMATION_FRAMES = 50;
+    int y;
+    for(unsigned int i = ENEMY_ROWS*MAX_ALIENS_ON_ROW; i < enemies.size(); i++) {
+        if(enemies[i]->isAlive()) {
+            enemies[i]->setIsAlive(false);
         }
     }
-    int y;
     for(int i = 0; i < ENEMY_ROWS; i++) {
         for(int j = 0; j < MAX_ALIENS_ON_ROW; j++) {
             if(!enemies[j+(i*MAX_ALIENS_ON_ROW)]->isAlive()) {
@@ -104,7 +109,7 @@ void GameHandler::resetGame() {
             }
             y = enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight()*i + (i == 0 ? 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 : 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 + 20*(i));
             enemies[j+(i*MAX_ALIENS_ON_ROW)]->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*gJellyfish1Clip.w - 5*(MAX_ALIENS_ON_ROW-1))/2 + gJellyfish1Clip.w*(j) + 5*j, y);
-            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setVelocity(ENEMY_MOVEMENT_SPEED);
+            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setMovementDirection(RIGHT);
         }
     }
 

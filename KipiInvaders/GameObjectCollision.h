@@ -8,6 +8,8 @@
 
 class GameObjectCollision {
 public:
+    static bool enemyHasCollidedWithScreenVertically;
+
     static void checkEnemyCollisionWithScreen();
     static void checkAndHandlePlayerCollisionWithScreenHorizontally();
     static void checkBulletCollision();

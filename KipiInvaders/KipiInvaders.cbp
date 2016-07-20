@@ -85,6 +85,8 @@
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
 		<Unit filename="PlayerResources.h" />
+		<Unit filename="RankingSystem.cpp" />
+		<Unit filename="RankingSystem.h" />
 		<Unit filename="ShutdownSDL.cpp" />
 		<Unit filename="ShutdownSDL.h" />
 		<Unit filename="System.cpp" />

@@ -17,9 +17,11 @@ Button gSurvivalGameModeButton;
 Button gBackButton;
 Button gResumeButton;
 Button gMainMenuButton;
+Button gNewGameButton;
 
 //Menu Text
 Texture gControlsMenuText[3];
+Texture gGameOverMenuText;
 
 //Bullet
 Texture gBulletTexture;
@@ -176,6 +178,27 @@ bool LoadMedia::load() {
                                           System::SCREEN_HEIGHT - gMainMenuButton.getHeight(),
                                           gMainMenuButton.getWidth(),
                                           gMainMenuButton.getHeight());
+        }
+
+        if(!gNewGameButton.loadButtonFromText("New Game", color)) {
+            success = false;
+        }
+        else {
+            gNewGameButton.setDimensions((System::SCREEN_WIDTH - gNewGameButton.getWidth())/2,
+                                          (System::SCREEN_HEIGHT - gNewGameButton.getHeight())/2,
+                                          gNewGameButton.getWidth(),
+                                          gNewGameButton.getHeight());
+        }
+
+        TTF_Font* gameOverFont = TTF_OpenFont("./fonts/invaders.ttf",70);
+        if(gameOverFont == NULL) {
+            success = false;
+            cout << TTF_GetError() << endl;
+        }
+        else {
+            if(!gGameOverMenuText.loadFromRenderedText("Game Over!", color, gameOverFont)) {
+                success = false;
+            }
         }
     }
 

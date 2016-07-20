@@ -38,7 +38,22 @@ void GameLoop::run() {
                         }
                     }
                     else {
-                        if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
+                        if(GameHandler::gameOver) {
+                            MenuHandler::handleGameOverMenuEvents(&e);
+                            if(gNewGameButton.isClicked()) {
+                                gNewGameButton.unclick();
+                                GameHandler::resetGame();
+                                GameHandler::gameOver = false;
+                            }
+                            else if(gMainMenuButton.isClicked()) {
+                                gClassicGameModeButton.unclick();
+                                gPlayButton.unclick();
+                                gMainMenuButton.unclick();
+                                GameHandler::resetGame();
+                                GameHandler::gameOver = false;
+                            }
+                        }
+                        else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = true;
                         }
                     }
@@ -93,6 +108,9 @@ void GameLoop::run() {
                 if(isPaused) {
                     MenuHandler::showPauseMenu();
                 }
+                else if(GameHandler::gameOver) {
+                    MenuHandler::showGameOverMenu();
+                }
                 else {
                     GameHandler::startClassicGame();
                 }
@@ -101,7 +119,10 @@ void GameLoop::run() {
                 if(isPaused) {
                     MenuHandler::showPauseMenu();
                 }
-                else {
+                else if(GameHandler::gameOver) {
+                    MenuHandler::showGameOverMenu();
+                }
+                else{
                     GameHandler::startSurvivalGame();
                 }
             }

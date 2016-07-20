@@ -3,7 +3,7 @@
 //Game vars
 int ENEMY_ROWS = 0;
 int MAX_ALIENS_ON_ROW = 0;
-int SHOOTING_RNG = 4000;
+int SHOOTING_RNG = 5000;
 int ENEMY_MOVEMENT_SPEED = 0;
 int ENEMY_SHOOTING_SPEED = 0;
 int REMAINING_ENEMIES = 0;
@@ -105,12 +105,11 @@ void GameObjectGenerator::generateBullets() {
             bullets.push_back(bullet);
             Mix_PlayChannel(-1, gLaserSound, 0);
         }
-        i++;
     }
     if(player->isToShooT()) {
         Bullet* bullet = new Bullet(/* texture = */ gBulletTexture,
                                          /* direction = */UP,
-                                         /* velocity = */ 12);
+                                         /* velocity = */ 13);
         bullet->setWidth(3);
         bullet->setHeight(20);
         bullet->setPosition(player->getX() + player->getWidth()/2 - 3, player->getY());

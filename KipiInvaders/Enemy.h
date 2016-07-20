@@ -23,6 +23,7 @@ public:
     void setHasCollidedWithScreenHorizontally(bool b);
     void checkCollisionWithScreen();
     void handleCollisionWithScreenHorizontally();
+    bool hasCollidedWithScreenVertically();
 
     void setIsAlive(bool b);
     bool isAlive();

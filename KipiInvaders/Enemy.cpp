@@ -19,6 +19,8 @@ Enemy::Enemy(Texture& t, EnemyType type, Direction dir, int points) {
 
 void Enemy::setHasCollidedWithScreenHorizontally(bool b) { _GOCollidedWithScreenHorizontally = b; }
 
+bool Enemy::hasCollidedWithScreenVertically() { return _GOCollidedWithScreenVertically; }
+
 void Enemy::setIsAlive(bool b) { _EAlive = b; }
 
 bool Enemy::isAlive() { return _EAlive; }
@@ -46,7 +48,7 @@ void Enemy::update() {
         }
     }
     else {
-        if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) == 1) {
+        if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) <= 2) {
             _EShoot = true;
         }
         else {
@@ -68,6 +70,10 @@ void Enemy::checkCollisionWithScreen() {
         else {
             _GOCollidedWithScreenHorizontally = false;
         }
+
+        if(_GORect.y + _GORect.h >= System::SCREEN_HEIGHT) {
+            _GOCollidedWithScreenVertically = true;
+        }
     }
     else { // UFO
         if(_GORect.x < -_GORect.w) {
@@ -78,9 +84,6 @@ void Enemy::checkCollisionWithScreen() {
             _GOCollidedWithScreenHorizontally = true;
             _GORect.x = System::SCREEN_WIDTH;
         }
-        else if(_GORect.y + _GORect.h >= System::SCREEN_HEIGHT) {
-            _GOCollidedWithScreenVertically = true;
-        }
         else {
             _GOCollidedWithScreenHorizontally = false;
         }
@@ -88,7 +91,7 @@ void Enemy::checkCollisionWithScreen() {
 }
 
 void Enemy::handleCollisionWithScreenHorizontally() {
-    _GORect.y += _GORect.h/2;
+    _GORect.y += _GORect.h;
     if(_GODirection == RIGHT) {
         _GORect.x -= 4*_EOffset;
         _GODirection = LEFT;
