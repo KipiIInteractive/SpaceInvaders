@@ -64,7 +64,7 @@ void GameObjectRenderer::renderPlayer() {
         }
         else {
             player->setHasBeenHit(false);
-            player->setPosition((System::RIGHT_X_BORDER - System::LEFT_X_BORDER - player->getWidth())/2, System::SCREEN_HEIGHT - player->getHeight() - 20);
+            player->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - player->getWidth())/2, System::SCREEN_HEIGHT - player->getHeight() - 20);
             PLAYER_DESTROYED_FRAMES_COUNTER = 0;
         }
     }

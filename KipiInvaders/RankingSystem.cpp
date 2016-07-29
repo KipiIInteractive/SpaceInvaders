@@ -18,3 +18,10 @@ bool RankingSystem::init() {
     }
     return false;
 }
+
+bool RankingSystem::playerIsEligible() {
+    if(player->getScore() >= RankingSystem::playerScores.back()) {
+        return true;
+    }
+    return false;
+}

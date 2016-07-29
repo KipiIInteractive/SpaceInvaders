@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "PlayerResources.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ public:
     static list<int> playerScores;
 
     static bool init();
+    static bool playerIsEligible();
 };
 
 #endif // RANKINGSYSTEM_H_INCLUDED

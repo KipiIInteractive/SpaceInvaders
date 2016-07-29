@@ -30,19 +30,9 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_dev_lib/include/SDL2" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_image_dev_lib/include/SDL2" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_mixer_dev_lib/include/SDL2" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_ttf_dev_lib/include/SDL2" />
 		</Compiler>
-		<Linker>
-			<Add option="-lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_dev_lib/lib" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_image_dev_lib/lib" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_mixer_dev_lib/lib" />
-			<Add directory="D:/GAMES/CodeBlocksProjects/SDL2_ttf_dev_lib/lib" />
-		</Linker>
 		<Unit filename="Background.cpp" />
 		<Unit filename="Background.h" />
 		<Unit filename="Barrier.cpp" />
@@ -75,6 +65,8 @@
 		<Unit filename="GameResources.h" />
 		<Unit filename="InitSDL.cpp" />
 		<Unit filename="InitSDL.h" />
+		<Unit filename="InputField.cpp" />
+		<Unit filename="InputField.h" />
 		<Unit filename="LevelManager.cpp" />
 		<Unit filename="LevelManager.h" />
 		<Unit filename="LoadMedia.cpp" />

@@ -18,10 +18,17 @@ Button gBackButton;
 Button gResumeButton;
 Button gMainMenuButton;
 Button gNewGameButton;
+Button gSubmitButton;
 
 //Menu Text
 Texture gControlsMenuText[3];
 Texture gGameOverMenuText;
+Texture gSubmitMenuText;
+Texture gFinalScoreText;
+Texture gFinalScoreDigits;
+
+//Menu Input Fields
+InputField gSubmitMenuInputField;
 
 //Bullet
 Texture gBulletTexture;
@@ -199,6 +206,32 @@ bool LoadMedia::load() {
             if(!gGameOverMenuText.loadFromRenderedText("Game Over!", color, gameOverFont)) {
                 success = false;
             }
+        }
+
+        if(!gFinalScoreText.loadFromRenderedText("Final Score: ", color)) {
+            success = false;
+        }
+
+        if(!gSubmitMenuText.loadFromRenderedText("Submit your name:", color)) {
+            success = false;
+        }
+
+        if(!gSubmitMenuInputField.loadFromFile("./images/inputField.jpg")) {
+           success = false;
+        }
+        else {
+            gSubmitMenuInputField.setPosition((System::SCREEN_WIDTH - gSubmitMenuInputField.getWidth())/2,
+                                              (System::SCREEN_HEIGHT - gSubmitMenuInputField.getHeight())/2);
+        }
+
+        if(!gSubmitButton.loadButtonFromText("Submit", color)) {
+            success = false;
+        }
+        else {
+            gSubmitButton.setDimensions((System::SCREEN_WIDTH - gSubmitButton.getWidth())/2,
+                                        gSubmitMenuInputField.getY() + gSubmitButton.getHeight() + 10,
+                                        gSubmitButton.getWidth(),
+                                        gSubmitButton.getHeight());
         }
     }
 

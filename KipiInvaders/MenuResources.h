@@ -3,6 +3,7 @@
 
 #include "Background.h"
 #include "Button.h"
+#include "InputField.h"
 
 //GUI
 extern Background gMenuBackground;
@@ -18,5 +19,11 @@ extern Button gMainMenuButton;
 extern Texture gControlsMenuText[3];
 extern Button gNewGameButton;
 extern Texture gGameOverMenuText;
+extern Texture gFinalScoreText;
+extern Texture gFinalScoreDigits;
+extern Texture gSubmitMenuText;
+extern InputField gSubmitMenuInputField;
+extern Button gSubmitButton;
+
 
 #endif // MENURESOURCES_H_INCLUDED

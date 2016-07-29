@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "MenuResources.h"
+#include "PlayerResources.h"
 
 class MenuHandler {
 public:
@@ -13,6 +14,7 @@ public:
     static void showGameModesMenu();
     static void showPauseMenu();
     static void showGameOverMenu();
+    static void showSubmitNameAndScoreMenu();
 
     //Event handling functions for different menus
     static void handleMainMenuEvents(SDL_Event *e);
@@ -21,5 +23,6 @@ public:
     static void handleRankingMenuEvents(SDL_Event *e);
     static void handlePauseMenuEvents(SDL_Event *e);
     static void handleGameOverMenuEvents(SDL_Event *e);
+    static void handleSubmitNameAndScoreMenuEvents(SDL_Event *e);
 };
 #endif // MENUHANDLER_H_INCLUDED

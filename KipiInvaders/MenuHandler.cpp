@@ -45,6 +45,22 @@ void MenuHandler::showGameOverMenu() {
     gMainMenuButton.render();
 }
 
+void MenuHandler::showSubmitNameAndScoreMenu() {
+    gMenuBackground.render(0, 0);
+    gGameOverMenuText.render((System::SCREEN_WIDTH - gGameOverMenuText.getWidth())/2,
+                             gSubmitMenuInputField.getY() - gSubmitMenuText.getHeight() - gFinalScoreText.getHeight() - 50 - gGameOverMenuText.getHeight() - 60);
+    if(gFinalScoreDigits.loadFromRenderedText("" + to_string(player->getScore()), {255, 255, 255, 255})) {
+        gFinalScoreText.render((System::SCREEN_WIDTH - gFinalScoreText.getWidth() - gFinalScoreDigits.getWidth())/2,
+                                gSubmitMenuInputField.getY() - gSubmitMenuText.getHeight() - gFinalScoreText.getHeight() - 50);
+        gFinalScoreDigits.render((System::SCREEN_WIDTH - gFinalScoreText.getWidth() - gFinalScoreDigits.getWidth())/2 + gFinalScoreText.getWidth(),
+                                 gSubmitMenuInputField.getY() - gSubmitMenuText.getHeight() - gFinalScoreText.getHeight() - 50);
+    }
+    gSubmitMenuText.render((System::SCREEN_WIDTH - gSubmitMenuText.getWidth())/2,
+                           gSubmitMenuInputField.getY() - gSubmitMenuText.getHeight() - 10);
+    gSubmitMenuInputField.render();
+    gSubmitButton.render();
+}
+
 void MenuHandler::handleMainMenuEvents(SDL_Event *e) {
     gPlayButton.handleEvents(e);
     gControlsButton.handleEvents(e);
@@ -74,4 +90,8 @@ void MenuHandler::handlePauseMenuEvents(SDL_Event *e) {
 void MenuHandler::handleGameOverMenuEvents(SDL_Event *e) {
     gNewGameButton.handleEvents(e);
     gMainMenuButton.handleEvents(e);
+}
+
+void MenuHandler::handleSubmitNameAndScoreMenuEvents(SDL_Event *e) {
+    gSubmitButton.handleEvents(e);
 }

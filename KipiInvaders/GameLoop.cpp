@@ -39,18 +39,23 @@ void GameLoop::run() {
                     }
                     else {
                         if(GameHandler::gameOver) {
-                            MenuHandler::handleGameOverMenuEvents(&e);
-                            if(gNewGameButton.isClicked()) {
-                                gNewGameButton.unclick();
-                                GameHandler::resetGame();
-                                GameHandler::gameOver = false;
+                            if(RankingSystem::playerIsEligible() && !gSubmitButton.isClicked()) {
+                                MenuHandler::handleSubmitNameAndScoreMenuEvents(&e);
                             }
-                            else if(gMainMenuButton.isClicked()) {
-                                gClassicGameModeButton.unclick();
-                                gPlayButton.unclick();
-                                gMainMenuButton.unclick();
-                                GameHandler::resetGame();
-                                GameHandler::gameOver = false;
+                            else {
+                                MenuHandler::handleGameOverMenuEvents(&e);
+                                if(gNewGameButton.isClicked()) {
+                                    gNewGameButton.unclick();
+                                    GameHandler::resetGame();
+                                    GameHandler::gameOver = false;
+                                }
+                                else if(gMainMenuButton.isClicked()) {
+                                    gClassicGameModeButton.unclick();
+                                    gPlayButton.unclick();
+                                    gMainMenuButton.unclick();
+                                    GameHandler::resetGame();
+                                    GameHandler::gameOver = false;
+                                }
                             }
                         }
                         else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
@@ -109,7 +114,12 @@ void GameLoop::run() {
                     MenuHandler::showPauseMenu();
                 }
                 else if(GameHandler::gameOver) {
-                    MenuHandler::showGameOverMenu();
+                    if(RankingSystem::playerIsEligible() && !gSubmitButton.isClicked()) {
+                        MenuHandler::showSubmitNameAndScoreMenu();
+                    }
+                    else {
+                        MenuHandler::showGameOverMenu();
+                    }
                 }
                 else {
                     GameHandler::startClassicGame();

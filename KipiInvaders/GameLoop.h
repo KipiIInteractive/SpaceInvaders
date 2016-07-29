@@ -6,6 +6,7 @@
 #include "MenuHandler.h"
 #include "GameResources.h"
 #include "GameHandler.h"
+#include "RankingSystem.h"
 
 class GameLoop {
 public:
