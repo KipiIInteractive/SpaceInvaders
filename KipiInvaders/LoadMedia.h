@@ -8,6 +8,7 @@
 #include "BulletResources.h"
 #include "GameResources.h"
 #include "PlayerResources.h"
+#include "RankingSystem.h"
 
 class LoadMedia {
 public:

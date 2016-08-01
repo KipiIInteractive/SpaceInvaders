@@ -3,7 +3,7 @@
 int main(int argc, char *argv[])
 {
     if(InitSDL::init()) {
-        if(LoadMedia::load() && RankingSystem::init()) {
+        if(RankingSystem::init() && LoadMedia::load()) {
             GameLoop::run();
         }
         ShutdownSDL::shutdown();

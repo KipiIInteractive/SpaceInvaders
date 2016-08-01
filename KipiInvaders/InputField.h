@@ -8,6 +8,8 @@ class InputField {
     SDL_Rect _IFRect;
     string _IFText;
     Texture _IFTextTexture;
+    bool isEnterPressed;
+    bool isActive;
 public:
     InputField();
 
@@ -21,6 +23,10 @@ public:
     void setPosition(int x, int y);
     int getX();
     int getY();
+
+    string getInput();
+
+    bool enterHasBeenPressed();
 
     void handleEvents(SDL_Event *e);
 

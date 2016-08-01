@@ -4,8 +4,8 @@
 Texture gLeftBorder;
 Texture gRightBorder;
 
-//Background
-Background gMenuBackground;
+//Game Background
+Background gGameBackground;
 
 //Menu Buttons
 Button gPlayButton;
@@ -26,6 +26,27 @@ Texture gGameOverMenuText;
 Texture gSubmitMenuText;
 Texture gFinalScoreText;
 Texture gFinalScoreDigits;
+Texture gRankingMenuSign;
+Texture p1NameTexture;
+Texture p1ScoreTexture;
+Texture p2NameTexture;
+Texture p2ScoreTexture;
+Texture p3NameTexture;
+Texture p3ScoreTexture;
+Texture p4NameTexture;
+Texture p4ScoreTexture;
+Texture p5NameTexture;
+Texture p5ScoreTexture;
+Texture p6NameTexture;
+Texture p6ScoreTexture;
+Texture p7NameTexture;
+Texture p7ScoreTexture;
+Texture p8NameTexture;
+Texture p8ScoreTexture;
+Texture p9NameTexture;
+Texture p9ScoreTexture;
+Texture p10NameTexture;
+Texture p10ScoreTexture;
 
 //Menu Input Fields
 InputField gSubmitMenuInputField;
@@ -69,12 +90,12 @@ Mix_Chunk* gUFOSound = NULL;
 bool LoadMedia::load() {
     bool success = true;
 
-    //Menu Background
-    if(!(gMenuBackground.loadBackgroundFromFile("./images/menuBackground.png"))) {
+    //Game Background
+    if(!(gGameBackground.loadBackgroundFromFile("./images/gameBackground.png"))) {
         success = false;
     }
     else {
-        gMenuBackground.setBackgroundClip(0, 0, System::SCREEN_WIDTH, System::SCREEN_HEIGHT);
+        gGameBackground.setBackgroundClip(0, 0, System::SCREEN_WIDTH, System::SCREEN_HEIGHT);
     }
 
     System::font = TTF_OpenFont("./fonts/invaders.ttf",45);
@@ -89,6 +110,7 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
+            gPlayButton.setIsActive(true);
             gPlayButton.setDimensions((System::SCREEN_WIDTH - gPlayButton.getWidth())/2,
                                       (System::SCREEN_HEIGHT - gPlayButton.getHeight())/2,
                                       gPlayButton.getWidth(),
@@ -171,6 +193,7 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
+            gResumeButton.setIsActive(true);
             gResumeButton.setDimensions((System::SCREEN_WIDTH - gResumeButton.getWidth())/2,
                                         (System::SCREEN_HEIGHT - gResumeButton.getHeight())/2,
                                         gResumeButton.getWidth(),
@@ -187,10 +210,12 @@ bool LoadMedia::load() {
                                           gMainMenuButton.getHeight());
         }
 
+        //Game Over Menu
         if(!gNewGameButton.loadButtonFromText("New Game", color)) {
             success = false;
         }
         else {
+            gNewGameButton.setIsActive(true);
             gNewGameButton.setDimensions((System::SCREEN_WIDTH - gNewGameButton.getWidth())/2,
                                           (System::SCREEN_HEIGHT - gNewGameButton.getHeight())/2,
                                           gNewGameButton.getWidth(),
@@ -208,6 +233,7 @@ bool LoadMedia::load() {
             }
         }
 
+        //Submit Name And Score Menu
         if(!gFinalScoreText.loadFromRenderedText("Final Score: ", color)) {
             success = false;
         }
@@ -220,6 +246,7 @@ bool LoadMedia::load() {
            success = false;
         }
         else {
+            gSubmitMenuInputField.setHeight(gSubmitMenuInputField.getHeight() + 5);
             gSubmitMenuInputField.setPosition((System::SCREEN_WIDTH - gSubmitMenuInputField.getWidth())/2,
                                               (System::SCREEN_HEIGHT - gSubmitMenuInputField.getHeight())/2);
         }
@@ -228,10 +255,103 @@ bool LoadMedia::load() {
             success = false;
         }
         else {
+            gSubmitButton.setIsActive(true);
             gSubmitButton.setDimensions((System::SCREEN_WIDTH - gSubmitButton.getWidth())/2,
                                         gSubmitMenuInputField.getY() + gSubmitButton.getHeight() + 10,
                                         gSubmitButton.getWidth(),
                                         gSubmitButton.getHeight());
+        }
+
+        //Ranking Menu
+        if(!gRankingMenuSign.loadFromRenderedText("Ranking:", color)) {
+            success = false;
+        }
+
+        int lineNum = 0;
+        list<string>::iterator it = RankingSystem::playerNames.begin();
+        list<int>::iterator it2 = RankingSystem::playerScores.begin();
+        for(; it != RankingSystem::playerNames.end(); it++, it2++) {
+            if(lineNum == 0) {
+                if(!p1NameTexture.loadFromRenderedText("1. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p1ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 1) {
+                if(!p2NameTexture.loadFromRenderedText("2. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p2ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 2) {
+                if(!p3NameTexture.loadFromRenderedText("3. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p3ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 3) {
+                if(!p4NameTexture.loadFromRenderedText("4. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p4ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 4) {
+                if(!p5NameTexture.loadFromRenderedText("5. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p5ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 5) {
+                if(!p6NameTexture.loadFromRenderedText("6. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p6ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 6) {
+                if(!p7NameTexture.loadFromRenderedText("7. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p7ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 7) {
+                if(!p8NameTexture.loadFromRenderedText("8. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p8ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 8) {
+                if(!p9NameTexture.loadFromRenderedText("9. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p9ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            else if(lineNum == 9) {
+                if(!p10NameTexture.loadFromRenderedText("10. " + (*it), color)) {
+                    success = false;
+                }
+                if(!p10ScoreTexture.loadFromRenderedText(to_string((*it2)), color)) {
+                    success = false;
+                }
+            }
+            lineNum++;
         }
     }
 
@@ -276,11 +396,11 @@ bool LoadMedia::load() {
         gJellyfish2Clip.h = gAliensTexture.getHeight()/3;
     }
 
-    if(!gUFOTexture.loadFromFile("./models/UFO.png")) {
+    if(!gAlienDestroyedTexture.loadFromFile("./models/alienExplosion.png")) {
         success = false;
     }
 
-    if(!gAlienDestroyedTexture.loadFromFile("./models/alienExplosion.png")) {
+    if(!gUFOTexture.loadFromFile("./models/UFO.png")) {
         success = false;
     }
 

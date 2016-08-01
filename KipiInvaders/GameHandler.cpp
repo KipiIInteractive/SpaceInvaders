@@ -3,7 +3,7 @@
 bool GameHandler::gameOver = false;
 
 void GameHandler::startClassicGame() {
-    gMenuBackground.render(0, 0);
+    gGameBackground.render(0, 0);
 
     if(LevelManager::loadNextLevel) {
         LevelManager::InitCurrentLevel();

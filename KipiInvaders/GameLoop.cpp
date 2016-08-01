@@ -10,26 +10,27 @@ void GameLoop::run() {
     while(isRunning) {
         startTime = SDL_GetTicks();
         while(SDL_PollEvent(&e) != 0) {
+
             if(e.type == SDL_QUIT) {
                 isRunning = false;
             }
 
-            if(gPlayButton.isClicked()) {
-                if(gBackButton.isClicked()) {
-                    gPlayButton.unclick();
-                    gBackButton.unclick();
+            if(gPlayButton.hasBeenPressed()) {
+                if(gBackButton.hasBeenPressed()) {
+                    gPlayButton.setHasBeenPressed(false);
+                    gBackButton.setHasBeenPressed(false);
                 }
-                else if(gClassicGameModeButton.isClicked()) {
+                else if(gClassicGameModeButton.hasBeenPressed()) {
                     if(isPaused) {
                         MenuHandler::handlePauseMenuEvents(&e);
-                        if(gResumeButton.isClicked()) {
+                        if(gResumeButton.hasBeenPressed()) {
                             isPaused = false;
-                            gResumeButton.unclick();
+                            gResumeButton.setHasBeenPressed(false);
                         }
-                        else if(gMainMenuButton.isClicked()) {
-                            gClassicGameModeButton.unclick();
-                            gPlayButton.unclick();
-                            gMainMenuButton.unclick();
+                        else if(gMainMenuButton.hasBeenPressed()) {
+                            gClassicGameModeButton.setHasBeenPressed(false);
+                            gPlayButton.setHasBeenPressed(false);
+                            gMainMenuButton.setHasBeenPressed(false);
                             isPaused = false;
                             GameHandler::resetGame();
                         }
@@ -39,20 +40,24 @@ void GameLoop::run() {
                     }
                     else {
                         if(GameHandler::gameOver) {
-                            if(RankingSystem::playerIsEligible() && !gSubmitButton.isClicked()) {
+                            if(RankingSystem::playerIsEligible() && !gSubmitButton.hasBeenPressed()) {
                                 MenuHandler::handleSubmitNameAndScoreMenuEvents(&e);
+                                if(gSubmitButton.hasBeenPressed()) {
+                                    RankingSystem::addPlayerToRankList(gSubmitMenuInputField.getInput());
+                                    MenuHandler::updateRankingMenu(RankingSystem::playerNames, RankingSystem::playerScores);
+                                }
                             }
                             else {
                                 MenuHandler::handleGameOverMenuEvents(&e);
-                                if(gNewGameButton.isClicked()) {
-                                    gNewGameButton.unclick();
+                                if(gNewGameButton.hasBeenPressed()) {
+                                    gNewGameButton.setHasBeenPressed(false);
                                     GameHandler::resetGame();
                                     GameHandler::gameOver = false;
                                 }
-                                else if(gMainMenuButton.isClicked()) {
-                                    gClassicGameModeButton.unclick();
-                                    gPlayButton.unclick();
-                                    gMainMenuButton.unclick();
+                                else if(gMainMenuButton.hasBeenPressed()) {
+                                    gClassicGameModeButton.setHasBeenPressed(false);
+                                    gPlayButton.setHasBeenPressed(false);
+                                    gMainMenuButton.setHasBeenPressed(false);
                                     GameHandler::resetGame();
                                     GameHandler::gameOver = false;
                                 }
@@ -63,17 +68,17 @@ void GameLoop::run() {
                         }
                     }
                 }
-                else if(gSurvivalGameModeButton.isClicked()) {
+                else if(gSurvivalGameModeButton.hasBeenPressed()) {
                     if(isPaused) {
                         MenuHandler::handlePauseMenuEvents(&e);
-                        if(gResumeButton.isClicked()) {
+                        if(gResumeButton.hasBeenPressed()) {
                             isPaused = false;
-                            gResumeButton.unclick();
+                            gResumeButton.setHasBeenPressed(false);
                         }
-                        else if(gMainMenuButton.isClicked()) {
-                            gSurvivalGameModeButton.unclick();
-                            gPlayButton.unclick();
-                            gMainMenuButton.unclick();
+                        else if(gMainMenuButton.hasBeenPressed()) {
+                            gSurvivalGameModeButton.setHasBeenPressed(false);
+                            gPlayButton.setHasBeenPressed(false);
+                            gMainMenuButton.setHasBeenPressed(false);
                             isPaused = false;
                         }
                     }
@@ -84,21 +89,30 @@ void GameLoop::run() {
                     }
                 }
                 else {
+                    if(!gBackButton.isActive() && !gSurvivalGameModeButton.isActive()) {
+                        gClassicGameModeButton.setIsActive(true);
+                    }
                     MenuHandler::handleGameModesMenuEvents(&e);
                 }
             }
-            else if(gControlsButton.isClicked()) {
+            else if(gControlsButton.hasBeenPressed()) {
+                if(!gBackButton.isActive()) {
+                    gBackButton.setIsActive(true);
+                }
                 MenuHandler::handleControlsMenuEvents(&e);
-                if(gBackButton.isClicked()) {
-                    gControlsButton.unclick();
-                    gBackButton.unclick();
+                if(gBackButton.hasBeenPressed()) {
+                    gControlsButton.setHasBeenPressed(false);
+                    gBackButton.setHasBeenPressed(false);
                 }
             }
-            else if(gRankingButton.isClicked()) {
+            else if(gRankingButton.hasBeenPressed()) {
+                if(!gBackButton.isActive()) {
+                    gBackButton.setIsActive(true);
+                }
                 MenuHandler::handleRankingMenuEvents(&e);
-                if(gBackButton.isClicked()) {
-                    gRankingButton.unclick();
-                    gBackButton.unclick();
+                if(gBackButton.hasBeenPressed()) {
+                    gRankingButton.setHasBeenPressed(false);
+                    gBackButton.setHasBeenPressed(false);
                 }
             }
             else {
@@ -108,13 +122,13 @@ void GameLoop::run() {
         //Clears the game window
         SDL_RenderClear(System::renderer);
 
-        if(gPlayButton.isClicked()) {
-            if(gClassicGameModeButton.isClicked()) {
+        if(gPlayButton.hasBeenPressed()) {
+            if(gClassicGameModeButton.hasBeenPressed()) {
                 if(isPaused) {
                     MenuHandler::showPauseMenu();
                 }
                 else if(GameHandler::gameOver) {
-                    if(RankingSystem::playerIsEligible() && !gSubmitButton.isClicked()) {
+                    if(RankingSystem::playerIsEligible() && !gSubmitButton.hasBeenPressed()) {
                         MenuHandler::showSubmitNameAndScoreMenu();
                     }
                     else {
@@ -125,7 +139,7 @@ void GameLoop::run() {
                     GameHandler::startClassicGame();
                 }
             }
-            else if(gSurvivalGameModeButton.isClicked()) {
+            else if(gSurvivalGameModeButton.hasBeenPressed()) {
                 if(isPaused) {
                     MenuHandler::showPauseMenu();
                 }
@@ -140,13 +154,13 @@ void GameLoop::run() {
                 MenuHandler::showGameModesMenu();
             }
         }
-        else if(gControlsButton.isClicked()) {
+        else if(gControlsButton.hasBeenPressed()) {
             MenuHandler::showControlsMenu();
         }
-        else if(gRankingButton.isClicked()) {
+        else if(gRankingButton.hasBeenPressed()) {
             MenuHandler::showRankingMenu();
         }
-        else if(gExitButton.isClicked()) {
+        else if(gExitButton.hasBeenPressed()) {
             isRunning = false;
             MenuHandler::showMainMenu();
             GameHandler::shutdownGame();
