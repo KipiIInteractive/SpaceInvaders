@@ -15,6 +15,7 @@ public:
     static bool barriersGenerated;
 
     static void generateEnemies();
+    static void generateAdditionalHordes();
     static void generatePlayer();
     static void generateBullets();
     static void generateBarriers();

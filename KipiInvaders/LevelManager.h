@@ -15,15 +15,15 @@ class LevelManager
 
         static bool LoadClassicLevel(int level);
         static bool LoadSurvivalLevel();
-
         static bool loadNextClassicLevel;
         static bool loadSurvivalLevel;
 
         static void RenderCurrentClassicLevel();
         static void RenderSurvivalLevel();
-
         static bool renderedClassicLevel;
         static bool renderedSurvivalLevel;
+
+        static void ResetClassicGameLevel();
 
         static int LEVEL_SIGN_FRAME_COUNTER;
 

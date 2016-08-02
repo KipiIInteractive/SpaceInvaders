@@ -20,6 +20,12 @@ public:
     static void changeEnemiesMovementSpeed();
     static void changeEnemiesBulletSpeed();
 
+    static void resetEnemies();
+    static void resetPlayer();
+    static void resetUFO();
+    static void resetBullets();
+    static void resetBarriers();
+
     static int getRemainingEnemies();
 };
 

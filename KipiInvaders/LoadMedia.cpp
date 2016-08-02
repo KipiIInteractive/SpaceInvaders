@@ -362,6 +362,10 @@ bool LoadMedia::load() {
     if(!gBulletTexture.loadFromFile("./images/bullet.png")) {
         success = false;
     }
+    else {
+        gBulletTexture.setWidth((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/190);
+        gBulletTexture.setHeight((gBulletTexture.getWidth()*12)/3);
+    }
 
     //Aliens
     if(!gAliensTexture.loadFromFile("./models/aliens.png")) {
@@ -406,6 +410,10 @@ bool LoadMedia::load() {
     if(!gUFOTexture.loadFromFile("./models/UFO.png")) {
         success = false;
     }
+    else {
+        gUFOTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*10)/100);
+        gUFOTexture.setHeight((gUFOTexture.getWidth()*4)/9);
+    }
 
     //Borders
     if(!gLeftBorder.loadFromFile("./images/border.jpg")) {
@@ -413,7 +421,7 @@ bool LoadMedia::load() {
     }
     else {
         gLeftBorder.setHeight(System::SCREEN_HEIGHT);
-        gLeftBorder.setWidth(10);
+        gLeftBorder.setWidth(System::SCREEN_WIDTH/100);
     }
 
     if(!gRightBorder.loadFromFile("./images/border.jpg")) {
@@ -421,35 +429,57 @@ bool LoadMedia::load() {
     }
     else {
         gRightBorder.setHeight(System::SCREEN_HEIGHT);
-        gRightBorder.setWidth(10);
+        gRightBorder.setWidth(System::SCREEN_WIDTH/100);
     }
 
     //Player
     if(!gPlayerTexture.loadFromFile("./models/player.png")) {
         success = false;
     }
+    else {
+        gPlayerTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*8)/100);
+        gPlayerTexture.setHeight((gPlayerTexture.getWidth()*4)/7);
+    }
 
     if(!gPlayerDestroyedTexture.loadFromFile("./models/playerExplosion.png")) {
         success = false;
+    }
+    else{
+        gPlayerDestroyedTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*8)/100);
+        gPlayerDestroyedTexture.setHeight((gPlayerTexture.getWidth()*4)/7);
     }
 
     //Score
     if(!gScoreSignTexture.loadFromRenderedText("Score:", {255, 255, 255, 200})) {
         success = false;
     }
+    else {
+        gScoreSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*25)/100);
+        gScoreSignTexture.setHeight(gScoreSignTexture.getWidth()/6);
+    }
 
     //Lives
     if(!gLivesSignTexture.loadFromRenderedText("Lives:", {255, 255, 255, 200})) {
         success = false;
+    }
+    else {
+        gLivesSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*25)/100);
+        gLivesSignTexture.setHeight(gLivesSignTexture.getWidth()/6);
     }
 
     //Current lvl
     if(!gClassicLevelSignTexture.loadFromRenderedText("Level ", {255, 255, 255, 200})) {
         success = false;
     }
+    else {
+
+    }
 
     if(!gSurvivalLevelSignTexture.loadFromRenderedText("Survival", {255, 255, 255, 200})) {
         success = false;
+    }
+    else {
+
     }
 
     //Sound Effects

@@ -42,7 +42,7 @@ void Player::update() {
             _GORect.x += _GOVelocity;
         }
 
-        if(keyState[SDL_SCANCODE_SPACE]) {
+        if(keyState[SDL_SCANCODE_RETURN]) {
             if(_PCanShoot) {
                 _PCanShoot = false;
                 _PIsToShoot = true;

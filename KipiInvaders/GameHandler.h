@@ -15,6 +15,8 @@ public:
     static bool needToResetClassicGame;
     static bool needToResetSurvivalGame;
 
+    static string currentGameMode;
+
     static void startClassicGame();
     static void startSurvivalGame();
 

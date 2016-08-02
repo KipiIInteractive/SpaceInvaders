@@ -97,7 +97,6 @@ void MenuHandler::showRankingMenu() {
 void MenuHandler::showPauseMenu() {
     gGameBackground.render(0, 0);
     gResumeButton.render();
-    gMainMenuButton.render();
 }
 
 void MenuHandler::showGameOverMenu() {
@@ -190,10 +189,6 @@ void MenuHandler::handleRankingMenuEvents(SDL_Event *e) {
 void MenuHandler::handlePauseMenuEvents(SDL_Event *e) {
     gResumeButton.handleEvents(e);
     if(gResumeButton.nextButtonIsToBeActivated() || gResumeButton.previousButtonIsToBeActivated()) {
-        gMainMenuButton.setIsActive(true);
-    }
-    gMainMenuButton.handleEvents(e);
-    if(gMainMenuButton.nextButtonIsToBeActivated() || gMainMenuButton.previousButtonIsToBeActivated()) {
         gResumeButton.setIsActive(true);
     }
 }

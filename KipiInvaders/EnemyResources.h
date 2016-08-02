@@ -16,6 +16,8 @@ extern Texture gUFOTexture;
 extern Texture gAlienDestroyedTexture;
 
 extern vector<Enemy*> enemies;
+extern vector<Enemy*> enemiesToBeDeleted;
+extern vector<Enemy*> enemiesQueue;
 extern Enemy* UFO;
 
 

@@ -101,6 +101,7 @@ void GameHandler::startSurvivalGame() {
     gRightBorder.render(System::RIGHT_X_BORDER, 0);
 
     GameObjectGenerator::generateEnemies();
+    GameObjectGenerator::generateAdditionalHordes();
     GameObjectGenerator::generatePlayer();
     GameObjectGenerator::generateBarriers();
 
@@ -146,99 +147,23 @@ void GameHandler::startSurvivalGame() {
 }
 
 void GameHandler::resetSurvivalGame() {
-    LevelManager::LoadSurvivalLevel();
-    LevelManager::renderedSurvivalLevel = false;
-    SHOOTING_RNG = 5000;
-    ENEMY_ANIMATION_FRAMES = 50;
-    int y;
-    for(unsigned int i = ENEMY_ROWS*MAX_ALIENS_ON_ROW; i < enemies.size(); i++) {
-        if(enemies[i]->isAlive()) {
-            enemies[i]->setIsAlive(false);
-        }
-    }
-    for(int i = 0; i < ENEMY_ROWS; i++) {
-        for(int j = 0; j < MAX_ALIENS_ON_ROW; j++) {
-            if(!enemies[j+(i*MAX_ALIENS_ON_ROW)]->isAlive()) {
-                enemies[j+(i*MAX_ALIENS_ON_ROW)]->setIsAlive(true);
-            }
-            y = enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight()*i + (i == 0 ? 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 : 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 + 20*(i));
-            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*gJellyfish1Clip.w - 5*(MAX_ALIENS_ON_ROW-1))/2 + gJellyfish1Clip.w*(j) + 5*j, y);
-            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setMovementDirection(RIGHT);
-        }
-    }
+    LevelManager::loadSurvivalLevel = true;
 
-    UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 20)
-                                            : UFO->setPosition(System::SCREEN_WIDTH, 20);
-
-    player->setPosition((System::SCREEN_WIDTH - player->getWidth())/2,
-                             System::SCREEN_HEIGHT - player->getHeight() - 20);
-    player->resetScore();
-    player->resetLives();
-
-    for(unsigned int i = 0; i < bullets.size(); i++) {
-        bullets[i]->setHasCollided(true);
-    }
-
-    barrier1->loadInitialTextures();
-    barrier1->resetHitCounters();
-
-    barrier2->loadInitialTextures();
-    barrier2->resetHitCounters();
-
-    barrier3->loadInitialTextures();
-    barrier3->resetHitCounters();
+    GameObjectHandler::resetEnemies();
+    GameObjectHandler::resetPlayer();
+    GameObjectHandler::resetUFO();
+    GameObjectHandler::resetBullets();
+    GameObjectHandler::resetBarriers();
 }
 
 void GameHandler::resetClassicGame() {
-    if(LevelManager::GetCurrentClassicLevel() != 1) {
-        ofstream file("./levels/current.level");
-        if(file.is_open()) {
-            file << 1;
-            file.close();
-        }
-        LevelManager::InitCurrentClassicLevel();
-        LevelManager::LoadClassicLevel(LevelManager::GetCurrentClassicLevel());
-    }
-    LevelManager::renderedClassicLevel = false;
-    SHOOTING_RNG = 5000;
-    ENEMY_ANIMATION_FRAMES = 50;
-    int y;
-    for(unsigned int i = ENEMY_ROWS*MAX_ALIENS_ON_ROW; i < enemies.size(); i++) {
-        if(enemies[i]->isAlive()) {
-            enemies[i]->setIsAlive(false);
-        }
-    }
-    for(int i = 0; i < ENEMY_ROWS; i++) {
-        for(int j = 0; j < MAX_ALIENS_ON_ROW; j++) {
-            if(!enemies[j+(i*MAX_ALIENS_ON_ROW)]->isAlive()) {
-                enemies[j+(i*MAX_ALIENS_ON_ROW)]->setIsAlive(true);
-            }
-            y = enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight()*i + (i == 0 ? 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 : 2*enemies[j+(i*MAX_ALIENS_ON_ROW)]->getHeight() + 20 + 20*(i));
-            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*gJellyfish1Clip.w - 5*(MAX_ALIENS_ON_ROW-1))/2 + gJellyfish1Clip.w*(j) + 5*j, y);
-            enemies[j+(i*MAX_ALIENS_ON_ROW)]->setMovementDirection(RIGHT);
-        }
-    }
+    LevelManager::ResetClassicGameLevel();
 
-    UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 20)
-                                            : UFO->setPosition(System::SCREEN_WIDTH, 20);
-
-    player->setPosition((System::SCREEN_WIDTH - player->getWidth())/2,
-                             System::SCREEN_HEIGHT - player->getHeight() - 20);
-    player->resetScore();
-    player->resetLives();
-
-    for(unsigned int i = 0; i < bullets.size(); i++) {
-        bullets[i]->setHasCollided(true);
-    }
-
-    barrier1->loadInitialTextures();
-    barrier1->resetHitCounters();
-
-    barrier2->loadInitialTextures();
-    barrier2->resetHitCounters();
-
-    barrier3->loadInitialTextures();
-    barrier3->resetHitCounters();
+    GameObjectHandler::resetEnemies();
+    GameObjectHandler::resetPlayer();
+    GameObjectHandler::resetUFO();
+    GameObjectHandler::resetBullets();
+    GameObjectHandler::resetBarriers();
 }
 
 void GameHandler::shutdownGame() {
@@ -247,6 +172,10 @@ void GameHandler::shutdownGame() {
         file << 1;
         file.close();
     }
+    for(unsigned int i = 0; i < enemiesToBeDeleted.size(); i++) {
+        delete enemiesToBeDeleted[i];
+    }
+    enemiesToBeDeleted.clear();
     for(unsigned int i = 0; i < enemies.size(); i++) {
         delete enemies[i];
     }

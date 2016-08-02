@@ -25,41 +25,81 @@ bool Barrier::loadInitialTextures() {
     if(!_BTopLeftCorner.loadFromFile("./images/upperLeftCorner.png")) {
         success = false;
     }
+    else {
+        _BTopLeftCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BTopLeftCorner.setHeight((_BTopLeftCorner.getWidth()*19)/21);
+    }
 
     if(!_BTopRightCorner.loadFromFile("./images/upperRightCorner.png")) {
         success = false;
+    }
+    else {
+        _BTopRightCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BTopRightCorner.setHeight((_BTopRightCorner.getWidth()*19)/23);
     }
 
     if(!_BBottomLeft.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
+    else {
+        _BBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BBottomLeft.setHeight((_BBottomLeft.getWidth()*19)/22);
+    }
 
     if(!_BBottomRight.loadFromFile("./images/fullSquare.png")) {
         success = false;
+    }
+    else {
+        _BBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BBottomRight.setHeight((_BBottomRight.getWidth()*19)/22);
     }
 
     if(!_BMiddleLeft.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
+    else {
+        _BMiddleLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BMiddleLeft.setHeight((_BMiddleLeft.getWidth()*19)/22);
+    }
 
     if(!_BMiddleRight.loadFromFile("./images/fullSquare.png")) {
         success = false;
+    }
+    else {
+        _BMiddleRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BMiddleRight.setHeight((_BMiddleRight.getWidth()*19)/22);
     }
 
     if(!_BInnerTopLeft.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
+    else {
+        _BInnerTopLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BInnerTopLeft.setHeight((_BInnerTopLeft.getWidth()*19)/22);
+    }
 
     if(!_BInnerTopRight.loadFromFile("./images/fullSquare.png")) {
         success = false;
+    }
+    else {
+        _BInnerTopRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BInnerTopRight.setHeight((_BInnerTopRight.getWidth()*19)/22);
     }
 
     if(!_BInnerBottomLeft.loadFromFile("./images/innerLeftCorner.png")) {
         success = false;
     }
+    else {
+        _BInnerBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BInnerBottomLeft.setHeight((_BInnerBottomLeft.getWidth()*19)/22);
+    }
 
     if(!_BInnerBottomRight.loadFromFile("./images/innerRightCorner.png")) {
         success = false;
+    }
+    else {
+        _BInnerBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+        _BInnerBottomRight.setHeight((_BInnerBottomRight.getWidth()*19)/22);
     }
 
     return success;
@@ -149,6 +189,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BTopLeftCornerHitCounter++;
             if(_BTopLeftCornerHitCounter < 3) {
                 _BTopLeftCorner.loadFromFile("./images/upperLeftCorner" + to_string(_BTopLeftCornerHitCounter) + ".png");
+                _BTopLeftCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BTopLeftCorner.setHeight((_BTopLeftCorner.getWidth()*19)/21);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BTopLeftCornerHitCounter == 3){
@@ -165,6 +207,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BTopRightCornerHitCounter++;
             if(_BTopRightCornerHitCounter < 3) {
                 _BTopRightCorner.loadFromFile("./images/upperRightCorner" + to_string(_BTopRightCornerHitCounter) + ".png");
+                _BTopRightCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BTopRightCorner.setHeight((_BTopRightCorner.getWidth()*19)/23);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BTopRightCornerHitCounter == 3){
@@ -181,6 +225,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BBottomLeftHitCounter++;
             if(_BBottomLeftHitCounter < 3) {
                 _BBottomLeft.loadFromFile("./images/fullSquare" + to_string(_BBottomLeftHitCounter) + ".png");
+                _BBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BBottomLeft.setHeight((_BBottomLeft.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BBottomLeftHitCounter == 3){
@@ -197,6 +243,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BBottomRightHitCounter++;
             if(_BBottomRightHitCounter < 3) {
                 _BBottomRight.loadFromFile("./images/fullSquare" + to_string(_BBottomRightHitCounter) + ".png");
+                _BBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BBottomRight.setHeight((_BBottomRight.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BBottomRightHitCounter == 3){
@@ -213,6 +261,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BMiddleLeftHitCounter++;
             if(_BMiddleLeftHitCounter < 3) {
                 _BMiddleLeft.loadFromFile("./images/fullSquare" + to_string(_BMiddleLeftHitCounter) + ".png");
+                _BMiddleLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BMiddleLeft.setHeight((_BMiddleLeft.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BMiddleLeftHitCounter == 3){
@@ -229,6 +279,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BMiddleRightHitCounter++;
             if(_BMiddleRightHitCounter < 3) {
                 _BMiddleRight.loadFromFile("./images/fullSquare" + to_string(_BMiddleRightHitCounter) + ".png");
+                _BMiddleRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BMiddleRight.setHeight((_BMiddleRight.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BMiddleRightHitCounter == 3){
@@ -245,6 +297,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerBottomLeftHitCounter++;
             if(_BInnerBottomLeftHitCounter < 3) {
                 _BInnerBottomLeft.loadFromFile("./images/innerLeftCorner" + to_string(_BInnerBottomLeftHitCounter) + ".png");
+                _BInnerBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BInnerBottomLeft.setHeight((_BInnerBottomLeft.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerBottomLeftHitCounter == 3){
@@ -261,6 +315,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerBottomRightHitCounter++;
             if(_BInnerBottomRightHitCounter < 3) {
                 _BInnerBottomRight.loadFromFile("./images/innerRightCorner" + to_string(_BInnerBottomRightHitCounter) + ".png");
+                _BInnerBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BInnerBottomRight.setHeight((_BInnerBottomRight.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerBottomRightHitCounter == 3){
@@ -277,6 +333,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerTopLeftHitCounter++;
             if(_BInnerTopLeftHitCounter < 3) {
                 _BInnerTopLeft.loadFromFile("./images/fullSquare" + to_string(_BInnerTopLeftHitCounter) + ".png");
+                _BInnerTopLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BInnerTopLeft.setHeight((_BInnerTopLeft.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerTopLeftHitCounter == 3){
@@ -293,6 +351,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerTopRightHitCounter++;
             if(_BInnerTopRightHitCounter < 3) {
                 _BInnerTopRight.loadFromFile("./images/fullSquare" + to_string(_BInnerTopRightHitCounter) + ".png");
+                _BInnerTopRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
+                _BInnerTopRight.setHeight((_BInnerTopRight.getWidth()*19)/22);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerTopRightHitCounter == 3){

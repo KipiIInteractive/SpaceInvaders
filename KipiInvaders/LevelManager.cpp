@@ -28,7 +28,7 @@ void LevelManager::InitCurrentClassicLevel()
 int LevelManager::GetCurrentClassicLevel() { return currentClassicLevel; }
 
 bool LevelManager::LoadSurvivalLevel() {
-    string fileToOpen = "./level/survival.level";
+    string fileToOpen = "./levels/survival.level";
     if(LevelManager::FileIsExisting(fileToOpen))
     {
         ifstream level(fileToOpen);
@@ -124,4 +124,15 @@ void LevelManager::RenderCurrentClassicLevel() {
             LevelManager::renderedClassicLevel = true;
         }
     }
+}
+
+void LevelManager::ResetClassicGameLevel() {
+    if(LevelManager::GetCurrentClassicLevel() != 1) {
+        ofstream file("./levels/current.level");
+        if(file.is_open()) {
+            file << 1;
+            file.close();
+        }
+    }
+    LevelManager::loadNextClassicLevel = true;
 }

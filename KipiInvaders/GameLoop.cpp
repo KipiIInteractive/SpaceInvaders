@@ -41,6 +41,9 @@ void GameLoop::run() {
                                 }
                             }
                             else {
+                                if(gSubmitButton.hasBeenPressed()) {
+                                    gSubmitButton.setHasBeenPressed(false);
+                                }
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
                                     gNewGameButton.setHasBeenPressed(false);
@@ -79,6 +82,9 @@ void GameLoop::run() {
                                 }
                             }
                             else {
+                                if(gSubmitButton.hasBeenPressed()) {
+                                    gSubmitButton.setHasBeenPressed(false);
+                                }
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
                                     gNewGameButton.setHasBeenPressed(false);
@@ -147,6 +153,10 @@ void GameLoop::run() {
                     }
                 }
                 else {
+                    if(GameHandler::needToResetClassicGame) {
+                        GameHandler::resetClassicGame();
+                        GameHandler::needToResetClassicGame = false;
+                    }
                     GameHandler::startClassicGame();
                 }
             }
@@ -158,6 +168,10 @@ void GameLoop::run() {
                     MenuHandler::showGameOverMenu();
                 }
                 else{
+                    if(GameHandler::needToResetSurvivalGame) {
+                        GameHandler::resetSurvivalGame();
+                        GameHandler::needToResetSurvivalGame = false;
+                    }
                     GameHandler::startSurvivalGame();
                 }
             }
