@@ -77,9 +77,12 @@ Texture gScoreSignTexture;
 Texture gLivesDigitsTexture;
 Texture gLivesSignTexture;
 
-//Current level texture
-Texture gLevelSignTexture;
-Texture gLevelDigitTexture;
+//Current classic level texture
+Texture gClassicLevelSignTexture;
+Texture gClassicLevelDigitTexture;
+
+//Survival
+Texture gSurvivalLevelSignTexture;
 
 // Sound effects
 Mix_Chunk* gPlayerExplosionSound = NULL;
@@ -441,7 +444,11 @@ bool LoadMedia::load() {
     }
 
     //Current lvl
-    if(!gLevelSignTexture.loadFromRenderedText("Level ", {255, 255, 255, 200})) {
+    if(!gClassicLevelSignTexture.loadFromRenderedText("Level ", {255, 255, 255, 200})) {
+        success = false;
+    }
+
+    if(!gSurvivalLevelSignTexture.loadFromRenderedText("Survival", {255, 255, 255, 200})) {
         success = false;
     }
 

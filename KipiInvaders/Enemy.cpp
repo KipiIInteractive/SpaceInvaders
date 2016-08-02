@@ -48,7 +48,7 @@ void Enemy::update() {
         }
     }
     else {
-        if((rand() % (SHOOTING_RNG/LevelManager::GetCurrentLevel())) <= 2) {
+        if((rand() % SHOOTING_RNG) <= 2) {
             _EShoot = true;
         }
         else {

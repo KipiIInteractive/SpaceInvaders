@@ -10,18 +10,25 @@ using namespace std;
 class LevelManager
 {
     public:
-        static void InitCurrentLevel();
-        static int GetCurrentLevel();
+        static void InitCurrentClassicLevel();
+        static int GetCurrentClassicLevel();
 
-        static bool LoadLevel(int level);
-        static bool loadNextLevel;
+        static bool LoadClassicLevel(int level);
+        static bool LoadSurvivalLevel();
 
-        static void RenderCurrentLevel();
-        static bool renderedLevel;
+        static bool loadNextClassicLevel;
+        static bool loadSurvivalLevel;
+
+        static void RenderCurrentClassicLevel();
+        static void RenderSurvivalLevel();
+
+        static bool renderedClassicLevel;
+        static bool renderedSurvivalLevel;
+
         static int LEVEL_SIGN_FRAME_COUNTER;
 
     private:
-        static int currentLevel;
+        static int currentClassicLevel;
         static bool FileIsExisting(string filename);
 
 };

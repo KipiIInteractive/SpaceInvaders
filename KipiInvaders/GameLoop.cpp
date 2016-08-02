@@ -27,13 +27,6 @@ void GameLoop::run() {
                             isPaused = false;
                             gResumeButton.setHasBeenPressed(false);
                         }
-                        else if(gMainMenuButton.hasBeenPressed()) {
-                            gClassicGameModeButton.setHasBeenPressed(false);
-                            gPlayButton.setHasBeenPressed(false);
-                            gMainMenuButton.setHasBeenPressed(false);
-                            isPaused = false;
-                            GameHandler::resetGame();
-                        }
                         else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = false;
                         }
@@ -51,14 +44,14 @@ void GameLoop::run() {
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
                                     gNewGameButton.setHasBeenPressed(false);
-                                    GameHandler::resetGame();
+                                    GameHandler::resetClassicGame();
                                     GameHandler::gameOver = false;
                                 }
                                 else if(gMainMenuButton.hasBeenPressed()) {
                                     gClassicGameModeButton.setHasBeenPressed(false);
                                     gPlayButton.setHasBeenPressed(false);
                                     gMainMenuButton.setHasBeenPressed(false);
-                                    GameHandler::resetGame();
+                                    GameHandler::needToResetClassicGame = true;
                                     GameHandler::gameOver = false;
                                 }
                             }
@@ -75,15 +68,33 @@ void GameLoop::run() {
                             isPaused = false;
                             gResumeButton.setHasBeenPressed(false);
                         }
-                        else if(gMainMenuButton.hasBeenPressed()) {
-                            gSurvivalGameModeButton.setHasBeenPressed(false);
-                            gPlayButton.setHasBeenPressed(false);
-                            gMainMenuButton.setHasBeenPressed(false);
-                            isPaused = false;
-                        }
                     }
                     else {
-                        if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
+                        if(GameHandler::gameOver) {
+                            if(RankingSystem::playerIsEligible() && !gSubmitButton.hasBeenPressed()) {
+                                MenuHandler::handleSubmitNameAndScoreMenuEvents(&e);
+                                if(gSubmitButton.hasBeenPressed()) {
+                                    RankingSystem::addPlayerToRankList(gSubmitMenuInputField.getInput());
+                                    MenuHandler::updateRankingMenu(RankingSystem::playerNames, RankingSystem::playerScores);
+                                }
+                            }
+                            else {
+                                MenuHandler::handleGameOverMenuEvents(&e);
+                                if(gNewGameButton.hasBeenPressed()) {
+                                    gNewGameButton.setHasBeenPressed(false);
+                                    GameHandler::resetSurvivalGame();
+                                    GameHandler::gameOver = false;
+                                }
+                                else if(gMainMenuButton.hasBeenPressed()) {
+                                    gClassicGameModeButton.setHasBeenPressed(false);
+                                    gPlayButton.setHasBeenPressed(false);
+                                    gMainMenuButton.setHasBeenPressed(false);
+                                    GameHandler::needToResetSurvivalGame = true;
+                                    GameHandler::gameOver = false;
+                                }
+                            }
+                        }
+                        else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = true;
                         }
                     }

@@ -30,8 +30,10 @@ extern Texture gScoreDigitsTexture;
 extern Texture gLivesSignTexture;
 extern Texture gLivesDigitsTexture;
 
-extern Texture gLevelSignTexture;
-extern Texture gLevelDigitTexture;
+extern Texture gClassicLevelSignTexture;
+extern Texture gClassicLevelDigitTexture;
+
+extern Texture gSurvivalLevelSignTexture;
 
 extern Mix_Chunk* gPlayerExplosionSound;
 extern Mix_Chunk* gAlienExplosionSound;

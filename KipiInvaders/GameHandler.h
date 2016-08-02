@@ -12,10 +12,14 @@ class GameHandler {
 public:
     static bool gameOver;
 
+    static bool needToResetClassicGame;
+    static bool needToResetSurvivalGame;
+
     static void startClassicGame();
     static void startSurvivalGame();
 
-    static void resetGame();
+    static void resetClassicGame();
+    static void resetSurvivalGame();
     static void shutdownGame();
 };
 #endif // GAMEHANDLER_H_INCLUDED
