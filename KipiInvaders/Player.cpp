@@ -7,6 +7,7 @@ Player::Player(Texture& t, int lives) {
     _PLives = lives;
     _PCanShoot = true;
     _PIsToShoot = false;
+    _PHasBeenHit = false;
     _PScore = 0;
 }
 
@@ -42,7 +43,7 @@ void Player::update() {
             _GORect.x += _GOVelocity;
         }
 
-        if(keyState[SDL_SCANCODE_RETURN]) {
+        if(keyState[SDL_SCANCODE_SPACE]) {
             if(_PCanShoot) {
                 _PCanShoot = false;
                 _PIsToShoot = true;

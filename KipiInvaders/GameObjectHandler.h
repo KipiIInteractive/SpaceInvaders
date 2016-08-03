@@ -6,6 +6,7 @@
 #include "BulletResources.h"
 #include "PlayerResources.h"
 #include "BarrierResources.h"
+#include "GameObjectGenerator.h"
 
 class GameObjectHandler {
 public:

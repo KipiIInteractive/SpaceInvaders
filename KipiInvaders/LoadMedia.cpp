@@ -406,12 +406,16 @@ bool LoadMedia::load() {
     if(!gAlienDestroyedTexture.loadFromFile("./models/alienExplosion.png")) {
         success = false;
     }
+    else {
+        gAlienDestroyedTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+        gAlienDestroyedTexture.setHeight((gAlienDestroyedTexture.getWidth()*37)/60);
+    }
 
     if(!gUFOTexture.loadFromFile("./models/UFO.png")) {
         success = false;
     }
     else {
-        gUFOTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*10)/100);
+        gUFOTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*9)/100);
         gUFOTexture.setHeight((gUFOTexture.getWidth()*4)/9);
     }
 
@@ -437,7 +441,7 @@ bool LoadMedia::load() {
         success = false;
     }
     else {
-        gPlayerTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*8)/100);
+        gPlayerTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*7)/100);
         gPlayerTexture.setHeight((gPlayerTexture.getWidth()*4)/7);
     }
 

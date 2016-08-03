@@ -16,6 +16,8 @@ void Background::setBackgroundClip(int x, int y, int w, int h) {
     _BClip.y = y;
     _BClip.w = w;
     _BClip.h = h;
+    _BTexture.setWidth(w);
+    _BTexture.setHeight(h);
 }
 
 void Background::render(int x, int y) {

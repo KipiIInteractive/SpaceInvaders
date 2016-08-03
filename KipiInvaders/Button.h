@@ -13,7 +13,7 @@ protected:
     bool activateNextButton;
     bool activatePreviousButton;
     static bool currentOptionHasBeenChanged;
-    static bool isEnterReleased;
+    static bool isSpaceReleased;
 public:
     Button();
 

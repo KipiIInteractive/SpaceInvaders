@@ -189,8 +189,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BTopLeftCornerHitCounter++;
             if(_BTopLeftCornerHitCounter < 3) {
                 _BTopLeftCorner.loadFromFile("./images/upperLeftCorner" + to_string(_BTopLeftCornerHitCounter) + ".png");
-                _BTopLeftCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BTopLeftCorner.setHeight((_BTopLeftCorner.getWidth()*19)/21);
+                _BTopLeftCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BTopLeftCorner.setHeight((_BTopLeftCorner.getWidth()*21)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BTopLeftCornerHitCounter == 3){
@@ -207,8 +207,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BTopRightCornerHitCounter++;
             if(_BTopRightCornerHitCounter < 3) {
                 _BTopRightCorner.loadFromFile("./images/upperRightCorner" + to_string(_BTopRightCornerHitCounter) + ".png");
-                _BTopRightCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BTopRightCorner.setHeight((_BTopRightCorner.getWidth()*19)/23);
+                _BTopRightCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BTopRightCorner.setHeight((_BTopRightCorner.getWidth()*23)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BTopRightCornerHitCounter == 3){
@@ -225,8 +225,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BBottomLeftHitCounter++;
             if(_BBottomLeftHitCounter < 3) {
                 _BBottomLeft.loadFromFile("./images/fullSquare" + to_string(_BBottomLeftHitCounter) + ".png");
-                _BBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BBottomLeft.setHeight((_BBottomLeft.getWidth()*19)/22);
+                _BBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BBottomLeft.setHeight((_BBottomLeft.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BBottomLeftHitCounter == 3){
@@ -243,8 +243,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BBottomRightHitCounter++;
             if(_BBottomRightHitCounter < 3) {
                 _BBottomRight.loadFromFile("./images/fullSquare" + to_string(_BBottomRightHitCounter) + ".png");
-                _BBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BBottomRight.setHeight((_BBottomRight.getWidth()*19)/22);
+                _BBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BBottomRight.setHeight((_BBottomRight.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BBottomRightHitCounter == 3){
@@ -261,8 +261,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BMiddleLeftHitCounter++;
             if(_BMiddleLeftHitCounter < 3) {
                 _BMiddleLeft.loadFromFile("./images/fullSquare" + to_string(_BMiddleLeftHitCounter) + ".png");
-                _BMiddleLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BMiddleLeft.setHeight((_BMiddleLeft.getWidth()*19)/22);
+                _BMiddleLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BMiddleLeft.setHeight((_BMiddleLeft.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BMiddleLeftHitCounter == 3){
@@ -279,8 +279,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BMiddleRightHitCounter++;
             if(_BMiddleRightHitCounter < 3) {
                 _BMiddleRight.loadFromFile("./images/fullSquare" + to_string(_BMiddleRightHitCounter) + ".png");
-                _BMiddleRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BMiddleRight.setHeight((_BMiddleRight.getWidth()*19)/22);
+                _BMiddleRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BMiddleRight.setHeight((_BMiddleRight.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BMiddleRightHitCounter == 3){
@@ -297,8 +297,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerBottomLeftHitCounter++;
             if(_BInnerBottomLeftHitCounter < 3) {
                 _BInnerBottomLeft.loadFromFile("./images/innerLeftCorner" + to_string(_BInnerBottomLeftHitCounter) + ".png");
-                _BInnerBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BInnerBottomLeft.setHeight((_BInnerBottomLeft.getWidth()*19)/22);
+                _BInnerBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BInnerBottomLeft.setHeight((_BInnerBottomLeft.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerBottomLeftHitCounter == 3){
@@ -315,8 +315,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerBottomRightHitCounter++;
             if(_BInnerBottomRightHitCounter < 3) {
                 _BInnerBottomRight.loadFromFile("./images/innerRightCorner" + to_string(_BInnerBottomRightHitCounter) + ".png");
-                _BInnerBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BInnerBottomRight.setHeight((_BInnerBottomRight.getWidth()*19)/22);
+                _BInnerBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BInnerBottomRight.setHeight((_BInnerBottomRight.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerBottomRightHitCounter == 3){
@@ -333,8 +333,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerTopLeftHitCounter++;
             if(_BInnerTopLeftHitCounter < 3) {
                 _BInnerTopLeft.loadFromFile("./images/fullSquare" + to_string(_BInnerTopLeftHitCounter) + ".png");
-                _BInnerTopLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BInnerTopLeft.setHeight((_BInnerTopLeft.getWidth()*19)/22);
+                _BInnerTopLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BInnerTopLeft.setHeight((_BInnerTopLeft.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerTopLeftHitCounter == 3){
@@ -351,8 +351,8 @@ void Barrier::checkAndHandleCollisionWithBullets() {
             _BInnerTopRightHitCounter++;
             if(_BInnerTopRightHitCounter < 3) {
                 _BInnerTopRight.loadFromFile("./images/fullSquare" + to_string(_BInnerTopRightHitCounter) + ".png");
-                _BInnerTopRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-                _BInnerTopRight.setHeight((_BInnerTopRight.getWidth()*19)/22);
+                _BInnerTopRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+                _BInnerTopRight.setHeight((_BInnerTopRight.getWidth()*22)/19);
                 bullets[i]->setHasCollidedWithBarrier(true);
             }
             else if(_BInnerTopRightHitCounter == 3){

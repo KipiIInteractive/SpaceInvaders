@@ -11,6 +11,7 @@ using namespace std;
 
 class Texture {
     SDL_Texture* _Texture;
+    SDL_Rect* _TClip;
     int _THeight, _TWidth;
     string _TText;
 public:
@@ -24,6 +25,8 @@ public:
     void setColor(SDL_Color color);
 
     string getText();
+
+    void setClip(SDL_Rect* clip = NULL);
 
     void setWidth(int w);
 

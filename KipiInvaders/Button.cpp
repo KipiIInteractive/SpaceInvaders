@@ -1,7 +1,7 @@
 #include "Button.h"
 
 bool Button::currentOptionHasBeenChanged = false;
-bool Button::isEnterReleased = true;
+bool Button::isSpaceReleased = true;
 
 Button::Button() {
     _BPosition.x = 0;
@@ -57,12 +57,12 @@ void Button::handleEvents(SDL_Event *e) {
 
     if(active) {
         _BColor = {255, 255, 255, 255};
-        if(e->type == SDL_KEYDOWN && (e->key.keysym.sym == SDLK_RETURN) && Button::isEnterReleased) {
+        if(e->type == SDL_KEYDOWN && (e->key.keysym.sym == SDLK_SPACE) && Button::isSpaceReleased) {
             pressed = true;
-            Button::isEnterReleased = false;
+            Button::isSpaceReleased = false;
         }
-        else if(e->type != SDL_KEYDOWN && !Button::isEnterReleased){
-            Button::isEnterReleased = true;
+        else if(e->type != SDL_KEYDOWN && !Button::isSpaceReleased){
+            Button::isSpaceReleased = true;
         }
     }
     else {

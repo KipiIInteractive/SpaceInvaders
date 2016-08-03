@@ -47,9 +47,13 @@ bool LevelManager::LoadSurvivalLevel() {
                 //Add the shooting power coefficient of the alien
                 else if(line_num == 2) {
                     level >> ENEMY_MOVEMENT_SPEED;
+                    ENEMY_MOVEMENT_SPEED = ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*1)/100;
+
                 }
                 else if(line_num == 3){
                     level >> ENEMY_SHOOTING_SPEED;
+                    ENEMY_SHOOTING_SPEED = ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*1)/100;
+                    cout << ENEMY_SHOOTING_SPEED << endl;
                 }
                 line_num++;
             }
@@ -83,9 +87,11 @@ bool LevelManager::LoadClassicLevel(int lvl)
                 //Add the shooting power coefficient of the alien
                 else if(line_num == 2) {
                     level >> ENEMY_MOVEMENT_SPEED;
+                    ENEMY_MOVEMENT_SPEED = ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*1)/100;
                 }
                 else if(line_num == 3){
                     level >> ENEMY_SHOOTING_SPEED;
+                    ENEMY_SHOOTING_SPEED = ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*1)/100;
                 }
                 line_num++;
             }

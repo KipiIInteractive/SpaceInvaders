@@ -36,16 +36,16 @@ void GameObjectGenerator::generateEnemies() {
                                       /* type = */ SQUID,
                                       /* movementDirection = */ RIGHT,
                                       /*points= */ 40);
-                    enemy->setWidth(50);
-                    enemy->setHeight(50);
+                    enemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+                    enemy->setHeight(enemy->getWidth()/1.7);
                 }
                 else if(i % 2 != 0){
                     enemy = new Enemy(/* texture = */ gAliensTexture,
                                       /* type = */ CRAB,
                                       /* movementDirection = */ RIGHT,
                                       /*points= */ 10);
-                    enemy->setWidth(50);
-                    enemy->setHeight(50);
+                    enemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+                    enemy->setHeight(enemy->getWidth()/1.7);
                 }
 
                 else {
@@ -53,18 +53,20 @@ void GameObjectGenerator::generateEnemies() {
                                       /* type = */ JELLYFISH,
                                       /* movementDirection = */ RIGHT,
                                       /*points= */ 20);
-                    enemy->setWidth(50);
-                    enemy->setHeight(50);
+                    enemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+                    enemy->setHeight(enemy->getWidth()/1.7);
                 }
                 y = gLivesSignTexture.getHeight()*2 + i*enemy->getHeight() + (i+1)*15;
-                enemy->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*(enemy->getHeight()*1.7-4) - 5*(MAX_ALIENS_ON_ROW-1))/2 + (enemy->getHeight()*1.7-4)*(j) + 5*j, y);
+                enemy->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*(enemy->getHeight()*1.7) - 5*(MAX_ALIENS_ON_ROW-1))/2 + (enemy->getHeight()*1.7-3)*(j) + 5*j, y);
                 enemy->setVelocity(ENEMY_MOVEMENT_SPEED);
                 enemies.push_back(enemy);
             }
         }
         GameObjectGenerator::enemiesGenerated = true;
     }
-    if(!GameObjectGenerator::UFOGenerated) {
+    if(!GameObjectGenerator::UFOGenerated
+       && rand() % 100 == 1
+       && enemies[0]->getY() > 2*gScoreSignTexture.getHeight() + gUFOTexture.getHeight()) {
         int rNum = rand() % 3;
         UFO = new Enemy(/* texture = */ gUFOTexture,
                          /* type = */ MOTHERSHIP,
@@ -72,8 +74,8 @@ void GameObjectGenerator::generateEnemies() {
                          /*points= */ (rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
         UFO->setWidth(gUFOTexture.getWidth());
         UFO->setHeight(gUFOTexture.getHeight());
-        UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 20)
-                                            : UFO->setPosition(System::SCREEN_WIDTH, 20);
+        UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 2*gScoreSignTexture.getHeight())
+                                            : UFO->setPosition(System::SCREEN_WIDTH, 2*gScoreSignTexture.getHeight());
         UFO->setVelocity(ENEMY_MOVEMENT_SPEED+2);
         GameObjectGenerator::UFOGenerated = true;
     }
@@ -95,16 +97,16 @@ void GameObjectGenerator::generateAdditionalHordes() {
                                       /* type = */ SQUID,
                                       /* movementDirection = */ enemies[j]->getMovementDirection(),
                                       /*points= */ 40);
-                    pEnemy->setWidth(50);
-                    pEnemy->setHeight(50);
+                    pEnemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+                    pEnemy->setHeight(pEnemy->getWidth()/1.7);
                 }
                 else if(randNum == 1){
                     pEnemy = new Enemy(/* texture = */ gAliensTexture,
                                       /* type = */ CRAB,
                                       /* movementDirection = */ enemies[j]->getMovementDirection(),
                                       /*points= */ 10);
-                    pEnemy->setWidth(50);
-                    pEnemy->setHeight(50);
+                    pEnemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+                    pEnemy->setHeight(pEnemy->getWidth()/1.7);
                 }
 
                 else {
@@ -112,14 +114,15 @@ void GameObjectGenerator::generateAdditionalHordes() {
                                       /* type = */ JELLYFISH,
                                       /* movementDirection = */ enemies[j]->getMovementDirection(),
                                       /*points= */ 20);
-                    pEnemy->setWidth(50);
-                    pEnemy->setHeight(50);
+                    pEnemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
+                    pEnemy->setHeight(pEnemy->getWidth()/1.7);
                 }
                 y = enemies[j]->getY() - pEnemy->getHeight() - 15;
-                pEnemy->setPosition(enemies[j]->getX() + 5*i + (pEnemy->getHeight()*1.7-4)*i, y);
+                pEnemy->setPosition(enemies[j]->getX() + 5*i + (pEnemy->getHeight()*1.7)*i, y);
                 pEnemy->setVelocity(ENEMY_MOVEMENT_SPEED);
                 enemiesQueue.push_back(pEnemy);
             }
+            REMAINING_ENEMIES += MAX_ALIENS_ON_ROW;
             break;
         }
     }

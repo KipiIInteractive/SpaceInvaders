@@ -13,31 +13,16 @@ void GameObjectHandler::updateEnemies() {
             ENEMY_DESTROYED_FRAMES_COUNTER++;
         }
     }
-    for(unsigned int i = 0; i < MAX_ALIENS_ON_ROW; i++) {
-        if(UFO->isAlive()) {
-            UFO->update();
-            if(!GameObjectHandler::playedUFOSound) {
-                Mix_PlayChannel(-1, gUFOSound, 0);
-                GameObjectHandler::playedUFOSound = true;
-            }
-            break;
+    if(UFO->isAlive()) {
+        UFO->update();
+        if(!GameObjectHandler::playedUFOSound) {
+            Mix_PlayChannel(-1, gUFOSound, 0);
+            GameObjectHandler::playedUFOSound = true;
         }
-        else if(!UFO->isAlive() && rand() % 8000 == 1 && enemies[i]->getY() > UFO->getY() + UFO->getHeight() + 20) {
-            UFO->setIsAlive(true);
-            if(rand() % 2 == 0) {
-                UFO->setPosition(-UFO->getWidth(), 20);
-                UFO->setMovementDirection(RIGHT);
-            }
-            else {
-                UFO->setPosition(System::SCREEN_WIDTH, 20);
-                UFO->setMovementDirection(LEFT);
-            }
-            //New points
-            int rNum = rand() % 3;
-            UFO->setPoints((rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
-            GameObjectHandler::playedUFOSound = false;
-            break;
-        }
+    }
+    else {
+        GameObjectGenerator::UFOGenerated = false;
+        GameObjectHandler::playedUFOSound = false;
     }
     ENEMY_ANIMATION_FRAMES_COUNTER++;
 }

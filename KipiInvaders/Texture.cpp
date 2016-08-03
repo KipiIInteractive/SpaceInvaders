@@ -98,10 +98,6 @@ void Texture::applyTexture(SDL_Texture *pt) { _Texture = pt; }
 void Texture::render(int x, int y, SDL_Rect* clip, SDL_RendererFlip flip, double angle, SDL_Point* center) {
     SDL_Rect renderQuad;
     renderQuad = {x, y, _TWidth, _THeight};
-    if(clip != NULL && clip->w != 0 && clip->h != 0) {
-        renderQuad.w = clip->w;
-        renderQuad.h = clip->h;
-    }
     SDL_RenderCopyEx(System::renderer, _Texture, clip, &renderQuad, angle, center, flip);
 }
 
