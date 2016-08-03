@@ -38,7 +38,6 @@ bool Enemy::hasBeenHit() { return _EHasBeenHit; }
 void Enemy::setHasBeenHit(bool b) { _EHasBeenHit = b; }
 
 void Enemy::update() {
-
     if(_EType == MOTHERSHIP) {
         if(_GODirection == RIGHT) {
             _GORect.x += _GOVelocity/3;

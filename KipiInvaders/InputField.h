@@ -8,7 +8,7 @@ class InputField {
     SDL_Rect _IFRect;
     string _IFText;
     Texture _IFTextTexture;
-    bool isEnterPressed;
+    bool isSpacePressed;
     bool isActive;
 public:
     InputField();
@@ -26,7 +26,7 @@ public:
 
     string getInput();
 
-    bool enterHasBeenPressed();
+    bool spaceHasBeenPressed();
 
     void handleEvents(SDL_Event *e);
 

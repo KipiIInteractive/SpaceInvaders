@@ -56,7 +56,7 @@ void GameObjectGenerator::generateEnemies() {
                     enemy->setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*6)/100);
                     enemy->setHeight(enemy->getWidth()/1.7);
                 }
-                y = gLivesSignTexture.getHeight()*2 + i*enemy->getHeight() + (i+1)*15;
+                y = gLivesSignTexture.getHeight()*2 + i*enemy->getHeight() + (i+1)*15 + 10;
                 enemy->setPosition(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER - MAX_ALIENS_ON_ROW*(enemy->getHeight()*1.7) - 5*(MAX_ALIENS_ON_ROW-1))/2 + (enemy->getHeight()*1.7-3)*(j) + 5*j, y);
                 enemy->setVelocity(ENEMY_MOVEMENT_SPEED);
                 enemies.push_back(enemy);
@@ -72,32 +72,34 @@ void GameObjectGenerator::generateEnemies() {
                          /*points= */ (rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
         UFO->setWidth(gUFOTexture.getWidth());
         UFO->setHeight(gUFOTexture.getHeight());
-        UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 2*gScoreSignTexture.getHeight())
-                                            : UFO->setPosition(System::SCREEN_WIDTH, 2*gScoreSignTexture.getHeight());
+        UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 2.5*gScoreSignTexture.getHeight())
+                                            : UFO->setPosition(System::SCREEN_WIDTH, 2.5*gScoreSignTexture.getHeight());
         UFO->setVelocity(ENEMY_MOVEMENT_SPEED+2);
         UFO->setIsAlive(false);
         GameObjectGenerator::UFOGenerated = true;
     }
     else if(!UFO->isAlive()){
-        for(unsigned int i = 0; i < enemies.size();i++) {
+        for(unsigned int i = 0; i < MAX_ALIENS_ON_ROW;i++) {
             if(rand() % 8000 == 1
-               && enemies[i]->getY() > 2*gScoreSignTexture.getHeight() + gUFOTexture.getHeight()) {
-                if(UFO->hasBeenHit()) {
+               && enemies[i]->getY() > 2.5*gScoreSignTexture.getHeight() + gUFOTexture.getHeight()
+               && enemies[i]->isAlive()) {
+                if(UFO->hasBeenHit() || UFO->hasCollidedWithScreenHorizontally()) {
                     if(rand() % 2 == 0) {
-                        UFO->setPosition(-UFO->getWidth(), 2*gScoreSignTexture.getHeight());
+                        UFO->setPosition(-UFO->getWidth(), 2.5*gScoreSignTexture.getHeight());
                         UFO->setMovementDirection(RIGHT);
                     }
                     else {
-                        UFO->setPosition(System::SCREEN_WIDTH, 2*gScoreSignTexture.getHeight());
+                        UFO->setPosition(System::SCREEN_WIDTH, 2.5*gScoreSignTexture.getHeight());
                         UFO->setMovementDirection(LEFT);
                     }
                     //New points
                     int rNum = rand() % 3;
                     UFO->setPoints((rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
                     UFO->setHasBeenHit(false);
+                    GameObjectHandler::playedUFOSound = false;
                 }
-                GameObjectHandler::playedUFOSound = false;
                 UFO->setIsAlive(true);
+                break;
             }
         }
     }
@@ -188,6 +190,7 @@ void GameObjectGenerator::generateBullets() {
         bullet->setHeight(gBulletTexture.getHeight());
         bullet->setPosition(player->getX() + player->getWidth()/2 - 3, player->getY());
         bullets.push_back(bullet);
+        cout << "here" << endl;
         player->setIsToShooT(false);
         Mix_PlayChannel(-1, gLaserSound, 0);
     }

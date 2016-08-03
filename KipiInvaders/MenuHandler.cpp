@@ -210,7 +210,7 @@ void MenuHandler::handleSubmitNameAndScoreMenuEvents(SDL_Event *e) {
     if(gSubmitButton.nextButtonIsToBeActivated() || gSubmitButton.previousButtonIsToBeActivated()) {
         gSubmitButton.setIsActive(true);
     }
-    else if(gSubmitButton.hasBeenPressed() && !gSubmitMenuInputField.enterHasBeenPressed()) {
+    else if(gSubmitButton.hasBeenPressed() && !gSubmitMenuInputField.spaceHasBeenPressed()) {
         gSubmitButton.setHasBeenPressed(false);
     }
 }

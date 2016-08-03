@@ -20,6 +20,7 @@ public:
     bool isToShooT();
     void setIsToShooT(bool b);
     void setCanShooT(bool b);
+    bool canShoot();
 
     void setHasBeenHit(bool b);
     bool hasBeenHit();

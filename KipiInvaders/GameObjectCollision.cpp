@@ -20,7 +20,6 @@ void GameObjectCollision::checkEnemyCollisionWithScreen() {
         UFO->checkCollisionWithScreen();
         if(UFO->hasCollidedWithScreenHorizontally()) {
             UFO->setIsAlive(false);
-            UFO->setHasCollidedWithScreenHorizontally(false);
         }
     }
 }
@@ -43,7 +42,7 @@ void GameObjectCollision::checkBulletCollision() {
     for(vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();) {
         (*it)->checkCollision();
         if((*it)->hasCollided()) {
-            if((*it)->getMovementDirection() == UP) {
+            if((*it)->getMovementDirection() == UP && !player->canShoot()) {
                 player->setCanShooT(true);
             }
             Bullet* bullet = (*it);

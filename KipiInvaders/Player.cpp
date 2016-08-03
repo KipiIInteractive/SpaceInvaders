@@ -23,6 +23,8 @@ void Player::setIsToShooT(bool b) { _PIsToShoot = b; }
 
 void Player::setCanShooT(bool b) { _PCanShoot = b; }
 
+bool Player::canShoot() { return _PCanShoot; }
+
 bool Player::hasBeenHit() { return _PHasBeenHit; }
 
 void Player::setHasBeenHit(bool b) { _PHasBeenHit = b; }

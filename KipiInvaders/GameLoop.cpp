@@ -42,6 +42,9 @@ void GameLoop::run() {
                                 }
                             }
                             else if(!playerHasSeenTheRanking) {
+                                if(!gBackButton.isActive()) {
+                                    gBackButton.setIsActive(true);
+                                }
                                 MenuHandler::handleRankingMenuEvents(&e);
                                 if(gBackButton.hasBeenPressed()) {
                                     playerHasSeenTheRanking = true;
@@ -95,6 +98,9 @@ void GameLoop::run() {
                                 }
                             }
                             else if(!playerHasSeenTheRanking) {
+                                if(!gBackButton.isActive()) {
+                                    gBackButton.setIsActive(true);
+                                }
                                 MenuHandler::handleRankingMenuEvents(&e);
                                 if(gBackButton.hasBeenPressed()) {
                                     playerHasSeenTheRanking = true;

@@ -6,7 +6,7 @@ InputField::InputField() {
     _IFRect.w = 0;
     _IFRect.h = 0;
     _IFText = "";
-    isEnterPressed = false;
+    isSpacePressed = false;
     isActive = true;
 }
 
@@ -43,8 +43,8 @@ void InputField::handleEvents(SDL_Event *e) {
             _IFText += (char)e->key.keysym.sym;
             _IFTextTexture.loadFromRenderedText(_IFText, {255, 255, 255, 255});
         }
-        else if((e->key.keysym.sym == SDLK_RETURN || e->key.keysym.sym == SDLK_RETURN2) && _IFText.length() > 0) {
-            isEnterPressed = true;
+        else if(e->key.keysym.sym == SDLK_SPACE && _IFText.length() > 0) {
+            isSpacePressed = true;
         }
         else if(e->key.keysym.sym == SDLK_BACKSPACE && _IFText.length() > 0) {
             _IFText.pop_back();
@@ -55,7 +55,7 @@ void InputField::handleEvents(SDL_Event *e) {
 
 string InputField::getInput() { return _IFText; }
 
-bool InputField::enterHasBeenPressed() { return isEnterPressed; }
+bool InputField::spaceHasBeenPressed() { return isSpacePressed; }
 
 void InputField::render() { _IFTexture.render(_IFRect.x, _IFRect.y);
                             _IFTextTexture.render(_IFRect.x + (_IFRect.w - _IFTextTexture.getWidth())/2,
