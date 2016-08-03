@@ -26,80 +26,80 @@ bool Barrier::loadInitialTextures() {
         success = false;
     }
     else {
-        _BTopLeftCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BTopLeftCorner.setHeight((_BTopLeftCorner.getWidth()*19)/21);
+        _BTopLeftCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BTopLeftCorner.setHeight((_BTopLeftCorner.getWidth()*21)/19);
     }
 
     if(!_BTopRightCorner.loadFromFile("./images/upperRightCorner.png")) {
         success = false;
     }
     else {
-        _BTopRightCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BTopRightCorner.setHeight((_BTopRightCorner.getWidth()*19)/23);
+        _BTopRightCorner.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BTopRightCorner.setHeight((_BTopRightCorner.getWidth()*23)/19);
     }
 
     if(!_BBottomLeft.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
     else {
-        _BBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BBottomLeft.setHeight((_BBottomLeft.getWidth()*19)/22);
+        _BBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BBottomLeft.setHeight((_BBottomLeft.getWidth()*22)/19);
     }
 
     if(!_BBottomRight.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
     else {
-        _BBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BBottomRight.setHeight((_BBottomRight.getWidth()*19)/22);
+        _BBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BBottomRight.setHeight((_BBottomRight.getWidth()*22)/19);
     }
 
     if(!_BMiddleLeft.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
     else {
-        _BMiddleLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BMiddleLeft.setHeight((_BMiddleLeft.getWidth()*19)/22);
+        _BMiddleLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BMiddleLeft.setHeight((_BMiddleLeft.getWidth()*22)/19);
     }
 
     if(!_BMiddleRight.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
     else {
-        _BMiddleRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BMiddleRight.setHeight((_BMiddleRight.getWidth()*19)/22);
+        _BMiddleRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BMiddleRight.setHeight((_BMiddleRight.getWidth()*22)/19);
     }
 
     if(!_BInnerTopLeft.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
     else {
-        _BInnerTopLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BInnerTopLeft.setHeight((_BInnerTopLeft.getWidth()*19)/22);
+        _BInnerTopLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BInnerTopLeft.setHeight((_BInnerTopLeft.getWidth()*22)/19);
     }
 
     if(!_BInnerTopRight.loadFromFile("./images/fullSquare.png")) {
         success = false;
     }
     else {
-        _BInnerTopRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BInnerTopRight.setHeight((_BInnerTopRight.getWidth()*19)/22);
+        _BInnerTopRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BInnerTopRight.setHeight((_BInnerTopRight.getWidth()*22)/19);
     }
 
     if(!_BInnerBottomLeft.loadFromFile("./images/innerLeftCorner.png")) {
         success = false;
     }
     else {
-        _BInnerBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BInnerBottomLeft.setHeight((_BInnerBottomLeft.getWidth()*19)/22);
+        _BInnerBottomLeft.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BInnerBottomLeft.setHeight((_BInnerBottomLeft.getWidth()*22)/19);
     }
 
     if(!_BInnerBottomRight.loadFromFile("./images/innerRightCorner.png")) {
         success = false;
     }
     else {
-        _BInnerBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*3)/100);
-        _BInnerBottomRight.setHeight((_BInnerBottomRight.getWidth()*19)/22);
+        _BInnerBottomRight.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*2)/100);
+        _BInnerBottomRight.setHeight((_BInnerBottomRight.getWidth()*22)/19);
     }
 
     return success;

@@ -41,13 +41,13 @@ void GameLoop::run() {
                                 }
                             }
                             else {
-                                if(gSubmitButton.hasBeenPressed()) {
-                                    gSubmitButton.setHasBeenPressed(false);
-                                }
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
                                     gNewGameButton.setHasBeenPressed(false);
                                     GameHandler::resetClassicGame();
+                                    if(gSubmitButton.hasBeenPressed()) {
+                                        gSubmitButton.setHasBeenPressed(false);
+                                    }
                                     GameHandler::gameOver = false;
                                 }
                                 else if(gMainMenuButton.hasBeenPressed()) {
@@ -55,6 +55,9 @@ void GameLoop::run() {
                                     gPlayButton.setHasBeenPressed(false);
                                     gMainMenuButton.setHasBeenPressed(false);
                                     GameHandler::needToResetClassicGame = true;
+                                    if(gSubmitButton.hasBeenPressed()) {
+                                        gSubmitButton.setHasBeenPressed(false);
+                                    }
                                     GameHandler::gameOver = false;
                                 }
                             }
@@ -82,13 +85,13 @@ void GameLoop::run() {
                                 }
                             }
                             else {
-                                if(gSubmitButton.hasBeenPressed()) {
-                                    gSubmitButton.setHasBeenPressed(false);
-                                }
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
                                     gNewGameButton.setHasBeenPressed(false);
                                     GameHandler::resetSurvivalGame();
+                                    if(gSubmitButton.hasBeenPressed()) {
+                                        gSubmitButton.setHasBeenPressed(false);
+                                    }
                                     GameHandler::gameOver = false;
                                 }
                                 else if(gMainMenuButton.hasBeenPressed()) {
@@ -96,6 +99,9 @@ void GameLoop::run() {
                                     gPlayButton.setHasBeenPressed(false);
                                     gMainMenuButton.setHasBeenPressed(false);
                                     GameHandler::needToResetSurvivalGame = true;
+                                    if(gSubmitButton.hasBeenPressed()) {
+                                        gSubmitButton.setHasBeenPressed(false);
+                                    }
                                     GameHandler::gameOver = false;
                                 }
                             }
@@ -165,7 +171,12 @@ void GameLoop::run() {
                     MenuHandler::showPauseMenu();
                 }
                 else if(GameHandler::gameOver) {
-                    MenuHandler::showGameOverMenu();
+                    if(RankingSystem::playerIsEligible() && !gSubmitButton.hasBeenPressed()) {
+                        MenuHandler::showSubmitNameAndScoreMenu();
+                    }
+                    else {
+                        MenuHandler::showGameOverMenu();
+                    }
                 }
                 else{
                     if(GameHandler::needToResetSurvivalGame) {

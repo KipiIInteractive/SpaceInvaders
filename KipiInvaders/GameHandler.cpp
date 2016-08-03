@@ -53,17 +53,21 @@ void GameHandler::startClassicGame() {
     GameObjectRenderer::renderPlayer();
     GameObjectRenderer::renderBarriers();
 
-    if(gScoreDigitsTexture.loadFromRenderedText(("" + to_string(player->getScore())), {255, 255, 255, 255})) {
+    if(gScoreDigitsTexture.loadFromRenderedText((to_string(player->getScore())), {255, 255, 255, 255})) {
         gScoreSignTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreSignTexture.getWidth())/2,
                                 0);
+        gScoreDigitsTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*(3 + (player->getScore() < 10 ? 1 : player->getScore() < 100 ? 2 : player->getScore() < 1000 ? 3 : 4)))/100);
+        gScoreDigitsTexture.setHeight(gScoreDigitsTexture.getWidth());
         gScoreDigitsTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreDigitsTexture.getWidth())/2,
                                    gScoreSignTexture.getHeight());
 
     }
 
-    if(gLivesDigitsTexture.loadFromRenderedText(("" + to_string(player->getLives())), {255, 255, 255, 255})) {
+    if(gLivesDigitsTexture.loadFromRenderedText((to_string(player->getLives())), {255, 255, 255, 255})) {
         gLivesSignTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesSignTexture.getWidth())/2,
                                  0);
+        gLivesDigitsTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*4)/100);
+        gLivesDigitsTexture.setHeight(gLivesDigitsTexture.getWidth());
         gLivesDigitsTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesDigitsTexture.getWidth())/2,
                                  gLivesSignTexture.getHeight());
     }
@@ -89,6 +93,8 @@ void GameHandler::startSurvivalGame() {
         if(LevelManager::LoadSurvivalLevel()) {
             LevelManager::renderedSurvivalLevel = false;
             GameObjectGenerator::enemiesGenerated = false;
+            SHOOTING_RNG = 5000;
+            ENEMY_ANIMATION_FRAMES = 50;
         }
         LevelManager::loadSurvivalLevel = false;
     }

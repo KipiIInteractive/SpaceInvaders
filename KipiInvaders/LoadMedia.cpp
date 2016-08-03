@@ -363,7 +363,7 @@ bool LoadMedia::load() {
         success = false;
     }
     else {
-        gBulletTexture.setWidth((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/190);
+        gBulletTexture.setWidth((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/200);
         gBulletTexture.setHeight((gBulletTexture.getWidth()*12)/3);
     }
 
@@ -454,7 +454,7 @@ bool LoadMedia::load() {
         success = false;
     }
     else {
-        gScoreSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*25)/100);
+        gScoreSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*20)/100);
         gScoreSignTexture.setHeight(gScoreSignTexture.getWidth()/6);
     }
 
@@ -463,7 +463,7 @@ bool LoadMedia::load() {
         success = false;
     }
     else {
-        gLivesSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*25)/100);
+        gLivesSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*20)/100);
         gLivesSignTexture.setHeight(gLivesSignTexture.getWidth()/6);
     }
 
@@ -472,14 +472,16 @@ bool LoadMedia::load() {
         success = false;
     }
     else {
-
+        gClassicLevelSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*25)/100);
+        gClassicLevelSignTexture.setHeight(gClassicLevelSignTexture.getWidth()/6);
     }
 
     if(!gSurvivalLevelSignTexture.loadFromRenderedText("Survival", {255, 255, 255, 200})) {
         success = false;
     }
     else {
-
+        gSurvivalLevelSignTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*30)/100);
+        gSurvivalLevelSignTexture.setHeight(gSurvivalLevelSignTexture.getWidth()/8);
     }
 
     //Sound Effects
