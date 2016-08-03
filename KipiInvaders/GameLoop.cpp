@@ -5,6 +5,7 @@ Uint8 startTime = 0;
 void GameLoop::run() {
     bool isRunning = true;
     bool isPaused = false;
+    bool playerHasSeenTheRanking = false;
     SDL_Event e;
     srand(time(NULL));
     while(isRunning) {
@@ -40,6 +41,13 @@ void GameLoop::run() {
                                     MenuHandler::updateRankingMenu(RankingSystem::playerNames, RankingSystem::playerScores);
                                 }
                             }
+                            else if(!playerHasSeenTheRanking) {
+                                MenuHandler::handleRankingMenuEvents(&e);
+                                if(gBackButton.hasBeenPressed()) {
+                                    playerHasSeenTheRanking = true;
+                                    gBackButton.setHasBeenPressed(false);
+                                }
+                            }
                             else {
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
@@ -48,6 +56,7 @@ void GameLoop::run() {
                                     if(gSubmitButton.hasBeenPressed()) {
                                         gSubmitButton.setHasBeenPressed(false);
                                     }
+                                    playerHasSeenTheRanking = false;
                                     GameHandler::gameOver = false;
                                 }
                                 else if(gMainMenuButton.hasBeenPressed()) {
@@ -58,6 +67,7 @@ void GameLoop::run() {
                                     if(gSubmitButton.hasBeenPressed()) {
                                         gSubmitButton.setHasBeenPressed(false);
                                     }
+                                    playerHasSeenTheRanking = false;
                                     GameHandler::gameOver = false;
                                 }
                             }
@@ -84,6 +94,13 @@ void GameLoop::run() {
                                     MenuHandler::updateRankingMenu(RankingSystem::playerNames, RankingSystem::playerScores);
                                 }
                             }
+                            else if(!playerHasSeenTheRanking) {
+                                MenuHandler::handleRankingMenuEvents(&e);
+                                if(gBackButton.hasBeenPressed()) {
+                                    playerHasSeenTheRanking = true;
+                                    gBackButton.setHasBeenPressed(false);
+                                }
+                            }
                             else {
                                 MenuHandler::handleGameOverMenuEvents(&e);
                                 if(gNewGameButton.hasBeenPressed()) {
@@ -92,6 +109,7 @@ void GameLoop::run() {
                                     if(gSubmitButton.hasBeenPressed()) {
                                         gSubmitButton.setHasBeenPressed(false);
                                     }
+                                    playerHasSeenTheRanking = false;
                                     GameHandler::gameOver = false;
                                 }
                                 else if(gMainMenuButton.hasBeenPressed()) {
@@ -102,6 +120,7 @@ void GameLoop::run() {
                                     if(gSubmitButton.hasBeenPressed()) {
                                         gSubmitButton.setHasBeenPressed(false);
                                     }
+                                    playerHasSeenTheRanking = false;
                                     GameHandler::gameOver = false;
                                 }
                             }
@@ -154,6 +173,9 @@ void GameLoop::run() {
                     if(RankingSystem::playerIsEligible() && !gSubmitButton.hasBeenPressed()) {
                         MenuHandler::showSubmitNameAndScoreMenu();
                     }
+                    else if(!playerHasSeenTheRanking) {
+                        MenuHandler::showRankingMenu();
+                    }
                     else {
                         MenuHandler::showGameOverMenu();
                     }
@@ -173,6 +195,9 @@ void GameLoop::run() {
                 else if(GameHandler::gameOver) {
                     if(RankingSystem::playerIsEligible() && !gSubmitButton.hasBeenPressed()) {
                         MenuHandler::showSubmitNameAndScoreMenu();
+                    }
+                    else if(!playerHasSeenTheRanking) {
+                        MenuHandler::showRankingMenu();
                     }
                     else {
                         MenuHandler::showGameOverMenu();

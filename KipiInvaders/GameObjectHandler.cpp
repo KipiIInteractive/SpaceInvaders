@@ -20,10 +20,6 @@ void GameObjectHandler::updateEnemies() {
             GameObjectHandler::playedUFOSound = true;
         }
     }
-    else {
-        GameObjectGenerator::UFOGenerated = false;
-        GameObjectHandler::playedUFOSound = false;
-    }
     ENEMY_ANIMATION_FRAMES_COUNTER++;
 }
 

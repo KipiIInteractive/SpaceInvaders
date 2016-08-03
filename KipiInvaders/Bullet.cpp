@@ -41,6 +41,7 @@ bool Bullet::hasCollidedWithEnemy() {
            && _GORect.y < UFO->getY() + UFO->getHeight()) {
             player->addToScore(UFO->getPoints());
             UFO->setIsAlive(false);
+            UFO->setHasBeenHit(true);
             Mix_PlayChannel(-1, gAlienExplosionSound, 0);
             return true;
         }

@@ -53,7 +53,6 @@ bool LevelManager::LoadSurvivalLevel() {
                 else if(line_num == 3){
                     level >> ENEMY_SHOOTING_SPEED;
                     ENEMY_SHOOTING_SPEED = ((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*1)/100;
-                    cout << ENEMY_SHOOTING_SPEED << endl;
                 }
                 line_num++;
             }

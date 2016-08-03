@@ -29,68 +29,68 @@ void MenuHandler::showControlsMenu() {
 void MenuHandler::showRankingMenu() {
     gGameBackground.render(0, 0);
     gRankingMenuSign.render((System::SCREEN_WIDTH - gRankingMenuSign.getWidth())/2,
-                            gRankingMenuSign.getHeight());
+                            gRankingMenuSign.getHeight()/3);
     int freeSpaceHeight = gBackButton.getY() - 2*gRankingMenuSign.getHeight();
     p1NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p1NameTexture.getHeight() - 9*(p1NameTexture.getHeight()/2))/2);
+                                    + (freeSpaceHeight - 10*p1NameTexture.getHeight() - 9*(p1NameTexture.getHeight()/3))/2);
     p1ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p1ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p1NameTexture.getHeight() - 9*(p1ScoreTexture.getHeight()/2))/2);
+                                    + (freeSpaceHeight - 10*p1NameTexture.getHeight() - 9*(p1ScoreTexture.getHeight()/3))/2);
     p2NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p2NameTexture.getHeight() - 9*(p2NameTexture.getHeight()/2))/2 + p1NameTexture.getHeight() + p1NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p2NameTexture.getHeight() - 9*(p2NameTexture.getHeight()/3))/2 + p1NameTexture.getHeight() + p1NameTexture.getHeight()/3);
     p2ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p2ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p2ScoreTexture.getHeight() - 9*(p2ScoreTexture.getHeight()/2))/2 + p1ScoreTexture.getHeight() + p1ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p2ScoreTexture.getHeight() - 9*(p2ScoreTexture.getHeight()/3))/2 + p1ScoreTexture.getHeight() + p1ScoreTexture.getHeight()/3);
     p3NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p3NameTexture.getHeight() - 9*(p3NameTexture.getHeight()/2))/2 + 2*p2NameTexture.getHeight() + 2*p2NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p3NameTexture.getHeight() - 9*(p3NameTexture.getHeight()/3))/2 + 2*p2NameTexture.getHeight() + 2*p2NameTexture.getHeight()/3);
     p3ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p3ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p3ScoreTexture.getHeight() - 9*(p3ScoreTexture.getHeight()/2))/2 + 2*p2ScoreTexture.getHeight() + 2*p2ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p3ScoreTexture.getHeight() - 9*(p3ScoreTexture.getHeight()/3))/2 + 2*p2ScoreTexture.getHeight() + 2*p2ScoreTexture.getHeight()/3);
     p4NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p4NameTexture.getHeight() - 9*(p4NameTexture.getHeight()/2))/2 + 3*p3NameTexture.getHeight() + 3*p3NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p4NameTexture.getHeight() - 9*(p4NameTexture.getHeight()/3))/2 + 3*p3NameTexture.getHeight() + 3*p3NameTexture.getHeight()/3);
     p4ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p4ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p4ScoreTexture.getHeight() - 9*(p4ScoreTexture.getHeight()/2))/2 + 3*p3ScoreTexture.getHeight() + 3*p3ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p4ScoreTexture.getHeight() - 9*(p4ScoreTexture.getHeight()/3))/2 + 3*p3ScoreTexture.getHeight() + 3*p3ScoreTexture.getHeight()/3);
     p5NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p5NameTexture.getHeight() - 9*(p5NameTexture.getHeight()/2))/2 + 4*p4NameTexture.getHeight() + 4*p4NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p5NameTexture.getHeight() - 9*(p5NameTexture.getHeight()/3))/2 + 4*p4NameTexture.getHeight() + 4*p4NameTexture.getHeight()/3);
     p5ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p5ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p5ScoreTexture.getHeight() - 9*(p5ScoreTexture.getHeight()/2))/2 + 4*p4ScoreTexture.getHeight() + 4*p4ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p5ScoreTexture.getHeight() - 9*(p5ScoreTexture.getHeight()/3))/2 + 4*p4ScoreTexture.getHeight() + 4*p4ScoreTexture.getHeight()/3);
     p6NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p6NameTexture.getHeight() - 9*(p6NameTexture.getHeight()/2))/2 + 5*p5NameTexture.getHeight() + 5*p5NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p6NameTexture.getHeight() - 9*(p6NameTexture.getHeight()/3))/2 + 5*p5NameTexture.getHeight() + 5*p5NameTexture.getHeight()/3);
     p6ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p6ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p6ScoreTexture.getHeight() - 9*(p6ScoreTexture.getHeight()/2))/2 + 5*p5ScoreTexture.getHeight() + 5*p5ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p6ScoreTexture.getHeight() - 9*(p6ScoreTexture.getHeight()/3))/2 + 5*p5ScoreTexture.getHeight() + 5*p5ScoreTexture.getHeight()/3);
     p7NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p7NameTexture.getHeight() - 9*(p7NameTexture.getHeight()/2))/2 + 6*p6NameTexture.getHeight() + 6*p1NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p7NameTexture.getHeight() - 9*(p7NameTexture.getHeight()/3))/2 + 6*p6NameTexture.getHeight() + 6*p1NameTexture.getHeight()/3);
     p7ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p7ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p7ScoreTexture.getHeight() - 9*(p7ScoreTexture.getHeight()/2))/2 + 6*p6ScoreTexture.getHeight() + 6*p6ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p7ScoreTexture.getHeight() - 9*(p7ScoreTexture.getHeight()/3))/2 + 6*p6ScoreTexture.getHeight() + 6*p6ScoreTexture.getHeight()/3);
     p8NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p8NameTexture.getHeight() - 9*(p8NameTexture.getHeight()/2))/2 + 7*p7NameTexture.getHeight() + 7*p7NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p8NameTexture.getHeight() - 9*(p8NameTexture.getHeight()/3))/2 + 7*p7NameTexture.getHeight() + 7*p7NameTexture.getHeight()/3);
     p8ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p8ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p8ScoreTexture.getHeight() - 9*(p8ScoreTexture.getHeight()/2))/2 + 7*p7ScoreTexture.getHeight() + 7*p7ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p8ScoreTexture.getHeight() - 9*(p8ScoreTexture.getHeight()/3))/2 + 7*p7ScoreTexture.getHeight() + 7*p7ScoreTexture.getHeight()/3);
     p9NameTexture.render(/* x = */ 200,
                          /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p9NameTexture.getHeight() - 9*(p9NameTexture.getHeight()/2))/2 + 8*p8NameTexture.getHeight() + 8*p8NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p9NameTexture.getHeight() - 9*(p9NameTexture.getHeight()/3))/2 + 8*p8NameTexture.getHeight() + 8*p8NameTexture.getHeight()/3);
     p9ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p9ScoreTexture.getWidth() - 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p9ScoreTexture.getHeight() - 9*(p9ScoreTexture.getHeight()/2))/2 + 8*p8ScoreTexture.getHeight() + 8*p8ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p9ScoreTexture.getHeight() - 9*(p9ScoreTexture.getHeight()/3))/2 + 8*p8ScoreTexture.getHeight() + 8*p8ScoreTexture.getHeight()/3);
     p10NameTexture.render(/* x = */ 200,
                           /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p10NameTexture.getHeight() - 9*(p10NameTexture.getHeight()/2))/2 + 9*p9NameTexture.getHeight() + 9*p9NameTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p10NameTexture.getHeight() - 9*(p10NameTexture.getHeight()/3))/2 + 9*p9NameTexture.getHeight() + 9*p9NameTexture.getHeight()/3);
     p10ScoreTexture.render(/* x = */ System::SCREEN_WIDTH - p10ScoreTexture.getWidth() - 200,
                            /* y = */ 2*gRankingMenuSign.getHeight()
-                                    + (freeSpaceHeight - 10*p10ScoreTexture.getHeight() - 9*(p10ScoreTexture.getHeight()/2))/2 + 9*p9ScoreTexture.getHeight() + 9*p9ScoreTexture.getHeight()/2);
+                                    + (freeSpaceHeight - 10*p10ScoreTexture.getHeight() - 9*(p10ScoreTexture.getHeight()/3))/2 + 9*p9ScoreTexture.getHeight() + 9*p9ScoreTexture.getHeight()/3);
     gBackButton.render();
 }
 
@@ -111,7 +111,7 @@ void MenuHandler::showSubmitNameAndScoreMenu() {
     gGameBackground.render(0, 0);
     gGameOverMenuText.render((System::SCREEN_WIDTH - gGameOverMenuText.getWidth())/2,
                              gSubmitMenuInputField.getY() - gSubmitMenuText.getHeight() - gFinalScoreText.getHeight() - 50 - gGameOverMenuText.getHeight() - 60);
-    if(gFinalScoreDigits.loadFromRenderedText("" + to_string(player->getScore()), {255, 255, 255, 255})) {
+    if(gFinalScoreDigits.loadFromRenderedText(to_string(player->getScore()), {255, 255, 255, 255})) {
         gFinalScoreText.render((System::SCREEN_WIDTH - gFinalScoreText.getWidth() - gFinalScoreDigits.getWidth())/2,
                                 gSubmitMenuInputField.getY() - gSubmitMenuText.getHeight() - gFinalScoreText.getHeight() - 50);
         gFinalScoreDigits.render((System::SCREEN_WIDTH - gFinalScoreText.getWidth() - gFinalScoreDigits.getWidth())/2 + gFinalScoreText.getWidth(),

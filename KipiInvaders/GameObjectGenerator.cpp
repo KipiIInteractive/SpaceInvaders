@@ -64,9 +64,7 @@ void GameObjectGenerator::generateEnemies() {
         }
         GameObjectGenerator::enemiesGenerated = true;
     }
-    if(!GameObjectGenerator::UFOGenerated
-       && rand() % 100 == 1
-       && enemies[0]->getY() > 2*gScoreSignTexture.getHeight() + gUFOTexture.getHeight()) {
+    if(!GameObjectGenerator::UFOGenerated) {
         int rNum = rand() % 3;
         UFO = new Enemy(/* texture = */ gUFOTexture,
                          /* type = */ MOTHERSHIP,
@@ -77,7 +75,31 @@ void GameObjectGenerator::generateEnemies() {
         UFO->getMovementDirection() == RIGHT ? UFO->setPosition(0 - UFO->getWidth(), 2*gScoreSignTexture.getHeight())
                                             : UFO->setPosition(System::SCREEN_WIDTH, 2*gScoreSignTexture.getHeight());
         UFO->setVelocity(ENEMY_MOVEMENT_SPEED+2);
+        UFO->setIsAlive(false);
         GameObjectGenerator::UFOGenerated = true;
+    }
+    else if(!UFO->isAlive()){
+        for(unsigned int i = 0; i < enemies.size();i++) {
+            if(rand() % 8000 == 1
+               && enemies[i]->getY() > 2*gScoreSignTexture.getHeight() + gUFOTexture.getHeight()) {
+                if(UFO->hasBeenHit()) {
+                    if(rand() % 2 == 0) {
+                        UFO->setPosition(-UFO->getWidth(), 2*gScoreSignTexture.getHeight());
+                        UFO->setMovementDirection(RIGHT);
+                    }
+                    else {
+                        UFO->setPosition(System::SCREEN_WIDTH, 2*gScoreSignTexture.getHeight());
+                        UFO->setMovementDirection(LEFT);
+                    }
+                    //New points
+                    int rNum = rand() % 3;
+                    UFO->setPoints((rNum == 0) ? 50 : (rNum == 1) ? 100 : 150);
+                    UFO->setHasBeenHit(false);
+                }
+                GameObjectHandler::playedUFOSound = false;
+                UFO->setIsAlive(true);
+            }
+        }
     }
 }
 
