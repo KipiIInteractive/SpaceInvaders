@@ -1,6 +1,6 @@
 #include "FPS_Controller.h"
 
-FPS_Controller::FPS_Controller(int fps)
+FPS_Controller::FPS_Controller(unsigned fps)
 {
     this->fps = fps;
     this->delayCoefficient = 1000 / fps;

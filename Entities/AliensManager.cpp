@@ -9,6 +9,7 @@ int AliensManager::shootingPowerCoefficient = 0;
 int AliensManager::direction = System::Direction::Right;
 int AliensManager::currentFrame;
 bool AliensManager::isAlienHitTheWall = false;
+SDL_Rect AliensManager::dead_rect;
 
 std::vector<Alien*> AliensManager::allAliens;
 
@@ -38,9 +39,9 @@ void AliensManager::Move()
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
             if(AliensManager::direction == System::Direction::Right)
-                CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + AliensManager::movementSpeed );
+                CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() / 3 );
             else if(AliensManager::direction == System::Direction::Left)
-                CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - AliensManager::movementSpeed );
+                CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetWidth() / 3 );
 
 <<<<<<< HEAD
             //Check if alien is hit the floor
@@ -78,9 +79,9 @@ void AliensManager::Move()
                 CURRENT_ALIEN->SetY( CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() / 2 );
 
                 if(AliensManager::direction == System::Direction::Right)
-                    CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + AliensManager::movementSpeed );
+                    CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() / 3 );
                 else if(AliensManager::direction == System::Direction::Left)
-                    CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - AliensManager::movementSpeed );
+                    CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - CURRENT_ALIEN->GetWidth() / 3 );
             }
             AliensManager::isAlienHitTheWall = false;
         }

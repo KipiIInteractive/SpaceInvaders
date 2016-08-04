@@ -6,15 +6,15 @@
 class FPS_Controller
 {
     public:
-        FPS_Controller(int fps);
+        FPS_Controller(unsigned fps);
         void SetTestTick();
         void Delay();
 
     private:
-        int fps;
-        int delayCoefficient;
-        int testTick;
-        int currentTick;
+        unsigned fps;
+        unsigned delayCoefficient;
+        unsigned testTick;
+        unsigned currentTick;
 };
 
 #endif // FPS_CONTROLLER_H_INCLUDED

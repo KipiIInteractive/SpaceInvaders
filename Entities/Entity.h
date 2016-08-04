@@ -26,9 +26,9 @@ class Entity
         bool isAlive;
 
         void Render();
+        SDL_Rect rect;
 
     protected:
-        SDL_Rect rect;
         SDL_Texture *texture;
         int movementSpeed;
         int shootingPower;

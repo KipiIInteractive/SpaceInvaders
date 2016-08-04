@@ -79,6 +79,7 @@ bool LevelManager::LoadLevel(int lvl)
                 else if(line_num == 2)
                 {
                     level >> AliensManager::shootingPowerCoefficient;
+                    Game::Pannel.h / 44;
                 }
                 //Read the aliens
                 else if(line_num > 2)

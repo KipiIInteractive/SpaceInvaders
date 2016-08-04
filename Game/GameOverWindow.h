@@ -13,6 +13,8 @@
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 #include "../level_management/LevelManager.h"
 #include "Game.h"
+#include "RankList.h"
+#include "NameSelectionWindow.h"
 
 class GameOver
 {
@@ -33,6 +35,7 @@ class GameOver
     private:
         static SDL_Texture *background_texture;
         static Label text_title;
+        static Label text_title_top_players;
         static Label text_score;
         static Label text_navigation_hint;
 

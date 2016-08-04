@@ -9,6 +9,7 @@ class Label : public GUI
         Label();
         ~Label();
         void SetText(string text);
+        string GetText();
         void SetFont(TTF_Font *font);
         void SetColor(int r, int g, int b);
 <<<<<<< HEAD

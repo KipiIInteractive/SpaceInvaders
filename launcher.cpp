@@ -165,6 +165,13 @@ void InitEverything()
 
     //Initialize the start window
     StartWindow_Init();
+
+    //Initialize the keyboard
+    System::InitAlphabet();
+    Keyboard::Init();
+
+    //Initialize the name selection window
+    NameSelectionWindow::Init();
 }
 
 
@@ -173,6 +180,10 @@ void InitTheTextures()
     System::Textures::Aliens = System::CreateTexture("Resources/Textures/aliens.png");
     if(System::Textures::Aliens == NULL)
         cout << "Failed to create the Aliens texture: \n" << SDL_GetError() << endl;
+
+    System::Textures::Aliens_Dead = System::CreateTexture("Resources/Textures/aliens_die.png");
+    if(System::Textures::Aliens_Dead == NULL)
+        cout << "Failed to create the Aliens_Dead texture: \n" << SDL_GetError() << endl;
 
     System::Textures::UFO = System::CreateTexture("Resources/Textures/ufo.png");
     if(System::Textures::UFO == NULL)
@@ -233,15 +244,18 @@ void InitTheTextures()
     System::Textures::Barrier_Top_Right = System::CreateTexture("Resources/Textures/top-right.png");
     if(System::Textures::Barrier_Top_Right == NULL)
         cout << "Failed to create the Barrier_Top_Right texture: \n" << SDL_GetError() << endl;
-
 }
 
 void InitTheFonts()
 {
 //Game Over Window fonts
-    System::Fonts::GameOver_Title = TTF_OpenFont("Resources/Fonts/invaders.ttf", 80);
+    System::Fonts::GameOver_Title = TTF_OpenFont("Resources/Fonts/invaders.ttf", 90);
     if(System::Fonts::GameOver_Title == NULL)
         std::cout << "Failed to open the GameOver_Title font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
+
+    System::Fonts::GameOver_Title_Top_Players = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
+    if(System::Fonts::GameOver_Title_Top_Players == NULL)
+        std::cout << "Failed to open the GameOver_Title_Top_Players font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 
     System::Fonts::GameOver_NavigationHints = TTF_OpenFont("Resources/Fonts/invaders.ttf", 30);
     if(System::Fonts::GameOver_NavigationHints == NULL)
@@ -255,6 +269,10 @@ void InitTheFonts()
     System::Fonts::WinWindow_Title = TTF_OpenFont("Resources/Fonts/invaders.ttf", 90);
     if(System::Fonts::WinWindow_Title == NULL)
         std::cout << "Failed to open the WinWindow_Title font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
+
+    System::Fonts::WinWindow_Title_Top_Players = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
+    if(System::Fonts::WinWindow_Title_Top_Players == NULL)
+        std::cout << "Failed to open the WinWindow_Title_Top_Players font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 
     System::Fonts::WinWindow_NavigationHints = TTF_OpenFont("Resources/Fonts/invaders.ttf", 30);
     if(System::Fonts::WinWindow_NavigationHints == NULL)
@@ -292,8 +310,15 @@ void InitTheFonts()
     if(System::Fonts::StartWindow_Title == NULL)
         std::cout << "Failed to open the StartWindow_Title font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 
+//Name selection window fonts
+    System::Fonts::NameSelectionWindow_Title = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
+    if(System::Fonts::NameSelectionWindow_Title == NULL)
+        std::cout << "Failed to open the NameSelectionWindow_Title font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 
-///TO DELETE
+    System::Fonts::NameSelectionWindow_Instructions = TTF_OpenFont("Resources/Fonts/invaders.ttf", 30);
+    if(System::Fonts::NameSelectionWindow_Instructions == NULL)
+        std::cout << "Failed to open the NameSelectionWindow_Instructions font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
+
     System::Fonts::InputFields = TTF_OpenFont("Resources/Fonts/invaders.ttf", 40);
     if(System::Fonts::InputFields == NULL)
         std::cout << "Failed to open the Space age font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
@@ -327,11 +352,11 @@ void StartWindow_Init()
     for(unsigned i = 0; i < num_of_options; i++)
     {
         TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
-        if(i == 0)
+        if(i == OPTION_START_GAME)
             text_options[i].SetText("Start new game");
-        else if(i == 1)
+        else if(i == OPTION_SEE_RANKLIST)
             text_options[i].SetText("See the rank list");
-        else if(i == 2)
+        else if(i == OPTION_QUIT)
             text_options[i].SetText("Quit");
 
         text_options[i].SetColor(255, 255, 255);
@@ -403,7 +428,7 @@ void StartWindow_MoveThroughTheOptions()
 
 void StartWindow_SelectOption()
 {
-    if(System::event.key.keysym.sym == SDLK_RETURN)
+    if(System::event.key.keysym.sym == SDLK_SPACE)
     {
         SDL_FlushEvent(SDL_KEYDOWN);
         if(active_option == OPTION_START_GAME)
@@ -438,6 +463,7 @@ void StartWIndow_RenderWindow()
     text_title.Render();
     for(unsigned i = 0; i < num_of_options; i++)
         text_options[i].Render();
+
     SDL_RenderPresent(System::renderer);
 >>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
 }
