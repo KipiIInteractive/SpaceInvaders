@@ -229,13 +229,11 @@ void RegistrationWindow::CreateButtonEffects()
 
 void RegistrationWindow::CreateButtonActions()
 {
-    //When the log-in button is pressed try to log in with the given user input
     if(RegistrationWindow::RegistrationButton.isClicked())
     {
         RegistrationWindow::Register();
     }
 
-    //When the registration button is pressed go to the registration window
     if(RegistrationWindow::LogInButton.isClicked())
     {
         RegistrationWindow::isActive = false;

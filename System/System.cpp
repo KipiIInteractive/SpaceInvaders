@@ -4,12 +4,15 @@ SDL_Window *System::window = NULL;
 SDL_Renderer *System::renderer = NULL;
 SDL_Event System::event;
 
+//Screen
 int System::Screen::Height = GetSystemMetrics(SM_CYSCREEN);
 int System::Screen::Width = GetSystemMetrics(SM_CXSCREEN);
 
+//Textures
 int System::surfaceWidth;
 int System::surfaceHeight;
 
+//Fonts
 TTF_Font *System::Fonts::Buttons = NULL;
 TTF_Font *System::Fonts::Buttons_Small = NULL;
 TTF_Font *System::Fonts::InputFields = NULL;

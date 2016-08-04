@@ -17,6 +17,9 @@ bool LoginWindow::isActive;
 
 void LoginWindow::Init()
 {
+    //Load the data for the users
+    ProfileManager::LoadTheUsersData();
+
     //Create the backgroud texture for the log-in window
     LoginWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.png", System::renderer);
     if(LoginWindow::backgroundTexture == NULL)
@@ -217,6 +220,7 @@ void LoginWindow::CreateButtonActions()
 
 void LoginWindow::LogIn()
 {
+    //Not successful login
     if( !ProfileManager::LogIn(LoginWindow::InputField_Username.GetInputText(), LoginWindow::InputField_Password.GetInputText()))
     {
         LoginWindow::Text_Error.SetText("Log in denied!");
@@ -224,12 +228,15 @@ void LoginWindow::LogIn()
         LoginWindow::Text_Error.SetFont(System::Fonts::Errors);
         LoginWindow::Text_Error.SetX(System::Screen::Width / 2 - LoginWindow::Text_Error.GetWidth() / 2);
     }
+    //Successful login
     else
     {
         LoginWindow::Text_Error.SetText("Log in successful!");
         LoginWindow::Text_Error.SetColor(0, 255, 0);
         LoginWindow::Text_Error.SetFont(System::Fonts::Errors);
         LoginWindow::Text_Error.SetX(System::Screen::Width / 2 - LoginWindow::Text_Error.GetWidth() / 2);
+
+        Game::StartGame();
     }
 }
 

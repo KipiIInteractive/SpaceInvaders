@@ -73,4 +73,6 @@ void InitEverything()
     //Initialize the registration window
     RegistrationWindow::Init();
 
+    //Read which is the current level number
+    LevelManager::InitCurrentLevel();
 }

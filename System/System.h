@@ -14,6 +14,7 @@ class System
         static SDL_Renderer *renderer;
         static SDL_Event event;
 
+        //Screen properties
         class Screen
         {
             public:
@@ -26,6 +27,7 @@ class System
         static int GetSurfaceWidth();
         static int GetSurfaceHeight();
 
+        //Fonts
         class Fonts
         {
             public:
@@ -34,6 +36,15 @@ class System
                 static TTF_Font *Buttons;
                 static TTF_Font *Buttons_Small;
                 static TTF_Font *Errors;
+        };
+
+        //Directions
+        enum Direction
+        {
+            Up,
+            Down,
+            Right,
+            Left
         };
 
         static void Free();

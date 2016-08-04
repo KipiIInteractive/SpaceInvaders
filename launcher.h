@@ -9,6 +9,8 @@
 #include "System/System.h"
 #include "profile_managment/Log_in.h"
 #include "profile_managment/Registration.h"
+#include "level_management/LevelManager.h"
+#include "Entities/Alien.h"
 
 
 void InitEverything();

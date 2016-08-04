@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "ProfileManager.h"
+#include "../Game/Game.h"
 #include "Registration.h"
 #include "../System/System.h"
 #include "../GUI/Link.h"

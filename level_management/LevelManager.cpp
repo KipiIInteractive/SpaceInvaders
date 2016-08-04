@@ -3,6 +3,7 @@
 int LevelManager::currentLevel;
 
 #define LEVELS_PATH "Resources/Levels/"
+#define MAX_ALIENS_ON_ROW 20
 
 bool LevelManager::FileIsExisting(string filename)
 {
@@ -34,29 +35,22 @@ bool LevelManager::LoadLevel(int lvl)
             {
                 //Add the number of the aliens in the AlienManager class
                 if(line_num == 0)
-                {
                     level >> AliensManager::number;
-                }
 
                 //Add movement speed of the aliens in the AlienManager class
                 else if(line_num == 1)
-                {
                     level >> AliensManager::movementSpeed;
-                }
 
                 //Add the shooting power coefficient of the aliens in the AlienManager class
                 else if(line_num == 2)
-                {
                     level >> AliensManager::shootingPowerCoefficient;
-                }
-
                 //Read the aliens
                 else
                 {
                     int type, pos_x, pos_y;
                     level >> type >> pos_y >> pos_x;
-                    pos_x *= System::Screen::Width / 12;
-                    pos_y *= System::Screen::Height / 7;
+                    pos_x *= System::Screen::Width / MAX_ALIENS_ON_ROW + 8;
+                    pos_y *= System::Screen::Height / 11.24 + 6;
                     AliensManager::AddNewAlien(type, pos_x, pos_y);
                 }
 
