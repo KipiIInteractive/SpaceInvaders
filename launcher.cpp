@@ -1,5 +1,6 @@
 #include "launcher.h"
 
+
 int main(int argc, char ** argv)
 {
 <<<<<<< HEAD
@@ -21,9 +22,6 @@ int main(int argc, char ** argv)
 =======
     InitEverything();
 
-    ProfileManager::LoadTheUsersData();
-
-    //Show the start window
     StartWindow_Show();
 
     FreeEverything();
@@ -31,6 +29,18 @@ int main(int argc, char ** argv)
     return 0;
 }
 
+/*
+void InitEverything()
+---------------------
+Initialize everything needed to run the program:
+ - SDL, SDL_IMAGE, SDL_TTF, SDL_MIXER
+
+Create the base stuff needed to made the game
+ - Window, Renderer, Event listener
+
+Load the media used for the game
+ - Textures, Fonts, Sounds, Scenes/Windows
+*/
 void InitEverything()
 {
     //Initialize SDL
@@ -67,7 +77,11 @@ void InitEverything()
     if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) < 0 )
         std::cout << "Failed to initialize SDL_MIXER. File: launcher.cpp/Initializations() \n" << Mix_GetError() << std::endl;
 
+<<<<<<< HEAD
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+
+>>>>>>> d724ac1... Added README containing the game download link
     //Create the window
     System::window = SDL_CreateWindow("Space Invaders",
                      SDL_WINDOWPOS_UNDEFINED,
@@ -122,18 +136,19 @@ void InitEverything()
     if(System::renderer == NULL)
         std::cout << "Failed to create the renderer. File: launcher.cpp/Initizlizations() \n" << SDL_GetError() << std::endl;
 
-    //Initialize the used textures
-    InitTheTextures();
 
+<<<<<<< HEAD
     //Initialize the used fonts
     InitTheFonts();
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+    LoadTheTextures();
+    LoadTheFonts();
+    SoundManager::Init();
+    SoundManager::Play(SoundManager::Sounds::BackgroundMusic);
+>>>>>>> d724ac1... Added README containing the game download link
 
-    //Read which is the current level number
     LevelManager::InitCurrentLevel();
-
-    //Initialize the player
-    Player::Init();
 
     //Initialize the game window
     Game::Init();
@@ -144,6 +159,7 @@ void InitEverything()
 =======
     Game::PreStartInitializations();
 
+<<<<<<< HEAD
     //Initialize the UFO
     UFO::Init();
 
@@ -151,64 +167,79 @@ void InitEverything()
     SoundManager::Init();
     SoundManager::Play(SoundManager::Sounds::BackgroundMusic);
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+>>>>>>> d724ac1... Added README containing the game download link
 
-    //Initialize the Game over window
-    GameOver::Init();
+    UFO::Init();
+    Player::Init();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     //Initialize the Win window
-    WinWindow::Init();
-
-    //Initialize the Rank list window
-    RankList::Init();
-
-    //Initialize the start window
+=======
+    NameSelectionWindow::Init();
     StartWindow_Init();
+>>>>>>> d724ac1... Added README containing the game download link
+    WinWindow::Init();
+    RankList::Init();
+    GameOver::Init();
 
     //Initialize the keyboard
     System::InitAlphabet();
     Keyboard::Init();
 
-    //Initialize the name selection window
-    NameSelectionWindow::Init();
+    ProfileManager::LoadTheUsersData();
 }
 
-
-void InitTheTextures()
+/*
+void LoadTheTextures()
+----------------------
+Load all textures used in the game
+*/
+void LoadTheTextures()
 {
+    //Aliens sprite sheet
     System::Textures::Aliens = System::CreateTexture("Resources/Textures/aliens.png");
     if(System::Textures::Aliens == NULL)
         cout << "Failed to create the Aliens texture: \n" << SDL_GetError() << endl;
 
+    //Aliens explosion
     System::Textures::Aliens_Dead = System::CreateTexture("Resources/Textures/aliens_die.png");
     if(System::Textures::Aliens_Dead == NULL)
         cout << "Failed to create the Aliens_Dead texture: \n" << SDL_GetError() << endl;
 
+    //UFO
     System::Textures::UFO = System::CreateTexture("Resources/Textures/ufo.png");
     if(System::Textures::UFO == NULL)
         cout << "Failed to create the Aliens texture: \n" << SDL_GetError() << endl;
 
+    //Bullets
     System::Textures::Bullets = System::CreateTexture("Resources/Textures/bullet.png");
     if(System::Textures::Bullets == NULL)
         cout << "Failed to create the Bullets texture: \n" << SDL_GetError() << endl;
 
+    //The player
     System::Textures::Player = System::CreateTexture("Resources/Textures/player.png");
     if(System::Textures::Player == NULL)
         cout << "Failed to create the Player texture: \n" << SDL_GetError() << endl;
 
+    //Player explosion
     System::Textures::Player_Dead = System::CreateTexture("Resources/Textures/player_die.png");
     if(System::Textures::Player_Dead == NULL)
         cout << "Failed to create the Player_Dead texture: \n" << SDL_GetError() << endl;
 
+    //The background
     System::Textures::Background_Black = System::CreateTexture("Resources/Textures/bg_black.jpg");
     if(System::Textures::Background_Black == NULL)
         cout << "Failed to create the Background_Black texture: \n" << SDL_GetError() << endl;
 
+    //Game panel borders
     System::Textures::Border = System::CreateTexture("Resources/Textures/border.jpg");
     if(System::Textures::Border == NULL)
         cout << "Failed to create the Border texture: \n" << SDL_GetError() << endl;
 
+//All the barrier's parts
     System::Textures::Barrier_Bottom_Left = System::CreateTexture("Resources/Textures/bottom-left.png");
     if(System::Textures::Barrier_Bottom_Left == NULL)
         cout << "Failed to create the Barrier_Bottom_Left texture: \n" << SDL_GetError() << endl;
@@ -246,7 +277,12 @@ void InitTheTextures()
         cout << "Failed to create the Barrier_Top_Right texture: \n" << SDL_GetError() << endl;
 }
 
-void InitTheFonts()
+/*
+void LoadTheFonts()
+-------------------
+Load all fonts used in the game
+*/
+void LoadTheFonts()
 {
 //Game Over Window fonts
     System::Fonts::GameOver_Title = TTF_OpenFont("Resources/Fonts/invaders.ttf", 90);
@@ -319,6 +355,7 @@ void InitTheFonts()
     if(System::Fonts::NameSelectionWindow_Instructions == NULL)
         std::cout << "Failed to open the NameSelectionWindow_Instructions font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 
+//Other fonts
     System::Fonts::InputFields = TTF_OpenFont("Resources/Fonts/invaders.ttf", 40);
     if(System::Fonts::InputFields == NULL)
         std::cout << "Failed to open the Space age font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
@@ -340,8 +377,16 @@ void InitTheFonts()
         std::cout << "Failed to open the halo font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 }
 
+/*
+void StartWindow_Init()
+-----------------------
+Set-up everything for the Start window once before
+showing it many times. Every time when Start window
+is showed it does't need to be initialized again.
+*/
 void StartWindow_Init()
 {
+    //Initialize the title for the Start window
     text_title.SetText("Space invaders");
     text_title.SetColor(200, 200, 0);
     text_title.SetFont(System::Fonts::StartWindow_Title);
@@ -349,32 +394,46 @@ void StartWindow_Init()
     text_title.SetY(System::Screen::Height / 10);
 
     start_window_is_active = false;
+
+    //Initialize every option for the Start window's menu
     for(unsigned i = 0; i < num_of_options; i++)
     {
         TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
-        if(i == OPTION_START_GAME)
+
+        if(i == OPTION_START_GAME) //Initialize the 'Start new game' option
             text_options[i].SetText("Start new game");
-        else if(i == OPTION_SEE_RANKLIST)
+        else if(i == OPTION_SEE_RANKLIST) //Initialize the 'See the rank list' option
             text_options[i].SetText("See the rank list");
-        else if(i == OPTION_QUIT)
+        else if(i == OPTION_QUIT) //Initialize the 'Quit' option
             text_options[i].SetText("Quit");
 
+        //Initialize the outlook for the menu options
         text_options[i].SetColor(255, 255, 255);
         text_options[i].SetFont(tmp_font);
 
+        //Initialize the coordinates for the menu options
         text_options[i].SetX(System::Screen::Width / 2 - text_options[i].GetWidth() / 2);
         text_options[i].SetY( ( (i) * text_options[i].GetHeight() ) + (text_title.GetHeight() + text_title.GetY() + System::Screen::Height / 10));
         text_options[i].SetY(text_options[i].GetY() * 1.5);
     }
 }
 
+/*
+void StartWindow_Show()
+-----------------------
+Show the Start window
+*/
 void StartWindow_Show()
 {
     start_window_is_active = true;
-    SDL_FlushEvent(SDL_KEYDOWN);
-    StartWindow_MarkTheActiveOption();
-    StartWIndow_RenderWindow();
 
+    //Clear the events queue for event's type SDL_KEYDOWN
+    SDL_FlushEvent(SDL_KEYDOWN);
+
+    //The default marked option is 'Start new game' option
+    StartWindow_MarkTheActiveOption();
+
+    StartWindow_RenderWindow();
     while(start_window_is_active)
     {
         if(SDL_PollEvent(&System::event))
@@ -388,6 +447,12 @@ void StartWindow_Show()
     }
 }
 
+/*
+void StartWindow_MarkTheActiveOption()
+--------------------------------------
+Paint the marked menu option red and every
+other option white.
+*/
 void StartWindow_MarkTheActiveOption()
 {
     for(unsigned i = 0; i < num_of_options; i++)
@@ -402,6 +467,12 @@ void StartWindow_MarkTheActiveOption()
     }
 }
 
+/*
+void StartWindow_MoveThroughTheOptions()
+----------------------------------------
+If down arrow key is pressed go to the next menu option.
+If up arrow key is pressed go to the previous menu option.
+*/
 void StartWindow_MoveThroughTheOptions()
 {
     if(System::event.key.keysym.sym == SDLK_DOWN)
@@ -412,7 +483,7 @@ void StartWindow_MoveThroughTheOptions()
             active_option = 0;
 
         StartWindow_MarkTheActiveOption();
-        StartWIndow_RenderWindow();
+        StartWindow_RenderWindow();
     }
     else if(System::event.key.keysym.sym == SDLK_UP)
     {
@@ -422,10 +493,17 @@ void StartWindow_MoveThroughTheOptions()
             active_option = num_of_options - 1;
 
         StartWindow_MarkTheActiveOption();
-        StartWIndow_RenderWindow();
+        StartWindow_RenderWindow();
     }
 }
 
+/*
+void StartWindow_SelectOption()
+-------------------------------
+When space was pressed go to the
+window for the marked option or
+quit the game
+*/
 void StartWindow_SelectOption()
 {
     if(System::event.key.keysym.sym == SDLK_SPACE)
@@ -452,14 +530,26 @@ void StartWindow_SelectOption()
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     System::Fonts::Hints = TTF_OpenFont("Resources/Fonts/invaders.ttf", 30);
     if(System::Fonts::Hints == NULL)
         std::cout << "Failed to open the space age font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 =======
 void StartWIndow_RenderWindow()
+=======
+/*
+void StartWindow_RenderWindow()
+-------------------------------
+Render everything from the Start window:
+ - The title
+ - The menu options
+*/
+void StartWindow_RenderWindow()
+>>>>>>> d724ac1... Added README containing the game download link
 {
     SDL_RenderClear(System::renderer);
+
     text_title.Render();
     for(unsigned i = 0; i < num_of_options; i++)
         text_options[i].Render();

@@ -42,19 +42,25 @@ void InitEverything();
 #include "GUI/Label.h"
 
 void InitEverything();
+<<<<<<< HEAD
 void InitTheTextures();
 void InitTheFonts();
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+void LoadTheTextures();
+void LoadTheFonts();
+>>>>>>> d724ac1... Added README containing the game download link
 void FreeEverything();
 
-//Start window stuff
+//-------------------------Start window stuff
+//Macros for the Start window menu options indexes
 #define OPTION_START_GAME 0
 #define OPTION_SEE_RANKLIST 1
 #define OPTION_QUIT 2
+const int num_of_options = 3;
+int active_option = 0; //By default the marked option is 'Start new game'
 
 bool start_window_is_active;
-const int num_of_options = 3;
-int active_option = 0;
 
 Label text_title;
 Label text_options[num_of_options];
@@ -62,7 +68,7 @@ Label text_options[num_of_options];
 void StartWindow_MoveThroughTheOptions();
 void StartWindow_MarkTheActiveOption();
 void StartWindow_SelectOption();
-void StartWIndow_RenderWindow();
+void StartWindow_RenderWindow();
 void StartWindow_Init();
 void StartWindow_Show();
 
