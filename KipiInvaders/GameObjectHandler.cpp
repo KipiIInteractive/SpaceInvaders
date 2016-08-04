@@ -4,6 +4,10 @@ vector<Enemy*> enemiesToBeDeleted;
 
 bool GameObjectHandler::playedUFOSound = false;
 
+void GameObjectHandler::handlePlayerEvents(SDL_Event *e) {
+    player->handleEvents(e);
+}
+
 void GameObjectHandler::updateEnemies() {
     for(unsigned int i = 0; i < enemies.size(); i++) {
         if(enemies[i]->isAlive()) {

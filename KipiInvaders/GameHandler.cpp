@@ -56,8 +56,8 @@ void GameHandler::startClassicGame() {
     if(gScoreDigitsTexture.loadFromRenderedText((to_string(player->getScore())), {255, 255, 255, 255})) {
         gScoreSignTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreSignTexture.getWidth())/2,
                                 0);
-        gScoreDigitsTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*(3 + (player->getScore() < 10 ? 1 : player->getScore() < 100 ? 1.5 : player->getScore() < 1000 ? 2.5 : 3.5)))/100);
-        gScoreDigitsTexture.setHeight(42);
+        gScoreDigitsTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*(3 + (player->getScore() < 10 ? 1 : player->getScore() < 100 ? 2 : player->getScore() < 1000 ? 3 : 4.5)))/100);
+        gScoreDigitsTexture.setHeight(gScoreDigitsTexture.getHeight());
         gScoreDigitsTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreDigitsTexture.getWidth())/2,
                                    gScoreSignTexture.getHeight());
 
@@ -131,15 +131,17 @@ void GameHandler::startSurvivalGame() {
     GameObjectRenderer::renderPlayer();
     GameObjectRenderer::renderBarriers();
 
-    if(gScoreDigitsTexture.loadFromRenderedText(("" + to_string(player->getScore())), {255, 255, 255, 255})) {
+    if(gScoreDigitsTexture.loadFromRenderedText((to_string(player->getScore())), {255, 255, 255, 255})) {
         gScoreSignTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreSignTexture.getWidth())/2,
                                 0);
+        gScoreDigitsTexture.setWidth(((System::RIGHT_X_BORDER - System::LEFT_X_BORDER)*(3 + (player->getScore() < 10 ? 1 : player->getScore() < 100 ? 2 : player->getScore() < 1000 ? 3 : 4.5)))/100);
+        gScoreDigitsTexture.setHeight(gScoreDigitsTexture.getHeight());
         gScoreDigitsTexture.render(System::LEFT_X_BORDER + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gScoreDigitsTexture.getWidth())/2,
                                    gScoreSignTexture.getHeight());
 
     }
 
-    if(gLivesDigitsTexture.loadFromRenderedText(("" + to_string(player->getLives())), {255, 255, 255, 255})) {
+    if(gLivesDigitsTexture.loadFromRenderedText((to_string(player->getLives())), {255, 255, 255, 255})) {
         gLivesSignTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesSignTexture.getWidth())/2,
                                  0);
         gLivesDigitsTexture.render(System::LEFT_X_BORDER + (System::RIGHT_X_BORDER - System::LEFT_X_BORDER)/2 + ((System::RIGHT_X_BORDER-System::LEFT_X_BORDER)/2 - gLivesDigitsTexture.getWidth())/2,
@@ -150,6 +152,14 @@ void GameHandler::startSurvivalGame() {
         GameHandler::gameOver = true;
         GameObjectCollision::enemyHasCollidedWithScreenVertically = false;
     }
+}
+
+void GameHandler::handleClassicGameEvents(SDL_Event *e) {
+    GameObjectHandler::handlePlayerEvents(e);
+}
+
+void GameHandler::handleSurvivalGameEvents(SDL_Event *e) {
+    GameObjectHandler::handlePlayerEvents(e);
 }
 
 void GameHandler::resetSurvivalGame() {

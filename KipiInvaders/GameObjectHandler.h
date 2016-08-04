@@ -11,6 +11,8 @@ class GameObjectHandler {
 public:
     static bool playedUFOSound;
 
+    static void handlePlayerEvents(SDL_Event *e);
+
     static void updateEnemies();
     static void updatePlayer();
     static void updateBullets();

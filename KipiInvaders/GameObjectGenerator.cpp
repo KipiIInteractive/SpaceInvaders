@@ -190,7 +190,6 @@ void GameObjectGenerator::generateBullets() {
         bullet->setHeight(gBulletTexture.getHeight());
         bullet->setPosition(player->getX() + player->getWidth()/2 - 3, player->getY());
         bullets.push_back(bullet);
-        cout << "here" << endl;
         player->setIsToShooT(false);
         Mix_PlayChannel(-1, gLaserSound, 0);
     }

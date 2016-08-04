@@ -35,6 +35,12 @@ int Player::getScore() { return _PScore; }
 
 void Player::resetScore() { _PScore = 0; }
 
+void Player::handleEvents(SDL_Event *e) {
+    if(e->type == SDL_KEYUP && e->key.keysym.sym == SDLK_SPACE) {
+        Button::isSpaceReleased = true;
+    }
+}
+
 void Player::update() {
     const Uint8 *keyState = SDL_GetKeyboardState(NULL);
     if(!_PHasBeenHit) {
@@ -45,7 +51,7 @@ void Player::update() {
             _GORect.x += _GOVelocity;
         }
 
-        if(keyState[SDL_SCANCODE_SPACE]) {
+        if(keyState[SDL_SCANCODE_SPACE] && Button::isSpaceReleased) {
             if(_PCanShoot) {
                 _PCanShoot = false;
                 _PIsToShoot = true;

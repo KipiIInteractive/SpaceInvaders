@@ -16,6 +16,7 @@ public:
     static void showPauseMenu();
     static void showGameOverMenu();
     static void showSubmitNameAndScoreMenu();
+    static void showRankingMenuWithPlayerScore();
 
     //Event handling functions for different menus
     static void handleMainMenuEvents(SDL_Event *e);
@@ -25,6 +26,7 @@ public:
     static void handlePauseMenuEvents(SDL_Event *e);
     static void handleGameOverMenuEvents(SDL_Event *e);
     static void handleSubmitNameAndScoreMenuEvents(SDL_Event *e);
+    static void handleRankingMenuWithPlayerScoreEvents(SDL_Event *e);
 
     //does what it says
     static bool updateRankingMenu(list<string>& pNames, list<int>& pScores);

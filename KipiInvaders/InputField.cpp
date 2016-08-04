@@ -6,6 +6,7 @@ InputField::InputField() {
     _IFRect.w = 0;
     _IFRect.h = 0;
     _IFText = "";
+    _IFTextTexture.loadFromRenderedText(_IFText, {255, 255, 255, 255});
     isSpacePressed = false;
     isActive = true;
 }
@@ -54,6 +55,9 @@ void InputField::handleEvents(SDL_Event *e) {
 }
 
 string InputField::getInput() { return _IFText; }
+
+void InputField::resetInput() { _IFText.clear();
+                                _IFTextTexture.loadFromRenderedText(_IFText, {255, 255, 255, 255});}
 
 bool InputField::spaceHasBeenPressed() { return isSpacePressed; }
 

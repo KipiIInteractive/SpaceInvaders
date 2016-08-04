@@ -2,6 +2,7 @@
 #define PLAYER_H_INCLUDED
 
 #include "GameObject.h"
+#include "Button.h"
 
 class Player : public GameObject {
 private:

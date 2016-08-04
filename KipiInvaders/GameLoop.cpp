@@ -38,6 +38,7 @@ void GameLoop::run() {
                                 MenuHandler::handleSubmitNameAndScoreMenuEvents(&e);
                                 if(gSubmitButton.hasBeenPressed()) {
                                     RankingSystem::addPlayerToRankList(gSubmitMenuInputField.getInput());
+                                    gSubmitMenuInputField.resetInput();
                                     MenuHandler::updateRankingMenu(RankingSystem::playerNames, RankingSystem::playerScores);
                                 }
                             }
@@ -45,7 +46,7 @@ void GameLoop::run() {
                                 if(!gBackButton.isActive()) {
                                     gBackButton.setIsActive(true);
                                 }
-                                MenuHandler::handleRankingMenuEvents(&e);
+                                MenuHandler::handleRankingMenuWithPlayerScoreEvents(&e);
                                 if(gBackButton.hasBeenPressed()) {
                                     playerHasSeenTheRanking = true;
                                     gBackButton.setHasBeenPressed(false);
@@ -78,6 +79,9 @@ void GameLoop::run() {
                         else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = true;
                         }
+                        else {
+                            GameHandler::handleClassicGameEvents(&e);
+                        }
                     }
                 }
                 else if(gSurvivalGameModeButton.hasBeenPressed()) {
@@ -101,7 +105,7 @@ void GameLoop::run() {
                                 if(!gBackButton.isActive()) {
                                     gBackButton.setIsActive(true);
                                 }
-                                MenuHandler::handleRankingMenuEvents(&e);
+                                MenuHandler::handleRankingMenuWithPlayerScoreEvents(&e);
                                 if(gBackButton.hasBeenPressed()) {
                                     playerHasSeenTheRanking = true;
                                     gBackButton.setHasBeenPressed(false);
@@ -133,6 +137,9 @@ void GameLoop::run() {
                         }
                         else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_p) {
                             isPaused = true;
+                        }
+                        else {
+                            GameHandler::handleSurvivalGameEvents(&e);
                         }
                     }
                 }
@@ -180,7 +187,7 @@ void GameLoop::run() {
                         MenuHandler::showSubmitNameAndScoreMenu();
                     }
                     else if(!playerHasSeenTheRanking) {
-                        MenuHandler::showRankingMenu();
+                        MenuHandler::showRankingMenuWithPlayerScore();
                     }
                     else {
                         MenuHandler::showGameOverMenu();
@@ -203,7 +210,7 @@ void GameLoop::run() {
                         MenuHandler::showSubmitNameAndScoreMenu();
                     }
                     else if(!playerHasSeenTheRanking) {
-                        MenuHandler::showRankingMenu();
+                        MenuHandler::showRankingMenuWithPlayerScore();
                     }
                     else {
                         MenuHandler::showGameOverMenu();

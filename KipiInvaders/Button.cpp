@@ -61,7 +61,7 @@ void Button::handleEvents(SDL_Event *e) {
             pressed = true;
             Button::isSpaceReleased = false;
         }
-        else if(e->type != SDL_KEYDOWN && !Button::isSpaceReleased){
+        else if(e->type == SDL_KEYUP && (e->key.keysym.sym == SDLK_SPACE) && !Button::isSpaceReleased){
             Button::isSpaceReleased = true;
         }
     }

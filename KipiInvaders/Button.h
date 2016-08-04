@@ -13,9 +13,10 @@ protected:
     bool activateNextButton;
     bool activatePreviousButton;
     static bool currentOptionHasBeenChanged;
-    static bool isSpaceReleased;
 public:
     Button();
+
+    static bool isSpaceReleased;
 
     //Button Initialization
     bool loadButtonFromFile(string path);

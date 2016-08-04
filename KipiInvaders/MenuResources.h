@@ -4,6 +4,7 @@
 #include "Background.h"
 #include "Button.h"
 #include "InputField.h"
+#include "Keyboard.h"
 
 //Game Background
 extern Background gGameBackground;
@@ -38,6 +39,7 @@ extern Texture gFinalScoreDigits;
 extern Texture gSubmitMenuText;
 extern InputField gSubmitMenuInputField;
 extern Button gSubmitButton;
+extern Keyboard gKeyboard;
 
 //Ranking Menu
 extern Texture gRankingMenuSign;

@@ -26,6 +26,8 @@ public:
 
     string getInput();
 
+    void resetInput();
+
     bool spaceHasBeenPressed();
 
     void handleEvents(SDL_Event *e);
