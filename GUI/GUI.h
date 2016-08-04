@@ -1,0 +1,48 @@
+#ifndef GUI_H_INCLUDED
+#define GUI_H_INCLUDED
+
+#include <SDL.h>
+<<<<<<< HEAD
+#include <iostream>
+=======
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+#include "../System/System.h"
+using namespace std;
+
+class GUI
+{
+    public:
+        GUI();
+        ~GUI();
+
+        int GetX();
+        int GetY();
+        int GetWidth();
+        int GetHeight();
+
+        int mouseX, mouseY;
+
+        void SetX(int x);
+        void SetY(int y);
+        void SetWidth(int width);
+        void SetHeight(int height);
+
+        void SetTexture(string texturePath);
+        void SetHoverTexture(string hoverTexturePath);
+
+        bool isHover();
+        bool isClicked();
+<<<<<<< HEAD
+=======
+        bool click;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+
+        SDL_Rect rect;
+        SDL_Texture *texture;
+        SDL_Texture *hoverTexture;
+
+        void Render();
+};
+
+
+#endif // GUI_H_INCLUDED
