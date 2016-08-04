@@ -23,8 +23,8 @@ int main(int argc, char ** argv)
 
     ProfileManager::LoadTheUsersData();
 
-    //Start new game
-    Game::StartGame();
+    //Show the start window
+    StartWindow_Show();
 
     FreeEverything();
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
@@ -144,6 +144,9 @@ void InitEverything()
 =======
     Game::PreStartInitializations();
 
+    //Initialize the UFO
+    UFO::Init();
+
     //Initialize the sounds manager and start the background music
     SoundManager::Init();
     SoundManager::Play(SoundManager::Sounds::BackgroundMusic);
@@ -159,6 +162,9 @@ void InitEverything()
 
     //Initialize the Rank list window
     RankList::Init();
+
+    //Initialize the start window
+    StartWindow_Init();
 }
 
 
@@ -166,6 +172,10 @@ void InitTheTextures()
 {
     System::Textures::Aliens = System::CreateTexture("Resources/Textures/aliens.png");
     if(System::Textures::Aliens == NULL)
+        cout << "Failed to create the Aliens texture: \n" << SDL_GetError() << endl;
+
+    System::Textures::UFO = System::CreateTexture("Resources/Textures/ufo.png");
+    if(System::Textures::UFO == NULL)
         cout << "Failed to create the Aliens texture: \n" << SDL_GetError() << endl;
 
     System::Textures::Bullets = System::CreateTexture("Resources/Textures/bullet.png");
@@ -183,10 +193,6 @@ void InitTheTextures()
     System::Textures::Background_Black = System::CreateTexture("Resources/Textures/bg_black.jpg");
     if(System::Textures::Background_Black == NULL)
         cout << "Failed to create the Background_Black texture: \n" << SDL_GetError() << endl;
-
-    System::Textures::Background_Stars = System::CreateTexture("Resources/Textures/bg_stars.jpg");
-    if(System::Textures::Background_Stars == NULL)
-        cout << "Failed to create the Background_Stars texture: \n" << SDL_GetError() << endl;
 
     System::Textures::Border = System::CreateTexture("Resources/Textures/border.jpg");
     if(System::Textures::Border == NULL)
@@ -281,6 +287,11 @@ void InitTheFonts()
     if(System::Fonts::Game_LivesLeft == NULL)
         std::cout << "Failed to open the Game_LivesLeft font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 
+//Start window fonts
+    System::Fonts::StartWindow_Title = TTF_OpenFont("Resources/Fonts/invaders.ttf", 70);
+    if(System::Fonts::StartWindow_Title == NULL)
+        std::cout << "Failed to open the StartWindow_Title font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
+
 
 ///TO DELETE
     System::Fonts::InputFields = TTF_OpenFont("Resources/Fonts/invaders.ttf", 40);
@@ -302,12 +313,135 @@ void InitTheFonts()
     System::Fonts::Errors = TTF_OpenFont("Resources/Fonts/invaders.ttf", 55);
     if(System::Fonts::Errors == NULL)
         std::cout << "Failed to open the halo font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
+}
 
+void StartWindow_Init()
+{
+    text_title.SetText("Space invaders");
+    text_title.SetColor(200, 200, 0);
+    text_title.SetFont(System::Fonts::StartWindow_Title);
+    text_title.SetX(System::Screen::Width / 2 - text_title.GetWidth() / 2);
+    text_title.SetY(System::Screen::Height / 10);
+
+    start_window_is_active = false;
+    for(unsigned i = 0; i < num_of_options; i++)
+    {
+        TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
+        if(i == 0)
+            text_options[i].SetText("Start new game");
+        else if(i == 1)
+            text_options[i].SetText("See the rank list");
+        else if(i == 2)
+            text_options[i].SetText("Quit");
+
+        text_options[i].SetColor(255, 255, 255);
+        text_options[i].SetFont(tmp_font);
+
+        text_options[i].SetX(System::Screen::Width / 2 - text_options[i].GetWidth() / 2);
+        text_options[i].SetY( ( (i) * text_options[i].GetHeight() ) + (text_title.GetHeight() + text_title.GetY() + System::Screen::Height / 10));
+        text_options[i].SetY(text_options[i].GetY() * 1.5);
+    }
+}
+
+void StartWindow_Show()
+{
+    start_window_is_active = true;
+    SDL_FlushEvent(SDL_KEYDOWN);
+    StartWindow_MarkTheActiveOption();
+    StartWIndow_RenderWindow();
+
+    while(start_window_is_active)
+    {
+        if(SDL_PollEvent(&System::event))
+        {
+            if(System::event.type == SDL_KEYDOWN)
+            {
+                StartWindow_MoveThroughTheOptions();
+                StartWindow_SelectOption();
+            }
+        }
+    }
+}
+
+void StartWindow_MarkTheActiveOption()
+{
+    for(unsigned i = 0; i < num_of_options; i++)
+    {
+        TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
+        if(i == active_option)
+            text_options[i].SetColor(255, 0, 0);
+        else
+            text_options[i].SetColor(255, 255, 255);
+
+        text_options[i].SetFont(tmp_font);
+    }
+}
+
+void StartWindow_MoveThroughTheOptions()
+{
+    if(System::event.key.keysym.sym == SDLK_DOWN)
+    {
+        if(active_option < num_of_options - 1)
+            active_option++;
+        else
+            active_option = 0;
+
+        StartWindow_MarkTheActiveOption();
+        StartWIndow_RenderWindow();
+    }
+    else if(System::event.key.keysym.sym == SDLK_UP)
+    {
+        if(active_option > 0)
+            active_option--;
+        else
+            active_option = num_of_options - 1;
+
+        StartWindow_MarkTheActiveOption();
+        StartWIndow_RenderWindow();
+    }
+}
+
+void StartWindow_SelectOption()
+{
+    if(System::event.key.keysym.sym == SDLK_RETURN)
+    {
+        SDL_FlushEvent(SDL_KEYDOWN);
+        if(active_option == OPTION_START_GAME)
+        {
+            Game::PreStartInitializations();
+            Game::StartGame();
+            StartWindow_Init();
+            StartWindow_Show();
+        }
+        else if(active_option == OPTION_SEE_RANKLIST)
+        {
+            RankList::Show();
+            StartWindow_Init();
+            StartWindow_Show();
+        }
+        else if(active_option == OPTION_QUIT)
+        {
+            start_window_is_active = false;
+        }
+    }
+}
+
+<<<<<<< HEAD
     System::Fonts::Hints = TTF_OpenFont("Resources/Fonts/invaders.ttf", 30);
     if(System::Fonts::Hints == NULL)
         std::cout << "Failed to open the space age font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+void StartWIndow_RenderWindow()
+{
+    SDL_RenderClear(System::renderer);
+    text_title.Render();
+    for(unsigned i = 0; i < num_of_options; i++)
+        text_options[i].Render();
+    SDL_RenderPresent(System::renderer);
+>>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
 }
+
 
 void FreeEverything()
 {

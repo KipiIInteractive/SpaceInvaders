@@ -14,7 +14,7 @@ void RankList::Init()
 {
     RankList::isActive = false;
 
-    RankList::background_texture = System::Textures::Background_Stars;
+    RankList::background_texture = System::Textures::Background_Black;
 
     for(int i = 0; i < TOP_PLAYERS_NUM; i++)
         RankList::top_players[i] = "---";

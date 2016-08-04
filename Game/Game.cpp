@@ -145,6 +145,7 @@ void Game::StartGame()
         Game::fps->SetTestTick();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         SDL_RenderClear(System::renderer);
 
         Game::ScoreText.SetText("Score: " + to_string(Game::score));
@@ -174,6 +175,10 @@ void Game::StartGame()
         Game::RenderEverything();
         SDL_RenderPresent(System::renderer);
 =======
+=======
+        UFO::Spown();
+
+>>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
         SoundManager::Play(SoundManager::Sounds::BackgroundMusic);
 
         Game::ScoreText.SetText("Score: " + to_string(Game::score));
@@ -323,6 +328,8 @@ void Game::RenderEverything()
     }
 <<<<<<< HEAD
 =======
+
+    UFO::Render();
 
     SDL_RenderPresent(System::renderer);
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at

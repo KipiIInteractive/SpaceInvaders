@@ -2,6 +2,7 @@
 #include "AliensManager.h"
 #include "../Game/Game.h"
 #include "Player.h"
+#include "UFO.h"
 
 std::vector<Bullet*> BulletsManager::allBullets;
 std::vector<Bullet*> BulletsManager::bulletsToDelete;
@@ -28,6 +29,23 @@ void BulletsManager::UpdateAll()
             BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
             BulletsManager::isBulletHitWall = false;
+        }
+
+        ///Check for collision between bullet and the UFO
+        if(CURRENT_BULLET->rect.y <= UFO::rect.y + UFO::rect.h)
+        {
+            if(CURRENT_BULLET->rect.x <= UFO::rect.x + UFO::rect.w)
+            {
+                if(CURRENT_BULLET->rect.x + CURRENT_BULLET->rect.w >= UFO::rect.x)
+                {
+                    //Delete the bullet
+                    BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                    BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+
+                    UFO::Die();
+                    Game::score += UFO::score;
+                }
+            }
         }
 
         ///Check for collision between bullet and alien

@@ -10,7 +10,7 @@ bool WinWindow::isActive;
 void WinWindow::Init()
 {
     WinWindow::isActive = false;
-    WinWindow::background_texture = System::Textures::Background_Stars;
+    WinWindow::background_texture = System::Textures::Background_Black;
 
     //Initialize the title text
     WinWindow::text_title.SetText("You Win!");

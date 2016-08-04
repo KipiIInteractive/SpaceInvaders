@@ -55,7 +55,6 @@ class System
                 static TTF_Font *Buttons;
                 static TTF_Font *Labels;
                 static TTF_Font *Errors;
-                static TTF_Font *Hints;
 
                 //Game Over Window fonts
                 static TTF_Font *GameOver_NavigationHints;
@@ -75,7 +74,13 @@ class System
                 static TTF_Font *Game_Score;
                 static TTF_Font *Game_Level;
                 static TTF_Font *Game_LivesLeft;
+<<<<<<< HEAD
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+
+                //Start window fonts
+                static TTF_Font *StartWindow_Title;
+>>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
         };
 
         //Directions
@@ -93,11 +98,15 @@ class System
         {
             public:
                 static SDL_Texture *Aliens;
+                static SDL_Texture *UFO;
+
                 static SDL_Texture *Bullets;
+
                 static SDL_Texture *Player;
                 static SDL_Texture *Player_Dead;
+
                 static SDL_Texture *Background_Black;
-                static SDL_Texture *Background_Stars;
+
                 static SDL_Texture *Border;
 
                 static SDL_Texture *Barrier_Top_Left;

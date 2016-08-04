@@ -18,6 +18,7 @@ bool LoginWindow::isActive;
 void LoginWindow::Init()
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     //Load the data for the users
     ProfileManager::LoadTheUsersData();
 
@@ -28,6 +29,9 @@ void LoginWindow::Init()
 =======
     LoginWindow::backgroundTexture = System::Textures::Background_Stars;
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+    LoginWindow::backgroundTexture = System::Textures::Background_Black;
+>>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
 
     //Initialize the log-in error text
     LoginWindow::Text_Error.SetText(" ");

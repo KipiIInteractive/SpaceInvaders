@@ -26,8 +26,12 @@ void RegistrationWindow::Init()
         std::cout << "Failed to create the registration background texture. File: profile_managment/Log_in.cpp/Init(): \n" << IMG_GetError() << std::endl;
 =======
     //Create the background texture for the registration window
+<<<<<<< HEAD
     RegistrationWindow::backgroundTexture = System::Textures::Background_Stars;
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
+=======
+    RegistrationWindow::backgroundTexture = System::Textures::Background_Black;
+>>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
 
     //Initialize the registration error text
     RegistrationWindow::Text_Error.SetText(" ");
