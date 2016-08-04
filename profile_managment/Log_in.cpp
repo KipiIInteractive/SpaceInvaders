@@ -17,6 +17,7 @@ bool LoginWindow::isActive;
 
 void LoginWindow::Init()
 {
+<<<<<<< HEAD
     //Load the data for the users
     ProfileManager::LoadTheUsersData();
 
@@ -24,6 +25,9 @@ void LoginWindow::Init()
     LoginWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.jpg", System::renderer);
     if(LoginWindow::backgroundTexture == NULL)
         std::cout << "Failed to create the log-in background texture. File: profile_managment/Log_in.cpp/Init(): \n" << IMG_GetError() << std::endl;
+=======
+    LoginWindow::backgroundTexture = System::Textures::Background_Stars;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
     //Initialize the log-in error text
     LoginWindow::Text_Error.SetText(" ");
@@ -237,6 +241,11 @@ void LoginWindow::LogIn()
         LoginWindow::Text_Error.SetX(System::Screen::Width / 2 - LoginWindow::Text_Error.GetWidth() / 2);
 
         LoginWindow::isActive = false;
+<<<<<<< HEAD
+=======
+
+        Game::PreStartInitializations();
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
         Game::StartGame();
     }
 }

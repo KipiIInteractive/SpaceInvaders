@@ -269,7 +269,12 @@ void BulletsManager::UpdateAll()
                             BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
 
+<<<<<<< HEAD
                             Player::Die();
+=======
+                            if(!Player::isDead)
+                                Player::Die();
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
                         }
                     }
                 }
@@ -294,6 +299,32 @@ void BulletsManager::UpdateAll()
 
 void BulletsManager::AddNewBullet(int speed, int pos_x, int pos_y, int direction)
 {
+<<<<<<< HEAD
     Bullet *newBullet = new Bullet(speed, pos_x, pos_y, direction);
     BulletsManager::allBullets.push_back(newBullet);
 }
+=======
+    SoundManager::Play(SoundManager::Sounds::Shoot);
+    Bullet *newBullet = new Bullet(speed, pos_x, pos_y, direction);
+    BulletsManager::allBullets.push_back(newBullet);
+}
+
+void BulletsManager::FreeAllBullets()
+{
+    std::vector<Bullet*> as;
+    while(BulletsManager::allBullets.size() > 0)
+    {
+        for(unsigned i = 0; i < BulletsManager::allBullets.size(); i++)
+        {
+            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+            BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+        }
+
+        for(unsigned i = 0; i < as.size(); i++)
+        {
+            delete(as[i]);
+        }
+    }
+
+}
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at

@@ -10,6 +10,10 @@
 #include "../GUI/Label.h"
 #include "../sounds_management/SoundManager.h"
 #include "GameOverWindow.h"
+<<<<<<< HEAD
+=======
+#include "WinWindow.h"
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 #include <string>
 
 class Game
@@ -22,6 +26,10 @@ class Game
         static Barrier *barriers[];
         static int score;
         static bool isRunning;
+<<<<<<< HEAD
+=======
+        static void PreStartInitializations();
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
     private:
         static Label ScoreText;

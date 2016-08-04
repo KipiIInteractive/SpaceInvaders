@@ -19,10 +19,15 @@ bool RegistrationWindow::isActive;
 
 void RegistrationWindow::Init()
 {
+<<<<<<< HEAD
     //Create the backgroud texture for the log-in window
     RegistrationWindow::backgroundTexture = System::CreateTexture("Resources/Textures/menuBackground.jpg", System::renderer);
     if(RegistrationWindow::backgroundTexture == NULL)
         std::cout << "Failed to create the registration background texture. File: profile_managment/Log_in.cpp/Init(): \n" << IMG_GetError() << std::endl;
+=======
+    //Create the background texture for the registration window
+    RegistrationWindow::backgroundTexture = System::Textures::Background_Stars;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
     //Initialize the registration error text
     RegistrationWindow::Text_Error.SetText(" ");
@@ -258,6 +263,18 @@ void RegistrationWindow::Register()
                     {
                         RegistrationWindow::Text_Error.SetText("Successful registration!");
                         RegistrationWindow::Text_Error.SetColor(0, 255, 0);
+<<<<<<< HEAD
+=======
+                        System::Users::Current.SetCurrentLevel(1);
+                        System::Users::Current.SetUsername(RegistrationWindow::InputField_Username.GetInputText());
+                        System::Users::Current.SetNewHighScore(0);
+                        System::Users::Current.SetPassword(RegistrationWindow::InputField_Password.GetInputText());
+                        System::Users::Current.SetCurrentScore(0);
+                        RegistrationWindow::isActive = false;
+
+                        Game::PreStartInitializations();
+                        Game::StartGame();
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
                     }
                     else
                     {

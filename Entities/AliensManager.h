@@ -3,6 +3,10 @@
 
 #include "Alien.h"
 #include <vector>
+<<<<<<< HEAD
+=======
+#include "../Game/GameOverWindow.h"
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
 class AliensManager
 {
@@ -16,6 +20,10 @@ class AliensManager
 
         static void AddNewAlien(int type, int pos_x, int pos_y);
         static std::vector<Alien*> allAliens;
+<<<<<<< HEAD
+=======
+        static void FreeAllAliens();
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
     private:
         static bool isAlienHitTheWall;

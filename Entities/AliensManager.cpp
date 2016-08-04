@@ -30,20 +30,37 @@ void AliensManager::Move()
     {
         for(unsigned i = 0; i < AliensManager::allAliens.size(); i++)
         {
+<<<<<<< HEAD
             CURRENT_ALIEN->Shoot();
+=======
+            if(!Player::isDead)
+                CURRENT_ALIEN->Shoot();
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
             if(AliensManager::direction == System::Direction::Right)
                 CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() + AliensManager::movementSpeed );
             else if(AliensManager::direction == System::Direction::Left)
                 CURRENT_ALIEN->SetX( CURRENT_ALIEN->GetX() - AliensManager::movementSpeed );
 
+<<<<<<< HEAD
             //Check if alien is hit the floor
+=======
+            //Check if alien is hit the wall
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
             if(!AliensManager::isAlienHitTheWall)
             {
                 if(CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth() >= Game::Pannel.w + Game::Pannel.x)
                     AliensManager::isAlienHitTheWall = true;
                 else if(CURRENT_ALIEN->GetX() < Game::Pannel.x)
                     AliensManager::isAlienHitTheWall = true;
+<<<<<<< HEAD
+=======
+                else if(CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth() >= System::Screen::Height)
+                {
+                    GameOver::Show();
+                    break;
+                }
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
             }
 
             //Animate the aliens
@@ -79,3 +96,24 @@ void AliensManager::ChangeTheDirection()
     else if(AliensManager::direction == System::Direction::Left)
         AliensManager::direction = System::Direction::Right;
 }
+<<<<<<< HEAD
+=======
+
+void AliensManager::FreeAllAliens()
+{
+    std::vector<Alien*> as;
+    while(AliensManager::allAliens.size() > 0)
+    {
+        for(unsigned i = 0; i < AliensManager::allAliens.size(); i++)
+        {
+            as.push_back(AliensManager::allAliens[i]);
+            AliensManager::allAliens.erase(AliensManager::allAliens.begin() + i);
+        }
+
+        for(unsigned i = 0; i < as.size(); i++)
+        {
+            delete(as[i]);
+        }
+    }
+}
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at

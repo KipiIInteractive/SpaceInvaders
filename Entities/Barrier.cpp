@@ -2,7 +2,11 @@
 #include "../Game/Game.h"
 
 
+<<<<<<< HEAD
 Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
+=======
+Barrier::Barrier(int pos_x, int pos_y)
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 {
     this->rect.w = Game::Pannel.w / 11;
     this->rect.h = this->rect.w / 1.5;
@@ -23,7 +27,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
 
 
     //Initialize the bottom-left corner state
+<<<<<<< HEAD
     this->bottom_left_texture = System::CreateTexture("Resources/Textures/bottom-left.png",System::renderer);
+=======
+    this->bottom_left_texture = System::Textures::Barrier_Bottom_Left;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->bottom_left_texture, NULL, NULL, &this->bottom_left_state.w, &this->bottom_left_state.h);
     this->bottom_left_state.w /= 4;
     this->bottom_left_state.x = 0;
@@ -31,7 +39,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_bottom_left = 0;
 
     //Initialize the bottom-right corner state
+<<<<<<< HEAD
     this->bottom_right_texture = System::CreateTexture("Resources/Textures/bottom-right.png",System::renderer);
+=======
+    this->bottom_right_texture = System::Textures::Barrier_Bottom_Right;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->bottom_right_texture, NULL, NULL, &this->bottom_right_state.w, &this->bottom_right_state.h);
     this->bottom_right_state.w /= 4;
     this->bottom_right_state.x = 0;
@@ -39,7 +51,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_bottom_right = 0;
 
     //Initialize the bottom-middle block state
+<<<<<<< HEAD
     this->bottom_middle_texture = System::CreateTexture("Resources/Textures/bottom-middle.png",System::renderer);
+=======
+    this->bottom_middle_texture = System::Textures::Barrier_Bottom_Middle;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->bottom_middle_texture, NULL, NULL, &this->bottom_middle_state.w, &this->bottom_middle_state.h);
     this->bottom_middle_state.w /= 4;
     this->bottom_middle_state.x = 0;
@@ -47,7 +63,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_bottom_middle = 0;
 
     //Initialize the center-left corner state
+<<<<<<< HEAD
     this->center_left_texture = System::CreateTexture("Resources/Textures/whole-block.png",System::renderer);
+=======
+    this->center_left_texture = System::Textures::Barrier_Center_Left;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->center_left_texture, NULL, NULL, &this->center_left_state.w, &this->center_left_state.h);
     this->center_left_state.w /= 4;
     this->center_left_state.x = 0;
@@ -55,7 +75,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_center_left = 0;
 
     //Initialize the center-middle block state
+<<<<<<< HEAD
     this->center_middle_texture = System::CreateTexture("Resources/Textures/whole-block.png",System::renderer);
+=======
+    this->center_middle_texture = System::Textures::Barrier_Center_Middle;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->center_middle_texture, NULL, NULL, &this->center_middle_state.w, &this->center_middle_state.h);
     this->center_middle_state.w /= 4;
     this->center_middle_state.x = 0;
@@ -63,7 +87,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_center_middle = 0;
 
     //Initialize the center-right corner state
+<<<<<<< HEAD
     this->center_right_texture = System::CreateTexture("Resources/Textures/whole-block.png",System::renderer);
+=======
+    this->center_right_texture = System::Textures::Barrier_Center_Right;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->center_right_texture, NULL, NULL, &this->center_right_state.w, &this->center_right_state.h);
     this->center_right_state.w /= 4;
     this->center_right_state.x = 0;
@@ -71,7 +99,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_center_right = 0;
 
     //Initialize the top-left corner state
+<<<<<<< HEAD
     this->top_left_texture = System::CreateTexture("Resources/Textures/top-left.png",System::renderer);
+=======
+    this->top_left_texture = System::Textures::Barrier_Top_Left;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->top_left_texture, NULL, NULL, &this->top_left_state.w, &this->top_left_state.h);
     this->top_left_state.w /= 4;
     this->top_left_state.x = 0;
@@ -79,7 +111,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_top_left = 0;
 
     //Initialize the top-middle block state
+<<<<<<< HEAD
     this->top_middle_texture = System::CreateTexture("Resources/Textures/whole-block.png",System::renderer);
+=======
+    this->top_middle_texture = System::Textures::Barrier_Top_Middle;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->top_middle_texture, NULL, NULL, &this->top_middle_state.w, &this->top_middle_state.h);
     this->top_middle_state.w /= 4;
     this->top_middle_state.x = 0;
@@ -87,7 +123,11 @@ Barrier::Barrier(std::string texturePath, int pos_x, int pos_y)
     this->hits_taken_top_middle = 0;
 
     //Initialize the top-right corner state
+<<<<<<< HEAD
     this->top_right_texture = System::CreateTexture("Resources/Textures/top-right.png",System::renderer);
+=======
+    this->top_right_texture = System::Textures::Barrier_Top_Right;
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     SDL_QueryTexture(this->top_right_texture, NULL, NULL, &this->top_right_state.w, &this->top_right_state.h);
     this->top_right_state.w /= 4;
     this->top_right_state.x = 0;
@@ -119,6 +159,7 @@ Barrier::~Barrier()
     delete(&this->bottom_middle_state);
 
     SDL_DestroyTexture(this->texture);
+<<<<<<< HEAD
     SDL_DestroyTexture(this->bottom_left_texture);
     SDL_DestroyTexture(this->bottom_middle_texture);
     SDL_DestroyTexture(this->bottom_right_texture);
@@ -128,6 +169,8 @@ Barrier::~Barrier()
     SDL_DestroyTexture(this->top_left_texture);
     SDL_DestroyTexture(this->top_middle_texture);
     SDL_DestroyTexture(this->top_right_texture);
+=======
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 }
 
 void Barrier::SetX(int x) { this->rect.x = x; }

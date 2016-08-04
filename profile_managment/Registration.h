@@ -8,6 +8,10 @@
 #include "../GUI/Link.h"
 #include "../GUI/InputField.h"
 #include "../GUI/Label.h"
+<<<<<<< HEAD
+=======
+#include "../Game/Game.h"
+>>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
 class RegistrationWindow
 {
