@@ -7,9 +7,23 @@
 std::vector<Bullet*> BulletsManager::allBullets;
 std::vector<Bullet*> BulletsManager::bulletsToDelete;
 bool BulletsManager::isBulletHitWall = false;
+int BulletsManager::framesOfKillingEnemy = 0;
+bool BulletsManager::alien_is_killed = false;
+int aliens_num = 0;
 
 void BulletsManager::RenderAll()
 {
+    if( BulletsManager::alien_is_killed && BulletsManager::framesOfKillingEnemy < 20)
+    {
+        SDL_RenderCopy(System::renderer, System::Textures::Aliens_Dead, NULL, &AliensManager::dead_rect);
+        BulletsManager::framesOfKillingEnemy++;
+    }
+    else
+    {
+        BulletsManager::framesOfKillingEnemy = 0;
+        BulletsManager::alien_is_killed = false;
+    }
+
     for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
         CURRENT_BULLET->Render();
 }
@@ -32,18 +46,21 @@ void BulletsManager::UpdateAll()
         }
 
         ///Check for collision between bullet and the UFO
-        if(CURRENT_BULLET->rect.y <= UFO::rect.y + UFO::rect.h)
+        if(CURRENT_BULLET->rect.y <= UFO::rect.y + UFO::rect.h && CURRENT_BULLET->rect.y + CURRENT_BULLET->rect.h >= UFO::rect.y)
         {
             if(CURRENT_BULLET->rect.x <= UFO::rect.x + UFO::rect.w)
             {
                 if(CURRENT_BULLET->rect.x + CURRENT_BULLET->rect.w >= UFO::rect.x)
                 {
-                    //Delete the bullet
-                    BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
-                    BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
+                    if(CURRENT_BULLET->GetDirection() == System::Direction::Up)
+                    {
+                        //Delete the bullet
+                        BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                        BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
 
-                    UFO::Die();
-                    Game::score += UFO::score;
+                        UFO::Die();
+                        Game::score += UFO::score;
+                    }
                 }
             }
         }
@@ -61,6 +78,12 @@ void BulletsManager::UpdateAll()
                         {
                             if(CURRENT_BULLET->GetDirection() == System::Direction::Up)
                             {
+                                //Get the alien's rectangle
+                                AliensManager::dead_rect = CURRENT_ALIEN->rect;
+                                aliens_num = AliensManager::allAliens.size();
+                                if(aliens_num > 1)
+                                    BulletsManager::alien_is_killed = true;
+
                                 //Delete the bullet
                                 BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
                                 BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);

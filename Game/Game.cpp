@@ -184,7 +184,7 @@ void Game::StartGame()
         Game::ScoreText.SetText("Score: " + to_string(Game::score));
         Game::ScoreText.SetFont(System::Fonts::Game_Score);
 
-        if(Game::score > System::Users::Current.GetHighScore())
+        if(RankList::IsHighScore(Game::score))
         {
             System::Users::Current.SetNewHighScore(Game::score);
             Game::ScoreText.SetColor(0, 255, 0);
@@ -193,18 +193,6 @@ void Game::StartGame()
         Game::LivesText.SetText("Lives: " + to_string(Player::lives));
         Game::LivesText.SetColor(255, 255, 255);
         Game::LivesText.SetFont(System::Fonts::Game_LivesLeft);
-
-        if(SDL_PollEvent(&System::event))
-        {
-            if(System::event.type == SDL_KEYDOWN)
-            {
-                if(System::event.key.keysym.sym == SDLK_ESCAPE)
-                {
-                    Game::isRunning = false;
-                    break;
-                }
-            }
-        }
 
         if(framesAfterStart > framesToShowTheLevelNumber)
         {

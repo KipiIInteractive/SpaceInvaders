@@ -21,8 +21,12 @@ void Player::Init()
 =======
     Player::texture = System::Textures::Player;
     Player::texture_dead = System::Textures::Player_Dead;
+<<<<<<< HEAD
 >>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     Player::movementSpeed = 7;
+=======
+    Player::movementSpeed = Player::rect.w / 13.67;
+>>>>>>> acc167f... Added explosion when alien dies
     Player::lives = 3;
     Player::framesToBeDead = 60;
     frames_dead = 0;
@@ -72,7 +76,7 @@ void Player::Move(int direction)
 void Player::Shoot()
 {
     if(!Player::isDead)
-        BulletsManager::AddNewBullet(20, Player::rect.x + (Player::rect.w / 2) - 4, Player::rect.y, System::Direction::Up);
+        BulletsManager::AddNewBullet(Game::Pannel.h / 44, Player::rect.x + (Player::rect.w / 2) - 4, Player::rect.y, System::Direction::Up);
 }
 
 void Player::Die()

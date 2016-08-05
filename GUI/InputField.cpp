@@ -62,7 +62,7 @@ void InputField::Input()
                 this->inputText += (char)System::event.key.keysym.sym;
 
                 if(type == "normal")
-                    inputTextTexture = System::CreateTextTexture(this->inputText, System::renderer, this->font, this->textColor);
+                    inputTextTexture = System::CreateTextTexture(this->inputText, this->font, this->textColor);
 
                 else if(type == "password")
                 {
@@ -70,7 +70,7 @@ void InputField::Input()
                     for(int i = 0; i < (int)inputText.length(); ++i)
                         passToShow += '*';
 
-                    inputTextTexture = System::CreateTextTexture(passToShow, System::renderer, this->font, this->textColor);
+                    inputTextTexture = System::CreateTextTexture(passToShow, this->font, this->textColor);
                 }
                 this->textRect.x = this->rect.x;
                 this->textRect.y = this->rect.y;
@@ -91,14 +91,14 @@ void InputField::Delete()
             string passToShow;
             for(int i = 0; i < (int)inputText.length(); ++i)
                 passToShow += '*';
-            inputTextTexture = System::CreateTextTexture(passToShow, System::renderer, this->font, this->textColor);
+            inputTextTexture = System::CreateTextTexture(passToShow, this->font, this->textColor);
         }
         else
-            inputTextTexture = System::CreateTextTexture(this->inputText, System::renderer, this->font, this->textColor);
+            inputTextTexture = System::CreateTextTexture(this->inputText, this->font, this->textColor);
     }
     else
     {
-        inputTextTexture = System::CreateTextTexture(" ", System::renderer, this->font, this->textColor);
+        inputTextTexture = System::CreateTextTexture(" ", this->font, this->textColor);
     }
     this->textRect.x = this->rect.x;
     this->textRect.y = this->rect.y;

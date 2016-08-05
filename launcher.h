@@ -32,11 +32,13 @@ void InitEverything();
 
 //Include the scenes for the game
 #include "Game/Game.h"
+#include "Game/NameSelectionWindow.h"
 #include "Game/GameOverWindow.h"
 #include "Game/WinWindow.h"
 #include "Game/RankList.h"
 
 //Include the GUI parts for the start window
+#include "GUI/Keyboard.h"
 #include "GUI/Label.h"
 
 void InitEverything();

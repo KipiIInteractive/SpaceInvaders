@@ -10,11 +10,11 @@ void UFO::Init()
 {
     UFO::isAlive = false;
     UFO::texture = System::Textures::UFO;
-    UFO::speed = 8;
     UFO::rect.w = System::Screen::Width / 15;
     UFO::rect.h = UFO::rect.w / 2.32;
     UFO::rect.x = 0;
     UFO::rect.y = UFO::rect.y = Game::Pannel.h / 9.5;
+    UFO::speed = UFO::rect.w / 11;
     srand(time(0));
 }
 
@@ -54,6 +54,7 @@ void UFO::Update()
 
 void UFO::Die()
 {
+    SoundManager::Play(SoundManager::Sounds::KillAlien);
     UFO::isAlive = false;
     UFO::rect.x = 0;
 

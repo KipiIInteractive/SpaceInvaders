@@ -6,6 +6,7 @@
 #include "../GUI/Label.h"
 #include "../GUI/Link.h"
 #include "Game.h"
+#include "NameSelectionWindow.h"
 
 class WinWindow
 {
@@ -17,6 +18,7 @@ class WinWindow
         static SDL_Texture *background_texture;
 
         static Label text_title;
+        static Label text_title_top_players;
         static Label text_score;
         static Label text_navigation_hint;
 

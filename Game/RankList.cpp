@@ -9,15 +9,13 @@ bool RankList::isActive;
 string RankList::top_players[TOP_PLAYERS_NUM];
 
 Label RankList::text_navigation_hint;
+int RankList::allScores[TOP_PLAYERS_NUM];
 
 void RankList::Init()
 {
     RankList::isActive = false;
 
     RankList::background_texture = System::Textures::Background_Black;
-
-    for(int i = 0; i < TOP_PLAYERS_NUM; i++)
-        RankList::top_players[i] = "---";
 
     //Initialize the title text texture
     RankList::text_title.SetText("Top players:");
@@ -27,11 +25,13 @@ void RankList::Init()
     RankList::text_title.SetY(System::Screen::Height / 6);
 
     //Initialize the navigation hints text
-    RankList::text_navigation_hint.SetText("[ Escape = Quit ]");
+    RankList::text_navigation_hint.SetText("Press Fire to quit the rank list");
     RankList::text_navigation_hint.SetColor(200, 200, 0);
     RankList::text_navigation_hint.SetFont(System::Fonts::RankList_NavigationHints);
     RankList::text_navigation_hint.SetX(System::Screen::Width / 2 - RankList::text_navigation_hint.GetWidth() / 2);
     RankList::text_navigation_hint.SetY(System::Screen::Height - 50 );
+
+    RankList::GetTopPlayers();
 }
 
 void RankList::Show()
@@ -48,7 +48,7 @@ void RankList::Show()
         {
             if(System::event.type == SDL_KEYDOWN)
             {
-                if(System::event.key.keysym.sym == SDLK_ESCAPE)
+                if(System::event.key.keysym.sym == SDLK_SPACE)
                     RankList::isActive = false;
             }
         }
@@ -72,67 +72,71 @@ void RankList::RenderEverything()
 
 void RankList::GetTopPlayers()
 {
-    int last_best = 0;
-    string last_usr = "";
+    string user, ranklist_line[TOP_PLAYERS_NUM];
+    int score;
+    int records = 0;
 
-    for(unsigned i = 0; i < TOP_PLAYERS_NUM; i++)
-    {
-        int best = 0;
-        for(unsigned j = 0; j < ProfileManager::Users.size(); j++)
+    ifstream file(RANKLIST_FILE);
+        while(file >> user >> score)
         {
-            if(ProfileManager::Users[j].GetHighScore() >= best)
-            {
-                string file = ProfileManager::Users[j].GetUsername();
-
-                if(i > 0)
-                {
-                    if(ProfileManager::Users[j].GetHighScore() < last_best)
-                    {
-                        best = ProfileManager::Users[j].GetHighScore();
-                        string curr_usr = "";
-                        //Get only the user name for the user
-                        for(unsigned ch = 0; file[ch] != '.'; ch++)
-                        {
-                            curr_usr += file[ch];
-                        }
-
-                        if(curr_usr.compare(last_usr) != 0)
-                        {
-                            string data = curr_usr + " " + to_string(ProfileManager::Users[j].GetHighScore());
-                            RankList::top_players[i] = data;
-                            last_usr = curr_usr;
-                        }
-                    }
-                }
-                else
-                {
-                     string curr_usr = "";
-                    //Get only the user name for the user
-                    for(unsigned ch = 0; file[ch] != '.'; ch++)
-                    {
-                        curr_usr += file[ch];
-                    }
-                    string data = curr_usr + " " + to_string(ProfileManager::Users[j].GetHighScore());
-                    RankList::top_players[i] = data;
-
-                    last_usr = curr_usr;
-                    best = ProfileManager::Users[j].GetHighScore();
-                }
-            }
+            ranklist_line[records] = user + ' ' + to_string(score);
+            RankList::allScores[records] = score;
+            records++;
         }
-        last_best = best;
-    }
+        for(unsigned i = records; i < TOP_PLAYERS_NUM; i++)
+            RankList::allScores[i] = 0;
+    file.close();
 
     for(unsigned i = 0 ; i < TOP_PLAYERS_NUM; i++)
     {
-        RankList::topPlayers[i].SetText(RankList::top_players[i]);
+        if(i < records)
+            RankList::topPlayers[i].SetText(ranklist_line[i]);
+        else
+            RankList::topPlayers[i].SetText("-");
+
         RankList::topPlayers[i].SetColor(255, 255, 255);
 
-        TTF_Font *tmp_font = NULL ;
-        tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
+        TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
         RankList::topPlayers[i].SetFont(tmp_font);
 
-        RankList::topPlayers[i].SetX(System::Screen::Width / 2 - RankList::topPlayers[i].GetWidth() / 2);
         RankList::topPlayers[i].SetY((i * RankList::topPlayers[i].GetHeight()) + (RankList::text_title.GetHeight() + RankList::text_title.GetY() + 50));
+        RankList::topPlayers[i].SetX(System::Screen::Width / 2 - RankList::topPlayers[i].GetWidth() / 2);
     }
 }
+
+void RankList::AddToTheRankList(string name, int score)
+{
+    int place = 0;
+    ofstream ranklist;
+    ranklist.open(RANKLIST_FILE);
+        for(unsigned i = 0; i < TOP_PLAYERS_NUM; i++)
+        {
+            if(score > RankList::allScores[i])
+            {
+                ranklist << name << ' ' << score << '\n';
+                place = i;
+                for(unsigned place = i + 1; place < TOP_PLAYERS_NUM; place++)
+                {
+                    ranklist << RankList::topPlayers[place].GetText() << '\n';
+                }
+                break;
+            }
+            else
+            {
+                ranklist << RankList::topPlayers[i].GetText() << '\n';
+            }
+        }
+    ranklist.close();
+}
+
+bool RankList::IsHighScore(int score)
+{
+    for(unsigned i = 0; i < TOP_PLAYERS_NUM; i++)
+    {
+        if(score > RankList::allScores[i])
+            return true;
+    }
+    return false;
+}
+
+int RankList::GetHighScore(int position_in_ranklist) { return RankList::allScores[position_in_ranklist]; }
