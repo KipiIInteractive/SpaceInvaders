@@ -15,14 +15,8 @@ class BulletsManager
         static void AddNewBullet(int speed, int pos_x, int pos_y, int direction);
         static bool isBulletHitWall;
         static std::vector<Bullet*> allBullets;
-<<<<<<< HEAD
-=======
         static void FreeAllBullets();
-<<<<<<< HEAD
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
-=======
         static bool alien_is_killed;
->>>>>>> acc167f... Added explosion when alien dies
 
     private:
         static std::vector<Bullet*> bulletsToDelete;

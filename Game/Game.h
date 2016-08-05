@@ -12,15 +12,9 @@
 #include "../Entities/UFO.h"
 
 #include "GameOverWindow.h"
-<<<<<<< HEAD
-=======
 #include "WinWindow.h"
-<<<<<<< HEAD
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
-=======
 
 #include "../GUI/Label.h"
->>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
 #include <string>
 
 class Game
@@ -33,10 +27,7 @@ class Game
         static Barrier *barriers[];
         static int score;
         static bool isRunning;
-<<<<<<< HEAD
-=======
         static void PreStartInitializations();
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
     private:
         static Label ScoreText;

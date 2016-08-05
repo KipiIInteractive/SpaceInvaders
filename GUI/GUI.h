@@ -2,10 +2,6 @@
 #define GUI_H_INCLUDED
 
 #include <SDL.h>
-<<<<<<< HEAD
-#include <iostream>
-=======
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 #include "../System/System.h"
 using namespace std;
 
@@ -32,10 +28,7 @@ class GUI
 
         bool isHover();
         bool isClicked();
-<<<<<<< HEAD
-=======
         bool click;
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
         SDL_Rect rect;
         SDL_Texture *texture;

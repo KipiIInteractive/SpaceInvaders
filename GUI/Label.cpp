@@ -14,11 +14,7 @@ Label::~Label()
     text.clear();
 }
 
-<<<<<<< HEAD
-void Label::SetColor(int r, int g, int b) { this->color = {r, g, b}; }
-=======
 void Label::SetColor(int r, int g, int b) { this->color = { (Uint8)r, (Uint8)g, (Uint8)b}; }
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
 void Label::SetText(string text) { this->text = text; }
 string Label::GetText() { return this->text; }

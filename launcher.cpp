@@ -3,29 +3,11 @@
 
 int main(int argc, char ** argv)
 {
-<<<<<<< HEAD
-    //Initialize SDL, create the window and the renderer
-    InitEverything();
-
-    //Load all users and put them into list
-    ProfileManager::LoadTheUsersData();
-
-    //Go to Log-in window
-    LoginWindow::Show();
-
-    FreeEverything();
-
-    Mix_Quit();
-    TTF_Quit();
-    SDL_Quit();
-
-=======
     InitEverything();
 
     StartWindow_Show();
 
     FreeEverything();
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     return 0;
 }
 
@@ -47,21 +29,6 @@ void InitEverything()
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
         std::cout << "Failed to initialize SDL. File: launcher.cpp/Initializations(): \n" << SDL_GetError() << std::endl;
 
-<<<<<<< HEAD
-    //Initialize SDL_TTF
-    if(TTF_Init() < 0)
-        std::cout << "Failed to initialize SDL_TTF. File: launcher.cpp/Initializations(): \n" << TTF_GetError() << std::endl;
-
-    int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
-    if( !imgFlags)
-        std::cout << "Failed to initialize imgFlags. File: launcher.cpp/Initializations() \n" << IMG_GetError() << std::endl;
-
-    if(!IMG_Init( imgFlags ))
-        std::cout << "Failed to initialize SDL_IMAGE. File: launcher.cpp/Initializations() \n" << IMG_GetError() << std::endl;
-
-    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) < 0 )
-        std::cout << "Failed to initialize SDL_MIXER. File: launcher.cpp/Initializations() \n" << Mix_GetError() << std::endl;
-=======
     //Initialize SDL_TTF ( used for the fonts and the texts in the game )
     if(TTF_Init() < 0)
         std::cout << "Failed to initialize SDL_TTF. File: launcher.cpp/Initializations(): \n" << TTF_GetError() << std::endl;
@@ -77,11 +44,6 @@ void InitEverything()
     if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) < 0 )
         std::cout << "Failed to initialize SDL_MIXER. File: launcher.cpp/Initializations() \n" << Mix_GetError() << std::endl;
 
-<<<<<<< HEAD
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
-=======
-
->>>>>>> d724ac1... Added README containing the game download link
     //Create the window
     System::window = SDL_CreateWindow("Space Invaders",
                      SDL_WINDOWPOS_UNDEFINED,
@@ -92,95 +54,27 @@ void InitEverything()
     if(System::window == NULL)
         std::cout << "Failed to create the window. File: launcher.cpp/Initizlizations() \n" << SDL_GetError() << std::endl;
 
-<<<<<<< HEAD
-
-    //Create the renderer
-    System::renderer = SDL_CreateRenderer(System::window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if(System::renderer == NULL)
-        std::cout << "Failed to create the renderer. File: launcher.cpp/Initizlizations()" << SDL_GetError() << std::endl;
-
-
-    //Initialize the used fonts
-    System::Fonts::InputFields = TTF_OpenFont("Resources/Fonts/spaceage.ttf", 40);
-    if(System::Fonts::InputFields == NULL)
-        std::cout << "Failed to open the Space age font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
-
-    System::Fonts::Buttons = TTF_OpenFont("Resources/Fonts/spaceage.ttf", 50);
-    if(System::Fonts::Buttons == NULL)
-        std::cout << "Failed to open the Space age font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
-
-    System::Fonts::Labels = TTF_OpenFont("Resources/Fonts/earthorbiter.ttf", 45);
-    if(System::Fonts::Labels == NULL)
-        std::cout << "Failed to open the Space age font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
-
-    System::Fonts::Buttons_Small = TTF_OpenFont("Resources/Fonts/spaceage.ttf", 25);
-    if(System::Fonts::Buttons_Small == NULL)
-        std::cout << "Failed to open the Space age font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
-
-    System::Fonts::Errors = TTF_OpenFont("Resources/Fonts/halo.ttf", 55);
-    if(System::Fonts::Errors == NULL)
-        std::cout << "Failed to open the halo font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
-
-    System::Fonts::Score = TTF_OpenFont("Resources/Fonts/invaders.ttf", 50);
-    if(System::Fonts::Score == NULL)
-        std::cout << "Failed to open the invaders font. File: launcher.cpp/Initizlizations()" << TTF_GetError() << std::endl;
-
-    //Initialize the log-in window
-    LoginWindow::Init();
-
-    //Initialize the registration window
-    RegistrationWindow::Init();
-=======
     //Create the renderer
     System::renderer = SDL_CreateRenderer(System::window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(System::renderer == NULL)
         std::cout << "Failed to create the renderer. File: launcher.cpp/Initizlizations() \n" << SDL_GetError() << std::endl;
 
-
-<<<<<<< HEAD
-    //Initialize the used fonts
-    InitTheFonts();
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
-=======
     LoadTheTextures();
     LoadTheFonts();
     SoundManager::Init();
     SoundManager::Play(SoundManager::Sounds::BackgroundMusic);
->>>>>>> d724ac1... Added README containing the game download link
 
     LevelManager::InitCurrentLevel();
 
     //Initialize the game window
     Game::Init();
-<<<<<<< HEAD
-
-    //Initialize the sounds manager
-    SoundManager::Init();
-=======
     Game::PreStartInitializations();
-
-<<<<<<< HEAD
-    //Initialize the UFO
-    UFO::Init();
-
-    //Initialize the sounds manager and start the background music
-    SoundManager::Init();
-    SoundManager::Play(SoundManager::Sounds::BackgroundMusic);
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
-=======
->>>>>>> d724ac1... Added README containing the game download link
 
     UFO::Init();
     Player::Init();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    //Initialize the Win window
-=======
     NameSelectionWindow::Init();
     StartWindow_Init();
->>>>>>> d724ac1... Added README containing the game download link
     WinWindow::Init();
     RankList::Init();
     GameOver::Init();
@@ -529,15 +423,6 @@ void StartWindow_SelectOption()
     }
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    System::Fonts::Hints = TTF_OpenFont("Resources/Fonts/invaders.ttf", 30);
-    if(System::Fonts::Hints == NULL)
-        std::cout << "Failed to open the space age font. File: launcher.cpp/Initizlizations() \n" << TTF_GetError() << std::endl;
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
-=======
-void StartWIndow_RenderWindow()
-=======
 /*
 void StartWindow_RenderWindow()
 -------------------------------
@@ -546,7 +431,6 @@ Render everything from the Start window:
  - The menu options
 */
 void StartWindow_RenderWindow()
->>>>>>> d724ac1... Added README containing the game download link
 {
     SDL_RenderClear(System::renderer);
 
@@ -555,21 +439,14 @@ void StartWindow_RenderWindow()
         text_options[i].Render();
 
     SDL_RenderPresent(System::renderer);
->>>>>>> ecbd78b... The UFO feature is added. On launch Start Menu is shown with options to
 }
 
 
 void FreeEverything()
 {
     SoundManager::Close();
-<<<<<<< HEAD
-    GameOver::Free();
-    Player::Free();
-    System::Free();
-=======
     Player::Free();
     System::Free();
     Mix_Quit();
     SDL_Quit();
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 }

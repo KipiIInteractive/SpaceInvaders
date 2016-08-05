@@ -1,10 +1,6 @@
 #include "ProfileManager.h"
 
-<<<<<<< HEAD
-list<User> Users;
-=======
 vector<User> ProfileManager::Users;
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 
 bool ProfileManager::FileIsExisting(string filename)
 {
@@ -15,11 +11,7 @@ bool ProfileManager::FileIsExisting(string filename)
 bool ProfileManager::CreateNewProfile(string username, string password)
 {
     //Check if there is a user with the same user-name
-<<<<<<< HEAD
-    for (list<User>::iterator it = Users.begin(); it != Users.end(); ++it)
-=======
     for (vector<User>::iterator it = ProfileManager::Users.begin(); it != ProfileManager::Users.end(); ++it)
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     {
         User otherUser = *it;
         if(otherUser.GetUsername() == (username + USER_FILES_EXTENSION))
@@ -31,13 +23,6 @@ bool ProfileManager::CreateNewProfile(string username, string password)
     User newUser;
     newUser.SetUsername(username);
     newUser.SetPassword(password);
-<<<<<<< HEAD
-    Users.push_back(newUser);
-
-    ofstream userFile;
-    userFile.open("Users/" + newUser.GetUsername() + USER_FILES_EXTENSION);
-    userFile << newUser.GetPassword() << ' ' << 0 << ' ' << 1 << '\n';
-=======
     ProfileManager::Users.push_back(newUser);
 
     ofstream userFile;
@@ -47,7 +32,6 @@ bool ProfileManager::CreateNewProfile(string username, string password)
                 << newUser.GetHighScore() << ' '
                 << newUser.GetCurrentScore() << ' '
                 << newUser.GetCurrentLevel() << '\n';
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     userFile.close();
 
     return true;
@@ -79,26 +63,15 @@ void ProfileManager::LoadTheUsersData()
             ifstream file(fileToOpen);
 
             string password;
-<<<<<<< HEAD
-            int highScore;
-            int currentLevel;
-
-            while (file >> password >> highScore >> currentLevel)
-=======
             int highScore, currentLevel, currentScore;
 
             while (file >> password >> highScore >> currentScore>> currentLevel)
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
             {
                 tmpUser.SetPassword(password);
                 tmpUser.SetNewHighScore(highScore);
                 tmpUser.SetCurrentLevel(currentLevel);
-<<<<<<< HEAD
-                Users.push_back(tmpUser);
-=======
                 tmpUser.SetCurrentScore(currentScore);
                 ProfileManager::Users.push_back(tmpUser);
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
             }
 
             file.close();
@@ -109,11 +82,7 @@ void ProfileManager::LoadTheUsersData()
 
 bool ProfileManager::LogIn(string username, string password)
 {
-<<<<<<< HEAD
-    for (list<User>::iterator it = Users.begin(); it != Users.end(); ++it)
-=======
     for (vector<User>::iterator it = ProfileManager::Users.begin(); it != ProfileManager::Users.end(); ++it)
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
     {
         User currentUser = *it;
 
@@ -126,10 +95,7 @@ bool ProfileManager::LogIn(string username, string password)
                 System::Users::Current.SetUsername(currentUser.GetUsername());
                 System::Users::Current.SetNewHighScore(currentUser.GetHighScore());
                 System::Users::Current.SetPassword(currentUser.GetPassword());
-<<<<<<< HEAD
-=======
                 System::Users::Current.SetCurrentScore(currentUser.GetCurrentScore());
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
                 return true;
             }
         }

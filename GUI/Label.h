@@ -12,17 +12,10 @@ class Label : public GUI
         string GetText();
         void SetFont(TTF_Font *font);
         void SetColor(int r, int g, int b);
-<<<<<<< HEAD
-
-    private:
-        string text;
-        TTF_Font *font;
-=======
         TTF_Font *font;
 
     private:
         string text;
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
         SDL_Color color;
 };
 

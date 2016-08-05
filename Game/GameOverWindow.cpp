@@ -1,26 +1,5 @@
 #include "GameOverWindow.h"
 
-<<<<<<< HEAD
-SDL_Texture *GameOver::background_texture;
-bool GameOver::isActive;
-Link GameOver::NewGameButton;
-
-void GameOver::Init()
-{
-    GameOver::background_texture = NULL;
-    GameOver::background_texture = System::CreateTexture("Resources/Textures/game_background.jpg", System::renderer);
-    if(GameOver::background_texture == NULL)
-        std::cout << "Failed to create the game over background texture!" << std::endl;
-
-    //Initialize the 'new game' button
-    GameOver::NewGameButton.SetFont(System::Fonts::Buttons);
-    GameOver::NewGameButton.SetText("New Game");
-    GameOver::NewGameButton.SetColor(255, 0, 0);
-    GameOver::NewGameButton.SetX(10);
-    GameOver::NewGameButton.SetY(10);
-
-    GameOver::isActive = false;
-=======
 SDL_Texture *GameOver::background_texture = NULL;
 bool GameOver::isActive;
 
@@ -55,52 +34,11 @@ void GameOver::Init()
     GameOver::text_navigation_hint.SetFont(System::Fonts::GameOver_NavigationHints);
     GameOver::text_navigation_hint.SetX(System::Screen::Width / 2 - GameOver::text_navigation_hint.GetWidth() / 2);
     GameOver::text_navigation_hint.SetY(System::Screen::Height - 50 );
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 }
 
 void GameOver::Show()
 {
     GameOver::isActive = true;
-<<<<<<< HEAD
-    while(GameOver::isActive)
-    {
-        SDL_RenderClear(System::renderer);
-
-        GameOver::CreateTheButtonsEffects();
-        GameOver::CreateTheButtonsActions();
-        if(SDL_PollEvent(&System::event))
-            std::cout << "" ;
-        SDL_RenderCopy(System::renderer, GameOver::background_texture, NULL, NULL);
-        GameOver::NewGameButton.Render();
-        SDL_RenderPresent(System::renderer);
-    }
-}
-
-void GameOver::Free()
-{
-    SDL_DestroyTexture(GameOver::background_texture);
-    delete(&GameOver::NewGameButton);
-}
-
-void GameOver::CreateTheButtonsEffects()
-{
-    //Change the color of the 'new game' button on hover
-    if(GameOver::NewGameButton.isHover())
-        GameOver::NewGameButton.SetColor(255, 255, 255);
-    else
-        GameOver::NewGameButton.SetColor(255, 0, 0);
-}
-
-void GameOver::CreateTheButtonsActions()
-{
-    if(GameOver::NewGameButton.isClicked())
-    {
-        GameOver::isActive = false;
-        LevelManager::LoadLevel(1);
-        Game::Init();
-        Game::StartGame();
-    }
-=======
     SDL_FlushEvent(SDL_KEYDOWN);
     SDL_FlushEvent(SDL_KEYUP);
 
@@ -164,5 +102,4 @@ void GameOver::RenderEverything()
         RankList::topPlayers[i].Render();
 
     SDL_RenderPresent(System::renderer);
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
 }

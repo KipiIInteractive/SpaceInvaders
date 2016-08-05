@@ -7,11 +7,7 @@
 class Barrier
 {
     public:
-<<<<<<< HEAD
-        Barrier(std::string texturePath, int pos_x, int pos_y);
-=======
         Barrier(int pos_x, int pos_y);
->>>>>>> 33f3dd5... Made the game to be reachable without account. Load all the textures at
         ~Barrier();
 
         void SetX(int x); int GetX();
