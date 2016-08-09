@@ -31,7 +31,7 @@ bool ProfileManager::CreateNewProfile(string username, string password)
         userFile << newUser.GetPassword() << ' '
                 << newUser.GetHighScore() << ' '
                 << newUser.GetCurrentScore() << ' '
-                << newUser.GetCurrentLevel() << '\n';
+                << newUser.GetCurrentClassicLevel() << '\n';
     userFile.close();
 
     return true;
@@ -63,13 +63,13 @@ void ProfileManager::LoadTheUsersData()
             ifstream file(fileToOpen);
 
             string password;
-            int highScore, currentLevel, currentScore;
+            int highScore, currentClassicLevel, currentScore;
 
-            while (file >> password >> highScore >> currentScore>> currentLevel)
+            while (file >> password >> highScore >> currentScore>> currentClassicLevel)
             {
                 tmpUser.SetPassword(password);
                 tmpUser.SetNewHighScore(highScore);
-                tmpUser.SetCurrentLevel(currentLevel);
+                tmpUser.SetcurrentClassicLevel(currentClassicLevel);
                 tmpUser.SetCurrentScore(currentScore);
                 ProfileManager::Users.push_back(tmpUser);
             }
@@ -91,7 +91,7 @@ bool ProfileManager::LogIn(string username, string password)
         {
             if(currentUser.GetPassword() == password)
             {
-                System::Users::Current.SetCurrentLevel(currentUser.GetCurrentLevel());
+                System::Users::Current.SetcurrentClassicLevel(currentUser.GetCurrentClassicLevel());
                 System::Users::Current.SetUsername(currentUser.GetUsername());
                 System::Users::Current.SetNewHighScore(currentUser.GetHighScore());
                 System::Users::Current.SetPassword(currentUser.GetPassword());

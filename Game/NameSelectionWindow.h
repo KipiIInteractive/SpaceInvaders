@@ -16,11 +16,11 @@ class NameSelectionWindow
         static void RenderEverything();
         static bool isActive;
 
-        static Label text_title;
-        static Label text_instructions;
-        static Label text_initials;
+        static Label titleText;
+        static Label instructionsText;
+        static Label initialsText;
 
-        static int initial_num;
+        static int initialsTextInsertPos;
         static string name;
 };
 

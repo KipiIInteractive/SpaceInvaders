@@ -1,7 +1,7 @@
 #ifndef GAMEOVERWINDOW_H_INCLUDED
 #define GAMEOVERWINDOW_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../System/System.h"
 #include "../GUI/Link.h"
 #include "../GUI/Label.h"
@@ -17,11 +17,11 @@ class GameOver
         static void Show();
 
     private:
-        static SDL_Texture *background_texture;
-        static Label text_title;
-        static Label text_title_top_players;
-        static Label text_score;
-        static Label text_navigation_hint;
+        static SDL_Texture *backgroundTexture;
+        static Label titleText;
+        static Label topPlayersText;
+        static Label scoreText;
+        static Label navigationHintText;
 
         static bool isActive;
 

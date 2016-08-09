@@ -1,7 +1,7 @@
 #ifndef SOUNDMANAGER_H_INCLUDED
 #define SOUNDMANAGER_H_INCLUDED
 
-#include <SDL_mixer.h>
+#include <SDL2/SDL_mixer.h>
 #include <iostream>
 
 class SoundManager
@@ -10,8 +10,8 @@ class SoundManager
         enum Sounds
         {
             Shoot,
-            KillAlien,
-            Explode,
+            AlienKilled,
+            Explosion,
             BackgroundMusic
         };
 
@@ -22,9 +22,9 @@ class SoundManager
 
     private:
         static Mix_Chunk *shoot;
-        static Mix_Chunk *kill_alien;
-        static Mix_Chunk *explode;
-        static Mix_Music *background_music;
+        static Mix_Chunk *alienKilled;
+        static Mix_Chunk *explosion;
+        static Mix_Music *backgroundMusic;
 };
 
 #endif // SOUNDMANAGER_H_INCLUDED

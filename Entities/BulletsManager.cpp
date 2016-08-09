@@ -6,60 +6,44 @@
 
 std::vector<Bullet*> BulletsManager::allBullets;
 std::vector<Bullet*> BulletsManager::bulletsToDelete;
-bool BulletsManager::isBulletHitWall = false;
-int BulletsManager::framesOfKillingEnemy = 0;
-bool BulletsManager::alien_is_killed = false;
-int aliens_num = 0;
+bool BulletsManager::hasBulletHitWall = false;
 
 void BulletsManager::RenderAll()
 {
-    if( BulletsManager::alien_is_killed && BulletsManager::framesOfKillingEnemy < 20)
-    {
-        SDL_RenderCopy(System::renderer, System::Textures::Aliens_Dead, NULL, &AliensManager::dead_rect);
-        BulletsManager::framesOfKillingEnemy++;
+    for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i) {
+        BulletsManager::allBullets[i]->Render();
     }
-    else
-    {
-        BulletsManager::framesOfKillingEnemy = 0;
-        BulletsManager::alien_is_killed = false;
-    }
-
-    for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
-        CURRENT_BULLET->Render();
 }
-
-std::vector<Alien*> aliensToDelete;
 
 void BulletsManager::UpdateAll()
 {
-    #define CURRENT_ALIEN AliensManager::allAliens[j]
     for(unsigned i = 0; i < BulletsManager::allBullets.size(); ++i)
     {
-        CURRENT_BULLET->Update();
+        BulletsManager::allBullets[i]->Update();
 
-        ///Delete the bullet that was hit one of the walls
-        if(BulletsManager::isBulletHitWall && CURRENT_BULLET->isHitTheWall())
+        ///Delete the bullet that has hit one of the walls
+        if(BulletsManager::hasBulletHitWall && BulletsManager::allBullets[i]->hasHitTheWall())
         {
-            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
-            BulletsManager::isBulletHitWall = false;
+            BulletsManager::hasBulletHitWall = false;
         }
 
         ///Check for collision between bullet and the UFO
-        if(CURRENT_BULLET->rect.y <= UFO::rect.y + UFO::rect.h && CURRENT_BULLET->rect.y + CURRENT_BULLET->rect.h >= UFO::rect.y)
+        if(BulletsManager::allBullets[i]->rect.y <= UFO::rect.y + UFO::rect.h && BulletsManager::allBullets[i]->rect.y + BulletsManager::allBullets[i]->rect.h >= UFO::rect.y)
         {
-            if(CURRENT_BULLET->rect.x <= UFO::rect.x + UFO::rect.w)
+            if(BulletsManager::allBullets[i]->rect.x <= UFO::rect.x + UFO::rect.w)
             {
-                if(CURRENT_BULLET->rect.x + CURRENT_BULLET->rect.w >= UFO::rect.x)
+                if(BulletsManager::allBullets[i]->rect.x + BulletsManager::allBullets[i]->rect.w >= UFO::rect.x)
                 {
-                    if(CURRENT_BULLET->GetDirection() == System::Direction::Up)
+                    if(BulletsManager::allBullets[i]->GetDirection() == System::Direction::Up)
                     {
                         //Delete the bullet
-                        BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                        BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                         BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
 
                         UFO::Die();
-                        Game::score += UFO::score;
+                        Game::pScore += UFO::pointsWorth;
                     }
                 }
             }
@@ -68,30 +52,24 @@ void BulletsManager::UpdateAll()
         ///Check for collision between bullet and alien
         for(unsigned j = 0; j < AliensManager::allAliens.size(); j++)
         {
-            if(CURRENT_BULLET->rect.x >= CURRENT_ALIEN->GetX())
+            if(BulletsManager::allBullets[i]->rect.x >= AliensManager::allAliens[j]->GetX() && AliensManager::allAliens[j]->isAlive)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_ALIEN->GetX() + CURRENT_ALIEN->GetWidth())
+                if(BulletsManager::allBullets[i]->rect.x <= AliensManager::allAliens[j]->GetX() + AliensManager::allAliens[j]->GetWidth())
                 {
-                    if(CURRENT_BULLET->rect.y <= CURRENT_ALIEN->GetY() + CURRENT_ALIEN->GetHeigth())
+                    if(BulletsManager::allBullets[i]->rect.y <= AliensManager::allAliens[j]->GetY() + AliensManager::allAliens[j]->GetHeigth())
                     {
-                        if(CURRENT_BULLET->rect.y >= CURRENT_ALIEN->GetY())
+                        if(BulletsManager::allBullets[i]->rect.y >= AliensManager::allAliens[j]->GetY())
                         {
-                            if(CURRENT_BULLET->GetDirection() == System::Direction::Up)
+                            if(BulletsManager::allBullets[i]->GetDirection() == System::Direction::Up)
                             {
-                                //Get the alien's rectangle
-                                AliensManager::dead_rect = CURRENT_ALIEN->rect;
-                                aliens_num = AliensManager::allAliens.size();
-                                if(aliens_num > 1)
-                                    BulletsManager::alien_is_killed = true;
+                                // Set alien killed flag
+                                AliensManager::allAliens[j]->setHasBeenKilled(true);
 
                                 //Delete the bullet
-                                BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                                BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                                 BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
-                                //Delete the alien
-                                aliensToDelete.push_back(CURRENT_ALIEN);
-                                AliensManager::allAliens.erase(AliensManager::allAliens.begin() + j);
-                                SoundManager::Play(SoundManager::Sounds::KillAlien);
-                                Game::score += CURRENT_ALIEN->score;
+                                SoundManager::Play(SoundManager::Sounds::AlienKilled);
+                                Game::pScore += AliensManager::allAliens[j]->pointsWorth;
                             }
                         }
                     }
@@ -100,193 +78,201 @@ void BulletsManager::UpdateAll()
         }
 
         ///Check for collision between bullet and barrier
-        #define CURRENT_BARRIER Game::barriers[j]
         for(unsigned j = 0; j < 3; j++)
         {
             ///Check for collision with top-left corner
-            if(CURRENT_BULLET->rect.x + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->top_left.x)
+            if(BulletsManager::allBullets[i]->rect.x + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->topLeftPartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->top_left.w + CURRENT_BARRIER->top_left.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->topLeftPartPos.w + Game::barriers[j]->topLeftPartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->top_left.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->topLeftPartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->top_left.y + CURRENT_BARRIER->top_left.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->topLeftPartPos.y + Game::barriers[j]->topLeftPartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_top_left < 4)
-                                CURRENT_BARRIER->hits_taken_top_left++;
+                            if(Game::barriers[j]->hitsTakenTopLeftPart < 4) {
+                                Game::barriers[j]->hitsTakenTopLeftPart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
             ///Check for collision with center-left block
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->center_left.x)
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->centerLeftPartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->center_left.w + CURRENT_BARRIER->center_left.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->centerLeftPartPos.w + Game::barriers[j]->centerLeftPartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->center_left.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->centerLeftPartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->center_left.y + CURRENT_BARRIER->center_left.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->centerLeftPartPos.y + Game::barriers[j]->centerLeftPartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_center_left < 4)
-                                CURRENT_BARRIER->hits_taken_center_left++;
+                            if(Game::barriers[j]->hitsTakenCenterLeftPart < 4) {
+                                Game::barriers[j]->hitsTakenCenterLeftPart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
             ///Check for collision with bottom-left corner
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->bottom_left.x)
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->bottomLeftPartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->bottom_left.w + CURRENT_BARRIER->bottom_left.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->bottomLeftPartPos.w + Game::barriers[j]->bottomLeftPartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->bottom_left.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->bottomLeftPartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->bottom_left.y + CURRENT_BARRIER->bottom_left.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->bottomLeftPartPos.y + Game::barriers[j]->bottomLeftPartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_bottom_left < 4)
-                                CURRENT_BARRIER->hits_taken_bottom_left++;
+                            if(Game::barriers[j]->hitsTakenBottomLeftPart < 4) {
+                                Game::barriers[j]->hitsTakenBottomLeftPart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
             ///Check for collision with top-middle block
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->top_middle.x)
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->topMiddlePartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->top_middle.w + CURRENT_BARRIER->top_middle.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->topMiddlePartPos.w + Game::barriers[j]->topMiddlePartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->top_middle.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->topMiddlePartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->top_middle.y + CURRENT_BARRIER->top_middle.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->topMiddlePartPos.y + Game::barriers[j]->topMiddlePartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_top_middle < 4)
-                                CURRENT_BARRIER->hits_taken_top_middle++;
+                            if(Game::barriers[j]->hitsTakenTopMiddlePart < 4) {
+                                Game::barriers[j]->hitsTakenTopMiddlePart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
             ///Check for collision with center-middle block
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->center_middle.x)
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->centerMiddlePartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->center_middle.w + CURRENT_BARRIER->center_middle.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->centerMiddlePartPos.w + Game::barriers[j]->centerMiddlePartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->center_middle.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->centerMiddlePartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->center_middle.y + CURRENT_BARRIER->center_middle.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->centerMiddlePartPos.y + Game::barriers[j]->centerMiddlePartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_center_middle < 4)
-                                CURRENT_BARRIER->hits_taken_center_middle++;
+                            if(Game::barriers[j]->hitsTakenCenterMiddlePart < 4) {
+                                Game::barriers[j]->hitsTakenCenterMiddlePart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
             ///Check for collision with bottom-middle block
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->bottom_middle.x)
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->bottomMiddlePartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->bottom_middle.w + CURRENT_BARRIER->bottom_middle.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->bottomMiddlePartPos.w + Game::barriers[j]->bottomMiddlePartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->bottom_middle.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->bottomMiddlePartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->bottom_middle.y + CURRENT_BARRIER->bottom_middle.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->bottomMiddlePartPos.y + Game::barriers[j]->bottomMiddlePartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_bottom_middle < 4)
-                                CURRENT_BARRIER->hits_taken_bottom_middle++;
+                            if(Game::barriers[j]->hitsTakenBottomMiddlePart < 4) {
+                                Game::barriers[j]->hitsTakenBottomMiddlePart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
-            ///Check for collision with top-right corner
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->top_right.x)
+            ///Check for collision with top right corner
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->topRightPartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->top_right.w + CURRENT_BARRIER->top_right.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->topRightPartPos.w + Game::barriers[j]->topRightPartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->top_right.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->topRightPartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->top_right.y + CURRENT_BARRIER->top_right.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->topRightPartPos.y + Game::barriers[j]->topRightPartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_top_right < 4)
-                                CURRENT_BARRIER->hits_taken_top_right++;
+                            if(Game::barriers[j]->hitsTakenTopRightPart < 4) {
+                                Game::barriers[j]->hitsTakenTopRightPart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
-            ///Check for collision with center-right block
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->center_right.x)
+            ///Check for collision with center right block
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->centerRightPartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->center_right.w + CURRENT_BARRIER->center_right.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->centerRightPartPos.w + Game::barriers[j]->centerRightPartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->center_right.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->centerRightPartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->center_right.y + CURRENT_BARRIER->center_right.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->centerRightPartPos.y + Game::barriers[j]->centerRightPartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_center_right < 4)
-                                CURRENT_BARRIER->hits_taken_center_right++;
+                            if(Game::barriers[j]->hitsTakenCenterRightPart < 4) {
+                                Game::barriers[j]->hitsTakenCenterRightPart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
                 }
             }
-            ///Check for collision with bottom-right corner
-            if(CURRENT_BULLET->rect.x  + CURRENT_BULLET->rect.w >= CURRENT_BARRIER->bottom_right.x)
+            ///Check for collision with bottom right corner
+            if(BulletsManager::allBullets[i]->rect.x  + BulletsManager::allBullets[i]->rect.w >= Game::barriers[j]->bottomRightPartPos.x)
             {
-                if(CURRENT_BULLET->rect.x <= CURRENT_BARRIER->bottom_right.w + CURRENT_BARRIER->bottom_right.x)
+                if(BulletsManager::allBullets[i]->rect.x <= Game::barriers[j]->bottomRightPartPos.w + Game::barriers[j]->bottomRightPartPos.x)
                 {
-                    if(CURRENT_BULLET->rect.y >= CURRENT_BARRIER->bottom_right.y)
+                    if(BulletsManager::allBullets[i]->rect.y >= Game::barriers[j]->bottomRightPartPos.y)
                     {
-                        if(CURRENT_BULLET->rect.y <= CURRENT_BARRIER->bottom_right.y + CURRENT_BARRIER->bottom_right.h)
+                        if(BulletsManager::allBullets[i]->rect.y <= Game::barriers[j]->bottomRightPartPos.y + Game::barriers[j]->bottomRightPartPos.h)
                         {
-                            if(CURRENT_BARRIER->hits_taken_bottom_right < 4)
-                                CURRENT_BARRIER->hits_taken_bottom_right++;
+                            if(Game::barriers[j]->hitsTakenBottomRightPart < 4) {
+                                Game::barriers[j]->hitsTakenBottomRightPart++;
+                            }
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
                             //Change the texture of the barrier segment
-                            CURRENT_BARRIER->Update();
+                            Game::barriers[j]->Update();
                             continue;
                         }
                     }
@@ -296,22 +282,23 @@ void BulletsManager::UpdateAll()
 
 
         ///Check for collision between bullet and the player
-        if(CURRENT_BULLET->rect.x >= Player::rect.x)
+        if(BulletsManager::allBullets[i]->rect.x >= Player::rect.x)
         {
-            if(CURRENT_BULLET->rect.x <= Player::rect.x + Player::rect.w)
+            if(BulletsManager::allBullets[i]->rect.x <= Player::rect.x + Player::rect.w)
             {
-                if(CURRENT_BULLET->rect.y + CURRENT_BULLET->rect.h >= Player::rect.y)
+                if(BulletsManager::allBullets[i]->rect.y + BulletsManager::allBullets[i]->rect.h >= Player::rect.y)
                 {
-                    if(CURRENT_BULLET->rect.y <= Player::rect.y + Player::rect.h)
+                    if(BulletsManager::allBullets[i]->rect.y <= Player::rect.y + Player::rect.h)
                     {
-                        if(CURRENT_BULLET->GetDirection() == System::Direction::Down)
+                        if(BulletsManager::allBullets[i]->GetDirection() == System::Direction::Down)
                         {
                             //Delete the bullet
-                            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
+                            BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
                             BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
 
-                            if(!Player::isDead)
-                                Player::Die();
+                            if(!Player::isDead) {
+                                Player::DecreaseLives();
+                            }
                         }
                     }
                 }
@@ -322,40 +309,27 @@ void BulletsManager::UpdateAll()
     //Delete the bullets that collided with something
     for(unsigned i = 0; i < BulletsManager::bulletsToDelete.size(); ++i)
     {
-        BulletsManager::bulletsToDelete.erase(BulletsManager::bulletsToDelete.begin() + i);
         delete(BulletsManager::bulletsToDelete[i]);
-    }
-
-    //Delete the aliens that have been shotted
-    for(unsigned i = 0; i < aliensToDelete.size(); ++i)
-    {
-        aliensToDelete.erase(aliensToDelete.begin() + i);
-        delete(aliensToDelete[i]);
+        BulletsManager::bulletsToDelete.erase(BulletsManager::bulletsToDelete.begin() + i);
     }
 }
 
-void BulletsManager::AddNewBullet(int speed, int pos_x, int pos_y, int direction)
+void BulletsManager::AddNewBullet(int speed, int xPos, int yPos, int direction)
 {
     SoundManager::Play(SoundManager::Sounds::Shoot);
-    Bullet *newBullet = new Bullet(speed, pos_x, pos_y, direction);
-    BulletsManager::allBullets.push_back(newBullet);
+    BulletsManager::allBullets.push_back(new Bullet(speed, xPos, yPos, direction));
 }
 
 void BulletsManager::FreeAllBullets()
 {
-    std::vector<Bullet*> as;
-    while(BulletsManager::allBullets.size() > 0)
+    for(unsigned i = 0; i < BulletsManager::allBullets.size(); i++)
     {
-        for(unsigned i = 0; i < BulletsManager::allBullets.size(); i++)
-        {
-            BulletsManager::bulletsToDelete.push_back(CURRENT_BULLET);
-            BulletsManager::allBullets.erase(BulletsManager::allBullets.begin() + i);
-        }
-
-        for(unsigned i = 0; i < as.size(); i++)
-        {
-            delete(as[i]);
-        }
+        BulletsManager::bulletsToDelete.push_back(BulletsManager::allBullets[i]);
     }
-
+    BulletsManager::allBullets.clear();
+    for(unsigned i = 0; i < BulletsManager::bulletsToDelete.size(); i++)
+    {
+        delete BulletsManager::bulletsToDelete[i];
+    }
+    BulletsManager::bulletsToDelete.clear();
 }

@@ -1,123 +1,100 @@
 #include "Barrier.h"
 #include "../Game/Game.h"
 
-Barrier::Barrier(int pos_x, int pos_y)
+Barrier::Barrier(int xPos, int yPos)
 {
-    this->rect.w = Game::Pannel.w / 11;
-    this->rect.h = this->rect.w / 1.5;
-    this->rect.x = pos_x;
-    this->rect.y = pos_y;
+    int pannelWidthBarrierWidthRatio = 11/1;
+    this->rect.w = Game::Pannel.w / pannelWidthBarrierWidthRatio;
+    float barrierWidthBarrierHeightRatio = 1.5;
+    this->rect.h = this->rect.w / barrierWidthBarrierHeightRatio;
+    this->rect.x = xPos;
+    this->rect.y = yPos;
 
-    this->top_left = {pos_x, pos_y, this->rect.w / 3, this->rect.h / 3};
-    this->top_middle = {pos_x + this->top_left.w, pos_y, this->rect.w / 3, this->rect.h / 3};
-    this->top_right = {pos_x + this->top_middle.w * 2, pos_y, this->rect.w / 3, this->rect.h / 3};
+    //Sets the pos of all barrier parts
+    this->topLeftPartPos = {xPos, yPos, this->rect.w / 3, this->rect.h / 3};
+    this->topMiddlePartPos = {xPos + this->topLeftPartPos.w, yPos, this->rect.w / 3, this->rect.h / 3};
+    this->topRightPartPos = {xPos + this->topMiddlePartPos.w * 2, yPos, this->rect.w / 3, this->rect.h / 3};
 
-    this->center_left = {pos_x, pos_y + this->top_left.h, this->rect.w / 3, this->rect.h / 3};
-    this->center_middle = {pos_x + this->center_left.w, pos_y + this->top_middle.h, this->rect.w / 3, this->rect.h / 3};
-    this->center_right = {pos_x + this->center_middle.w * 2, pos_y + this->top_middle.h, this->rect.w / 3, this->rect.h / 3};
+    this->centerLeftPartPos = {xPos, yPos + this->topLeftPartPos.h, this->rect.w / 3, this->rect.h / 3};
+    this->centerMiddlePartPos = {xPos + this->centerLeftPartPos.w, yPos + this->topMiddlePartPos.h, this->rect.w / 3, this->rect.h / 3};
+    this->centerRightPartPos = {xPos + this->centerMiddlePartPos.w * 2, yPos + this->topMiddlePartPos.h, this->rect.w / 3, this->rect.h / 3};
 
-    this->bottom_left = {pos_x, pos_y + this->center_left.h * 2, this->rect.w / 3, this->rect.h / 3};
-    this->bottom_middle = {pos_x + this->bottom_left.w, pos_y + this->center_left.h * 2, this->rect.w / 3, this->rect.h / 3};
-    this->bottom_right = {pos_x + this->bottom_left.w * 2, pos_y + this->center_left.h * 2, this->rect.w / 3, this->rect.h / 3};
+    this->bottomLeftPartPos = {xPos, yPos + this->centerLeftPartPos.h * 2, this->rect.w / 3, this->rect.h / 3};
+    this->bottomMiddlePartPos = {xPos + this->bottomLeftPartPos.w, yPos + this->centerLeftPartPos.h * 2, this->rect.w / 3, this->rect.h / 3};
+    this->bottomRightPartPos = {xPos + this->bottomLeftPartPos.w * 2, yPos + this->centerLeftPartPos.h * 2, this->rect.w / 3, this->rect.h / 3};
 
 
     //Initialize the bottom-left corner state
-    this->bottom_left_texture = System::Textures::Barrier_Bottom_Left;
-    SDL_QueryTexture(this->bottom_left_texture, NULL, NULL, &this->bottom_left_state.w, &this->bottom_left_state.h);
-    this->bottom_left_state.w /= 4;
-    this->bottom_left_state.x = 0;
-    this->bottom_left_state.y = 0;
-    this->hits_taken_bottom_left = 0;
+    this->bottomLeftPartTexture = System::Textures::BarrierBottomLeft;
+    SDL_QueryTexture(this->bottomLeftPartTexture, NULL, NULL, &this->bottomLeftPartState.w, &this->bottomLeftPartState.h);
+    this->bottomLeftPartState.w /= 4;
+    this->bottomLeftPartState.x = 0;
+    this->bottomLeftPartState.y = 0;
+    this->hitsTakenBottomLeftPart = 0;
 
     //Initialize the bottom-right corner state
-    this->bottom_right_texture = System::Textures::Barrier_Bottom_Right;
-    SDL_QueryTexture(this->bottom_right_texture, NULL, NULL, &this->bottom_right_state.w, &this->bottom_right_state.h);
-    this->bottom_right_state.w /= 4;
-    this->bottom_right_state.x = 0;
-    this->bottom_right_state.y = 0;
-    this->hits_taken_bottom_right = 0;
+    this->bottomRightPartTexture = System::Textures::BarrierBottomRight;
+    SDL_QueryTexture(this->bottomRightPartTexture, NULL, NULL, &this->bottomRightPartState.w, &this->bottomRightPartState.h);
+    this->bottomRightPartState.w /= 4;
+    this->bottomRightPartState.x = 0;
+    this->bottomRightPartState.y = 0;
+    this->hitsTakenBottomRightPart = 0;
 
     //Initialize the bottom-middle block state
-    this->bottom_middle_texture = System::Textures::Barrier_Bottom_Middle;
-    SDL_QueryTexture(this->bottom_middle_texture, NULL, NULL, &this->bottom_middle_state.w, &this->bottom_middle_state.h);
-    this->bottom_middle_state.w /= 4;
-    this->bottom_middle_state.x = 0;
-    this->bottom_middle_state.y = 0;
-    this->hits_taken_bottom_middle = 0;
+    this->bottomMiddlePartTexture = System::Textures::BarrierBottomMiddle;
+    SDL_QueryTexture(this->bottomMiddlePartTexture, NULL, NULL, &this->bottomMiddlePartState.w, &this->bottomMiddlePartState.h);
+    this->bottomMiddlePartState.w /= 4;
+    this->bottomMiddlePartState.x = 0;
+    this->bottomMiddlePartState.y = 0;
+    this->hitsTakenBottomMiddlePart = 0;
 
     //Initialize the center-left corner state
-    this->center_left_texture = System::Textures::Barrier_Center_Left;
-    SDL_QueryTexture(this->center_left_texture, NULL, NULL, &this->center_left_state.w, &this->center_left_state.h);
-    this->center_left_state.w /= 4;
-    this->center_left_state.x = 0;
-    this->center_left_state.y = 0;
-    this->hits_taken_center_left = 0;
+    this->centerLeftPartTexture = System::Textures::BarrierCenterLeft;
+    SDL_QueryTexture(this->centerLeftPartTexture, NULL, NULL, &this->centerLeftPartState.w, &this->centerLeftPartState.h);
+    this->centerLeftPartState.w /= 4;
+    this->centerLeftPartState.x = 0;
+    this->centerLeftPartState.y = 0;
+    this->hitsTakenCenterLeftPart = 0;
 
     //Initialize the center-middle block state
-    this->center_middle_texture = System::Textures::Barrier_Center_Middle;
-    SDL_QueryTexture(this->center_middle_texture, NULL, NULL, &this->center_middle_state.w, &this->center_middle_state.h);
-    this->center_middle_state.w /= 4;
-    this->center_middle_state.x = 0;
-    this->center_middle_state.y = 0;
-    this->hits_taken_center_middle = 0;
+    this->centerMiddlePartTexture = System::Textures::BarrierCenterMiddle;
+    SDL_QueryTexture(this->centerMiddlePartTexture, NULL, NULL, &this->centerMiddlePartState.w, &this->centerMiddlePartState.h);
+    this->centerMiddlePartState.w /= 4;
+    this->centerMiddlePartState.x = 0;
+    this->centerMiddlePartState.y = 0;
+    this->hitsTakenCenterMiddlePart = 0;
 
     //Initialize the center-right corner state
-    this->center_right_texture = System::Textures::Barrier_Center_Right;
-    SDL_QueryTexture(this->center_right_texture, NULL, NULL, &this->center_right_state.w, &this->center_right_state.h);
-    this->center_right_state.w /= 4;
-    this->center_right_state.x = 0;
-    this->center_right_state.y = 0;
-    this->hits_taken_center_right = 0;
+    this->centerRightPartTexture = System::Textures::BarrierCenterRight;
+    SDL_QueryTexture(this->centerRightPartTexture, NULL, NULL, &this->centerRightPartState.w, &this->centerRightPartState.h);
+    this->centerRightPartState.w /= 4;
+    this->centerRightPartState.x = 0;
+    this->centerRightPartState.y = 0;
+    this->hitsTakenCenterRightPart = 0;
 
     //Initialize the top-left corner state
-    this->top_left_texture = System::Textures::Barrier_Top_Left;
-    SDL_QueryTexture(this->top_left_texture, NULL, NULL, &this->top_left_state.w, &this->top_left_state.h);
-    this->top_left_state.w /= 4;
-    this->top_left_state.x = 0;
-    this->top_left_state.y = 0;
-    this->hits_taken_top_left = 0;
+    this->topLeftPartTexture = System::Textures::BarrierTopLeft;
+    SDL_QueryTexture(this->topLeftPartTexture, NULL, NULL, &this->topLeftPartState.w, &this->topLeftPartState.h);
+    this->topLeftPartState.w /= 4;
+    this->topLeftPartState.x = 0;
+    this->topLeftPartState.y = 0;
+    this->hitsTakenTopLeftPart = 0;
 
     //Initialize the top-middle block state
-    this->top_middle_texture = System::Textures::Barrier_Top_Middle;
-    SDL_QueryTexture(this->top_middle_texture, NULL, NULL, &this->top_middle_state.w, &this->top_middle_state.h);
-    this->top_middle_state.w /= 4;
-    this->top_middle_state.x = 0;
-    this->top_middle_state.y = 0;
-    this->hits_taken_top_middle = 0;
+    this->topMiddlePartTexture = System::Textures::BarrierTopMiddle;
+    SDL_QueryTexture(this->topMiddlePartTexture, NULL, NULL, &this->topMiddlePartState.w, &this->topMiddlePartState.h);
+    this->topMiddlePartState.w /= 4;
+    this->topMiddlePartState.x = 0;
+    this->topMiddlePartState.y = 0;
+    this->hitsTakenTopMiddlePart = 0;
 
     //Initialize the top-right corner state
-    this->top_right_texture = System::Textures::Barrier_Top_Right;
-    SDL_QueryTexture(this->top_right_texture, NULL, NULL, &this->top_right_state.w, &this->top_right_state.h);
-    this->top_right_state.w /= 4;
-    this->top_right_state.x = 0;
-    this->top_right_state.y = 0;
-    this->hits_taken_top_right = 0;
-}
-
-Barrier::~Barrier()
-{
-    delete(&this->rect);
-    delete(&this->top_left);
-    delete(&this->top_middle);
-    delete(&this->top_right);
-    delete(&this->center_left);
-    delete(&this->center_middle);
-    delete(&this->center_right);
-    delete(&this->bottom_left);
-    delete(&this->bottom_middle);
-    delete(&this->bottom_right);
-
-    delete(&this->top_left_state);
-    delete(&this->top_right_state);
-    delete(&this->top_middle_state);
-    delete(&this->center_left_state);
-    delete(&this->center_right_state);
-    delete(&this->center_middle_state);
-    delete(&this->bottom_left_state);
-    delete(&this->bottom_right_state);
-    delete(&this->bottom_middle_state);
-
-    SDL_DestroyTexture(this->texture);
+    this->topRightPartTexture = System::Textures::BarrierTopRight;
+    SDL_QueryTexture(this->topRightPartTexture, NULL, NULL, &this->topRightPartState.w, &this->topRightPartState.h);
+    this->topRightPartState.w /= 4;
+    this->topRightPartState.x = 0;
+    this->topRightPartState.y = 0;
+    this->hitsTakenTopRightPart = 0;
 }
 
 void Barrier::SetX(int x) { this->rect.x = x; }
@@ -134,79 +111,79 @@ int Barrier::GetHeigth() { return this->rect.h; }
 
 void Barrier::Update()
 {
-    this->top_left_state.x = this->top_left_state.w * hits_taken_top_left;
-    if(hits_taken_top_left >= 4)
+    this->topLeftPartState.x = this->topLeftPartState.w * hitsTakenTopLeftPart;
+    if(hitsTakenTopLeftPart >= 4)
     {
-        this->top_left.x = 0; this->top_left.y = 0;
-        this->top_left.w = 0; this->top_left.h = 0;
+        this->topLeftPartPos.x = 0; this->topLeftPartPos.y = 0;
+        this->topLeftPartPos.w = 0; this->topLeftPartPos.h = 0;
     }
 
-    this->top_middle_state.x = this->top_middle_state.w * hits_taken_top_middle;
-    if(hits_taken_top_middle >= 4)
+    this->topMiddlePartState.x = this->topMiddlePartState.w * hitsTakenTopMiddlePart;
+    if(hitsTakenTopMiddlePart >= 4)
     {
-        this->top_middle.x = 0; this->top_middle.y = 0;
-        this->top_middle.w = 0; this->top_middle.h = 0;
+        this->topMiddlePartPos.x = 0; this->topMiddlePartPos.y = 0;
+        this->topMiddlePartPos.w = 0; this->topMiddlePartPos.h = 0;
     }
 
-    this->top_right_state.x = this->top_right_state.w * hits_taken_top_right;
-    if(hits_taken_top_right >= 4)
+    this->topRightPartState.x = this->topRightPartState.w * hitsTakenTopRightPart;
+    if(hitsTakenTopRightPart >= 4)
     {
-        this->top_right.x = 0; this->top_right.y = 0;
-        this->top_right.w = 0; this->top_right.h = 0;
+        this->topRightPartPos.x = 0; this->topRightPartPos.y = 0;
+        this->topRightPartPos.w = 0; this->topRightPartPos.h = 0;
     }
 
-    this->center_left_state.x = this->center_left_state.w * hits_taken_center_left;
-    if(hits_taken_center_left >= 4)
+    this->centerLeftPartState.x = this->centerLeftPartState.w * hitsTakenCenterLeftPart;
+    if(hitsTakenCenterLeftPart >= 4)
     {
-        this->center_left.x = 0; this->center_left.y = 0;
-        this->center_left.w = 0; this->center_left.h = 0;
+        this->centerLeftPartPos.x = 0; this->centerLeftPartPos.y = 0;
+        this->centerLeftPartPos.w = 0; this->centerLeftPartPos.h = 0;
     }
 
-    this->center_middle_state.x = this->center_middle_state.w * hits_taken_center_middle;
-    if(hits_taken_center_middle >= 4)
+    this->centerMiddlePartState.x = this->centerMiddlePartState.w * hitsTakenCenterMiddlePart;
+    if(hitsTakenCenterMiddlePart >= 4)
     {
-        this->center_middle.x = 0; this->center_middle.y = 0;
-        this->center_middle.w = 0; this->center_middle.h = 0;
+        this->centerMiddlePartPos.x = 0; this->centerMiddlePartPos.y = 0;
+        this->centerMiddlePartPos.w = 0; this->centerMiddlePartPos.h = 0;
     }
 
-    this->center_right_state.x = this->center_right_state.w * hits_taken_center_right;
-    if(hits_taken_center_right >= 4)
+    this->centerRightPartState.x = this->centerRightPartState.w * hitsTakenCenterRightPart;
+    if(hitsTakenCenterRightPart >= 4)
     {
-        this->center_right.x = 0; this->center_right.y = 0;
-        this->center_right.w = 0; this->center_right.h = 0;
+        this->centerRightPartPos.x = 0; this->centerRightPartPos.y = 0;
+        this->centerRightPartPos.w = 0; this->centerRightPartPos.h = 0;
     }
 
-    this->bottom_left_state.x = this->bottom_left_state.w * hits_taken_bottom_left;
-    if(hits_taken_bottom_left >= 4)
+    this->bottomLeftPartState.x = this->bottomLeftPartState.w * hitsTakenBottomLeftPart;
+    if(hitsTakenBottomLeftPart >= 4)
     {
-        this->bottom_left.x = 0; this->bottom_left.y = 0;
-        this->bottom_left.w = 0; this->bottom_left.h = 0;
+        this->bottomLeftPartPos.x = 0; this->bottomLeftPartPos.y = 0;
+        this->bottomLeftPartPos.w = 0; this->bottomLeftPartPos.h = 0;
     }
 
-    this->bottom_middle_state.x = this->bottom_middle_state.w * hits_taken_bottom_middle;
-    if(hits_taken_bottom_middle >= 4)
+    this->bottomMiddlePartState.x = this->bottomMiddlePartState.w * hitsTakenBottomMiddlePart;
+    if(hitsTakenBottomMiddlePart >= 4)
     {
-        this->bottom_middle.x = 0; this->bottom_middle.y = 0;
-        this->bottom_middle.w = 0; this->bottom_middle.h = 0;
+        this->bottomMiddlePartPos.x = 0; this->bottomMiddlePartPos.y = 0;
+        this->bottomMiddlePartPos.w = 0; this->bottomMiddlePartPos.h = 0;
     }
 
-    this->bottom_right_state.x = this->bottom_right_state.w * hits_taken_bottom_right;
-    if(hits_taken_bottom_right >= 4)
+    this->bottomRightPartState.x = this->bottomRightPartState.w * hitsTakenBottomRightPart;
+    if(hitsTakenBottomRightPart >= 4)
     {
-        this->bottom_right.x = 0; this->bottom_right.y = 0;
-        this->bottom_right.w = 0; this->bottom_right.h = 0;
+        this->bottomRightPartPos.x = 0; this->bottomRightPartPos.y = 0;
+        this->bottomRightPartPos.w = 0; this->bottomRightPartPos.h = 0;
     }
 }
 
 void Barrier::Render()
 {
-    SDL_RenderCopy(System::renderer, this->bottom_left_texture, &this->bottom_left_state, &this->bottom_left);
-    SDL_RenderCopy(System::renderer, this->bottom_right_texture, &this->bottom_right_state, &this->bottom_right);
-    SDL_RenderCopy(System::renderer, this->bottom_middle_texture, &this->bottom_middle_state, &this->bottom_middle);
-    SDL_RenderCopy(System::renderer, this->center_left_texture, &this->center_left_state, &this->center_left);
-    SDL_RenderCopy(System::renderer, this->center_middle_texture, &this->center_middle_state, &this->center_middle);
-    SDL_RenderCopy(System::renderer, this->center_right_texture, &this->center_right_state, &this->center_right);
-    SDL_RenderCopy(System::renderer, this->top_left_texture, &this->top_left_state, &this->top_left);
-    SDL_RenderCopy(System::renderer, this->top_middle_texture, &this->top_middle_state, &this->top_middle);
-    SDL_RenderCopy(System::renderer, this->top_right_texture, &this->top_right_state, &this->top_right);
+    SDL_RenderCopy(System::renderer, this->bottomLeftPartTexture, &this->bottomLeftPartState, &this->bottomLeftPartPos);
+    SDL_RenderCopy(System::renderer, this->bottomRightPartTexture, &this->bottomRightPartState, &this->bottomRightPartPos);
+    SDL_RenderCopy(System::renderer, this->bottomMiddlePartTexture, &this->bottomMiddlePartState, &this->bottomMiddlePartPos);
+    SDL_RenderCopy(System::renderer, this->centerLeftPartTexture, &this->centerLeftPartState, &this->centerLeftPartPos);
+    SDL_RenderCopy(System::renderer, this->centerMiddlePartTexture, &this->centerMiddlePartState, &this->centerMiddlePartPos);
+    SDL_RenderCopy(System::renderer, this->centerRightPartTexture, &this->centerRightPartState, &this->centerRightPartPos);
+    SDL_RenderCopy(System::renderer, this->topLeftPartTexture, &this->topLeftPartState, &this->topLeftPartPos);
+    SDL_RenderCopy(System::renderer, this->topMiddlePartTexture, &this->topMiddlePartState, &this->topMiddlePartPos);
+    SDL_RenderCopy(System::renderer, this->topRightPartTexture, &this->topRightPartState, &this->topRightPartPos);
 }

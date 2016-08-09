@@ -10,10 +10,7 @@ GUI::GUI()
     this->click = false;
 }
 
-GUI::~GUI()
-{
-    delete(&rect);
-}
+GUI::~GUI() {}
 
 bool GUI::isClicked()
 {
@@ -25,14 +22,14 @@ bool GUI::isClicked()
             if(this->click == false)
             {
                 click = true;
-                return this->isHover();
+                return this->isHoveredOver();
             }
         }
     }
     return false;
 }
 
-bool GUI::isHover()
+bool GUI::isHoveredOver()
 {
     SDL_GetMouseState(&mouseX, &mouseY);
     return mouseX >= rect.x && mouseX <= rect.x + rect.w

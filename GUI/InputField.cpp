@@ -16,7 +16,6 @@ InputField::~InputField()
 {
     TTF_CloseFont(font);
     SDL_DestroyTexture(inputTextTexture);
-    delete(&textColor);
     inputText.clear();
 }
 
@@ -43,17 +42,17 @@ void InputField::Input()
     if(System::event.type == SDL_KEYDOWN && this->isActive)
     {
         //If Backspace is pressed remove the last character from the string
-        if(System::event.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0)
+        if(System::event.key.keysym.sym == SDLK_BACKSPACE && inputText.length() > 0) {
             Delete();
-
+        }
         //If Enter is pressed make the input field inactive
-        else if(System::event.key.keysym.sym == SDLK_RETURN || System::event.key.keysym.sym == SDLK_RETURN2)
+        else if(System::event.key.keysym.sym == SDLK_RETURN || System::event.key.keysym.sym == SDLK_RETURN2) {
             this->isEnterPressed = true;
-
+        }
         //if Tab is pressed make the input field inactive
-        else if(System::event.key.keysym.sym == SDLK_TAB)
+        else if(System::event.key.keysym.sym == SDLK_TAB) {
             this->isTabPressed = true;
-
+        }
         else if((System::event.key.keysym.sym >= SDLK_a && System::event.key.keysym.sym <= SDLK_z)
                 || (System::event.key.keysym.sym >= SDLK_0 && System::event.key.keysym.sym <= SDLK_9))
         {
@@ -61,15 +60,15 @@ void InputField::Input()
             {
                 this->inputText += (char)System::event.key.keysym.sym;
 
-                if(type == "normal")
+                if(type == "normal") {
                     inputTextTexture = System::CreateTextTexture(this->inputText, this->font, this->textColor);
-
+                }
                 else if(type == "password")
                 {
                     string passToShow;
-                    for(int i = 0; i < (int)inputText.length(); ++i)
+                    for(int i = 0; i < (int)inputText.length(); ++i) {
                         passToShow += '*';
-
+                    }
                     inputTextTexture = System::CreateTextTexture(passToShow, this->font, this->textColor);
                 }
                 this->textRect.x = this->rect.x;
@@ -89,12 +88,14 @@ void InputField::Delete()
         if(this->type == "password")
         {
             string passToShow;
-            for(int i = 0; i < (int)inputText.length(); ++i)
+            for(int i = 0; i < (int)inputText.length(); ++i) {
                 passToShow += '*';
+            }
             inputTextTexture = System::CreateTextTexture(passToShow, this->font, this->textColor);
         }
-        else
+        else {
             inputTextTexture = System::CreateTextTexture(this->inputText, this->font, this->textColor);
+        }
     }
     else
     {

@@ -2,7 +2,7 @@
 #define LINK_H_INCLUDED
 
 #include "GUI.h"
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 
 class Link : public GUI
 {

@@ -2,18 +2,17 @@
 #include "BulletsManager.h"
 #include "../Game/Game.h"
 
-Bullet::Bullet(int speed, int pos_x, int pos_y, int direction)
+Bullet::Bullet(int speed, int xPos, int yPos, int direction)
 {
-    this->rect.h = Game::Pannel.h / 40 ; this->rect.w = this->rect.h / 4;
-    this->rect.x = pos_x; this->rect.y = pos_y;
+    int pannelHeightBulletHeightRatio = 40/1;
+    this->rect.h = Game::Pannel.h / pannelHeightBulletHeightRatio;
+    int bulletHeightBulletWidthRatio = 4/1;
+    this->rect.w = this->rect.h / bulletHeightBulletWidthRatio;
+    this->rect.x = xPos;
+    this->rect.y = yPos;
     this->texture = System::Textures::Bullets;
     this->movementSpeed = speed;
     this->direction = direction;
-}
-
-Bullet::~Bullet()
-{
-    delete(&this->rect);
 }
 
 void Bullet::Render()
@@ -23,30 +22,25 @@ void Bullet::Render()
 
 void Bullet::Update()
 {
-    if(this->direction == System::Direction::Up)
+    if(this->direction == System::Direction::Up) {
         this->rect.y -= movementSpeed;
-
-    else if(this->direction == System::Direction::Down)
+    }
+    else if(this->direction == System::Direction::Down) {
         this->rect.y += movementSpeed;
-
-    else if(this->direction == System::Direction::Right)
-        this->rect.x += movementSpeed;
-
-    else if(this->direction == System::Direction::Left)
-        this->rect.x -= movementSpeed;
+    }
 }
 
-void Bullet::SetDirection(int directoin) { this->direction = direction; }
+void Bullet::SetDirection(int direction) { this->direction = direction; }
 int Bullet::GetDirection() { return this->direction; }
 
-bool Bullet::isHitTheWall()
+bool Bullet::hasHitTheWall()
 {
     if(this->direction == System::Direction::Up)
     {
         if(this->rect.y < 0)
         {
+            BulletsManager::hasBulletHitWall = true;
             return true;
-            BulletsManager::isBulletHitWall = true;
         }
         return false;
     }
@@ -54,8 +48,8 @@ bool Bullet::isHitTheWall()
     {
         if(this->rect.y + this->rect.h > System::Screen::Height)
         {
+            BulletsManager::hasBulletHitWall = true;
             return true;
-            BulletsManager::isBulletHitWall = true;
         }
         return false;
     }

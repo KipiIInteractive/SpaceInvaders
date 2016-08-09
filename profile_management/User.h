@@ -10,7 +10,7 @@ class User
         string username;
         string password;
         int highScore;
-        int currentLevel;
+        int currentClassicLevel;
         int currentScore;
 
     public:
@@ -20,14 +20,14 @@ class User
         string GetUsername();
         string GetPassword();
         int GetHighScore();
-        int GetCurrentLevel();
+        int GetCurrentClassicLevel();
         int GetCurrentScore();
 
         void SetUsername(string username);
         void SetPassword(string password);
         void SetNewHighScore(int newScore);
-        void SetCurrentLevel(int lvl);
-        void SetCurrentScore(int score);
+        void SetcurrentClassicLevel(int lvl);
+        void SetCurrentScore(int pScore);
 };
 
 #endif // USER_H_INCLUDED

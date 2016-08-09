@@ -1,7 +1,7 @@
 #ifndef FPS_CONTROLLER_H_INCLUDED
 #define FPS_CONTROLLER_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class FPS_Controller
 {
@@ -13,7 +13,7 @@ class FPS_Controller
     private:
         unsigned fps;
         unsigned delayCoefficient;
-        unsigned testTick;
+        unsigned startTick;
         unsigned currentTick;
 };
 

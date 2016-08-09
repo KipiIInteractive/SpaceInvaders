@@ -8,13 +8,13 @@ class UFO
 {
     public:
         static void Init();
-        static bool Spown();
+        static void Spawn();
         static void Render();
         static void Update();
         static void Die();
 
         static SDL_Rect rect;
-        static int score;
+        static int pointsWorth;
 
     private:
         static bool isAlive;

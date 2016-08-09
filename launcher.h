@@ -3,7 +3,7 @@
 
 //Include the 'brains' of the game
 #include "System/System.h"
-#include "profile_managment/ProfileManager.h"
+#include "profile_management/ProfileManager.h"
 #include "sounds_management/SoundManager.h"
 #include "level_management/LevelManager.h"
 
@@ -28,23 +28,24 @@ void FreeEverything();
 
 //-------------------------Start window stuff
 //Macros for the Start window menu options indexes
-#define OPTION_START_GAME 0
-#define OPTION_SEE_RANKLIST 1
-#define OPTION_QUIT 2
-const int num_of_options = 3;
-int active_option = 0; //By default the marked option is 'Start new game'
+#define OPTION_START_CLASSIC_GAME 0
+#define OPTION_START_SURVIVAL_GAME 1
+#define OPTION_SEE_RANKLIST 2
+#define OPTION_QUIT 3
+const int numOfOptions = 4;
+int activeOption = OPTION_START_CLASSIC_GAME; //By default the marked option is 'Classic' option
 
-bool start_window_is_active;
+bool isStartWindowActive;
 
-Label text_title;
-Label text_options[num_of_options];
+Label titleText;
+Label menuOptions[numOfOptions];
 
-void StartWindow_MoveThroughTheOptions();
-void StartWindow_MarkTheActiveOption();
-void StartWindow_SelectOption();
-void StartWindow_RenderWindow();
-void StartWindow_Init();
-void StartWindow_Show();
+void MoveThroughTheStartWindowOptions();
+void MarkTheActiveStartWindowOption();
+void SelectStartWindowOption();
+void RenderStartWindow();
+void InitStartWindow();
+void ShowStartWindow();
 
 
 #endif // LAUNCHER_H_INCLUDED

@@ -17,24 +17,29 @@
 #include "../GUI/Label.h"
 #include <string>
 
+#define NUMBER_OF_BARRIERS 3
+
 class Game
 {
     public:
-        static void StartGame();
+        static string currentGameMode;
+
+        static void StartClassicGame();
+        static void StartSurvivalGame();
         static void Init();
-        static void FreeCurrentLevel();
         static SDL_Rect Pannel;
-        static Barrier *barriers[];
-        static int score;
+        static Barrier *barriers[NUMBER_OF_BARRIERS];
+        static int pScore;
         static bool isRunning;
-        static void PreStartInitializations();
+        static void PreClassicGameStartInitializations();
+        static void PreSurvivalGameStartInitializations();
 
     private:
         static Label ScoreText;
         static Label LevelText;
         static Label LivesText;
 
-        static int framesToShowTheLevelNumber;
+        static int LevelRenderTimeInSeconds;
 
         static void RenderEverything();
         static SDL_Texture *background;
@@ -42,7 +47,7 @@ class Game
         static SDL_Rect leftBorder;
         static SDL_Rect rightBorder;
         static void GetPlayerInput();
-        static int framesAfterShooting;
+        static int timeInSecondsAfterPlayerShooting;
         static FPS_Controller *fps;
 };
 

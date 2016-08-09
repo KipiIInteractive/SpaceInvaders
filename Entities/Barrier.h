@@ -1,14 +1,13 @@
 #ifndef BARRIER_H_INCLUDED
 #define BARRIER_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../System/System.h"
 
 class Barrier
 {
     public:
-        Barrier(int pos_x, int pos_y);
-        ~Barrier();
+        Barrier(int xPos, int yPos);
 
         void SetX(int x); int GetX();
         void SetY(int y); int GetY();
@@ -18,50 +17,50 @@ class Barrier
         void Update();
         void Render();
 
-        SDL_Rect top_left;
-        SDL_Rect top_left_state;
-        int hits_taken_top_left;
-        SDL_Texture *top_left_texture;
+        SDL_Rect topLeftPartPos;
+        SDL_Rect topLeftPartState;
+        int hitsTakenTopLeftPart;
+        SDL_Texture *topLeftPartTexture;
 
-        SDL_Rect top_middle;
-        SDL_Rect top_middle_state;
-        int hits_taken_top_middle;
-        SDL_Texture *top_middle_texture;
+        SDL_Rect topMiddlePartPos;
+        SDL_Rect topMiddlePartState;
+        int hitsTakenTopMiddlePart;
+        SDL_Texture *topMiddlePartTexture;
 
-        SDL_Rect top_right;
-        SDL_Rect top_right_state;
-        int hits_taken_top_right;
-        SDL_Texture *top_right_texture;
+        SDL_Rect topRightPartPos;
+        SDL_Rect topRightPartState;
+        int hitsTakenTopRightPart;
+        SDL_Texture *topRightPartTexture;
 
-        SDL_Rect center_left_state;
-        SDL_Rect center_left;
-        int hits_taken_center_left;
-        SDL_Texture *center_left_texture;
+        SDL_Rect centerLeftPartPos;
+        SDL_Rect centerLeftPartState;
+        int hitsTakenCenterLeftPart;
+        SDL_Texture *centerLeftPartTexture;
 
-        SDL_Rect center_middle;
-        SDL_Rect center_middle_state;
-        int hits_taken_center_middle;
-        SDL_Texture *center_middle_texture;
+        SDL_Rect centerMiddlePartPos;
+        SDL_Rect centerMiddlePartState;
+        int hitsTakenCenterMiddlePart;
+        SDL_Texture *centerMiddlePartTexture;
 
-        SDL_Rect center_right;
-        SDL_Rect center_right_state;
-        int hits_taken_center_right;
-        SDL_Texture *center_right_texture;
+        SDL_Rect centerRightPartPos;
+        SDL_Rect centerRightPartState;
+        int hitsTakenCenterRightPart;
+        SDL_Texture *centerRightPartTexture;
 
-        SDL_Rect bottom_left;
-        SDL_Rect bottom_left_state;
-        int hits_taken_bottom_left;
-        SDL_Texture *bottom_left_texture;
+        SDL_Rect bottomLeftPartPos;
+        SDL_Rect bottomLeftPartState;
+        int hitsTakenBottomLeftPart;
+        SDL_Texture *bottomLeftPartTexture;
 
-        SDL_Rect bottom_right;
-        SDL_Rect bottom_right_state;
-        int hits_taken_bottom_right;
-        SDL_Texture *bottom_right_texture;
+        SDL_Rect bottomRightPartPos;
+        SDL_Rect bottomRightPartState;
+        int hitsTakenBottomRightPart;
+        SDL_Texture *bottomRightPartTexture;
 
-        SDL_Rect bottom_middle;
-        SDL_Rect bottom_middle_state;
-        int hits_taken_bottom_middle;
-        SDL_Texture *bottom_middle_texture;
+        SDL_Rect bottomMiddlePartPos;
+        SDL_Rect bottomMiddlePartState;
+        int hitsTakenBottomMiddlePart;
+        SDL_Texture *bottomMiddlePartTexture;
 
     private:
         SDL_Rect rect;

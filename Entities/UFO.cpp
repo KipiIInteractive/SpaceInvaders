@@ -2,7 +2,7 @@
 
 bool UFO::isAlive;
 int UFO::speed;
-int UFO::score;
+int UFO::pointsWorth;
 SDL_Texture *UFO::texture = NULL;
 SDL_Rect UFO::rect;
 
@@ -10,22 +10,28 @@ void UFO::Init()
 {
     UFO::isAlive = false;
     UFO::texture = System::Textures::UFO;
-    UFO::rect.w = System::Screen::Width / 15;
-    UFO::rect.h = UFO::rect.w / 2.32;
+    int screenWidthUfoWidthRatio = 15/1;
+    UFO::rect.w = System::Screen::Width / screenWidthUfoWidthRatio;
+    float ufoWidthUfoHeightRatio = 2.32;
+    UFO::rect.h = UFO::rect.w / ufoWidthUfoHeightRatio;
     UFO::rect.x = 0;
-    UFO::rect.y = UFO::rect.y = Game::Pannel.h / 9.5;
-    UFO::speed = UFO::rect.w / 11;
+    float ufoYIndentationFromScreenTopDivisor = 9.5;
+    UFO::rect.y = Game::Pannel.h / ufoYIndentationFromScreenTopDivisor;
+    int ufoMovementSpeedDivisor = 20;
+    UFO::speed = UFO::rect.w / ufoMovementSpeedDivisor;
     srand(time(0));
 }
 
-bool UFO::Spown()
+void UFO::Spawn()
 {
     if(UFO::isAlive == false)
     {
-        if(rand() % 1000  == 654)
+        // 1% UFO to spawn ( 1 in 100 chance for the UFO to spawn )
+        if(rand() % 100  == 1)
         {
+            float ufoYIndentationFromScreenTopDivisor = 9.5;
             UFO::rect.x = Game::Pannel.x - UFO::rect.w;
-            UFO::rect.y = Game::Pannel.h / 9.5;
+            UFO::rect.y = Game::Pannel.h / ufoYIndentationFromScreenTopDivisor;
             UFO::isAlive = true;
         }
     }
@@ -37,16 +43,18 @@ bool UFO::Spown()
 
 void UFO::Render()
 {
-    if(UFO::isAlive)
+    if(UFO::isAlive) {
         SDL_RenderCopy(System::renderer, UFO::texture, NULL, &UFO::rect);
+    }
 }
 
 void UFO::Update()
 {
     if(UFO::isAlive)
     {
-        if(UFO::rect.x >= Game::Pannel.x + Game::Pannel.w)
+        if(UFO::rect.x >= Game::Pannel.x + Game::Pannel.w) {
             UFO::isAlive = false;
+        }
 
         UFO::rect.x += UFO::speed;
     }
@@ -54,13 +62,18 @@ void UFO::Update()
 
 void UFO::Die()
 {
-    SoundManager::Play(SoundManager::Sounds::KillAlien);
+    SoundManager::Play(SoundManager::Sounds::AlienKilled);
     UFO::isAlive = false;
     UFO::rect.x = 0;
 
-    int rand_num = rand() % 10 + 1;
-    if(rand_num % 2 == 0)
-        UFO::score = 50;
-    else
-        UFO::score = 150;
+    int randNum = rand() % 3;
+    if(randNum == 0) {
+        UFO::pointsWorth = 50;
+    }
+    else if(randNum == 1) {
+        UFO::pointsWorth = 100;
+    }
+    else {
+        UFO::pointsWorth = 150;
+    }
 }

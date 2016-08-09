@@ -21,13 +21,13 @@ class Keyboard
     public:
         static void Init();
         static void Render();
-        static int Navigate();
+        static bool Navigate();
         static bool isActive;
         static char GetKey();
         static SDL_Rect rect;
 
     private:
-        static Key keys[26];
+        static Key keys[KEYS_NUM];
 };
 
 #endif // KEYBOARD_H_INCLUDED

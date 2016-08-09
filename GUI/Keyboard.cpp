@@ -1,10 +1,10 @@
 #include "Keyboard.h"
 
-int current_selected;
+int currentSelectedKey;
 bool Keyboard::isActive;
-Key Keyboard::keys[26];
+Key Keyboard::keys[KEYS_NUM];
 SDL_Rect Keyboard::rect;
-SDL_Color color_selected = {255, 0, 0};
+SDL_Color colorSelected = {255, 0, 0};
 
 void Key::Render()
 {
@@ -13,17 +13,20 @@ void Key::Render()
 
 void Keyboard::Render()
 {
-    for(unsigned i = 0; i < KEYS_NUM; i++)
+    for(unsigned i = 0; i < KEYS_NUM; i++) {
         Keyboard::keys[i].Render();
+    }
 }
 
 void Keyboard::Init()
 {
     Keyboard::isActive = true;
-    current_selected = 0;
+    currentSelectedKey = 0;
 
-    Keyboard::rect.h = System::letter_rect[0].h * 3;
-    Keyboard::rect.w = System::letter_rect[0].w * 26;
+    int alphabetLettersCount = 26;
+
+    Keyboard::rect.h = System::letterRect[0].h * 3;
+    Keyboard::rect.w = System::letterRect[0].w * alphabetLettersCount;
     Keyboard::rect.x = System::Screen::Width / 2  - Keyboard::rect.w / 4;
     Keyboard::rect.y = System::Screen::Height - Keyboard::rect.h - 20;
 
@@ -31,8 +34,8 @@ void Keyboard::Init()
     {
         Keyboard::keys[i].symbol = System::letters[i];
         Keyboard::keys[i].texture = System::Textures::letters[i];
-        Keyboard::keys[i].rect.w = System::letter_rect[i].w;
-        Keyboard::keys[i].rect.h = System::letter_rect[i].h;
+        Keyboard::keys[i].rect.w = System::letterRect[i].w;
+        Keyboard::keys[i].rect.h = System::letterRect[i].h;
         if(i < 13)
         {
             Keyboard::keys[i].rect.x = Keyboard::rect.x + i * Keyboard::keys[i].rect.w;
@@ -44,34 +47,47 @@ void Keyboard::Init()
             Keyboard::keys[i].rect.y = Keyboard::rect.y + Keyboard::keys[i].rect.h;
         }
     }
-    TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
-    Keyboard::keys[current_selected].texture = System::CreateTextTexture(System::letters[current_selected] + " ", tmp_font, color_selected);
+    TTF_Font *tmpFont = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
+    Keyboard::keys[currentSelectedKey].texture = System::CreateTextTexture(System::letters[currentSelectedKey] + " ", tmpFont, colorSelected);
+    TTF_CloseFont(tmpFont);
+    tmpFont = NULL;
 }
 
-int Keyboard::Navigate()
+bool Keyboard::Navigate()
 {
-    TTF_Font *tmp_font = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
+    TTF_Font *tmpFont = TTF_OpenFont("Resources/Fonts/invaders.ttf", 60);
+    int numLettersOnRow  = 13;
+    //Unmark the previous selected key
+    SDL_DestroyTexture(Keyboard::keys[currentSelectedKey].texture);
+    Keyboard::keys[currentSelectedKey].texture = NULL;
+    Keyboard::keys[currentSelectedKey].texture = System::Textures::letters[currentSelectedKey];
 
-    //Un-mark the previous selected key
-    Keyboard::keys[current_selected].texture = System::Textures::letters[current_selected];
-
-    if(System::event.key.keysym.sym == SDLK_LEFT && current_selected > 0)
-        current_selected--;
-    if(System::event.key.keysym.sym == SDLK_RIGHT && current_selected < KEYS_NUM - 1)
-        current_selected++;
-    if(System::event.key.keysym.sym == SDLK_UP && current_selected > 12)
-        current_selected -= 13;
-    if(System::event.key.keysym.sym == SDLK_DOWN && current_selected < 13)
-        current_selected += 13;
+    if(System::event.key.keysym.sym == SDLK_LEFT && currentSelectedKey > 0) {
+        currentSelectedKey--;
+    }
+    if(System::event.key.keysym.sym == SDLK_RIGHT && currentSelectedKey < KEYS_NUM - 1) {
+        currentSelectedKey++;
+    }
+    if(System::event.key.keysym.sym == SDLK_UP && currentSelectedKey > numLettersOnRow - 1) {
+        currentSelectedKey -= numLettersOnRow;
+    }
+    if(System::event.key.keysym.sym == SDLK_DOWN && currentSelectedKey < numLettersOnRow) {
+        currentSelectedKey += numLettersOnRow;
+    }
 
     //Mark the new selected key
-    Keyboard::keys[current_selected].texture = System::CreateTextTexture(System::letters[current_selected] + " ", tmp_font, color_selected);
-
-    if(System::event.key.keysym.sym == SDLK_SPACE)
-        return 0;
+    Keyboard::keys[currentSelectedKey].texture = System::CreateTextTexture(System::letters[currentSelectedKey] + " ", tmpFont, colorSelected);
+    TTF_CloseFont(tmpFont);
+    tmpFont = NULL;
+    if(System::event.key.keysym.sym == SDLK_SPACE) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 char Keyboard::GetKey()
 {
-    return Keyboard::keys[current_selected].symbol[0];
+    return Keyboard::keys[currentSelectedKey].symbol[0];
 }

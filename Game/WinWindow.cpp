@@ -1,38 +1,41 @@
 #include "WinWindow.h"
 
-SDL_Texture *WinWindow::background_texture = NULL;
-Label WinWindow::text_navigation_hint;
-Label WinWindow::text_title;
-Label WinWindow::text_title_top_players;
-Label WinWindow::text_score;
+SDL_Texture *WinWindow::backgroundTexture = NULL;
+Label WinWindow::navigationHintText;
+Label WinWindow::titleText;
+Label WinWindow::topPlayersText;
+Label WinWindow::scoreText;
 
 bool WinWindow::isActive;
 
 void WinWindow::Init()
 {
     WinWindow::isActive = false;
-    WinWindow::background_texture = System::Textures::Background_Black;
+    WinWindow::backgroundTexture = System::Textures::Background;
 
     //Initialize the title text
-    WinWindow::text_title.SetText("You Win!");
-    WinWindow::text_title.SetColor(0, 255, 0);
-    WinWindow::text_title.SetFont(System::Fonts::WinWindow_Title);
-    WinWindow::text_title.SetX(System::Screen::Width / 2 - WinWindow::text_title.GetWidth() / 2);
-    WinWindow::text_title.SetY(System::Screen::Height / 10);
+    int titleYIndentationFromScreenTopDivisor = 10;
+    WinWindow::titleText.SetText("You Win!");
+    WinWindow::titleText.SetColor(0, 255, 0);
+    WinWindow::titleText.SetFont(System::Fonts::WinWindowTitle);
+    WinWindow::titleText.SetX(System::Screen::Width / 2 - WinWindow::titleText.GetWidth() / 2);
+    WinWindow::titleText.SetY(System::Screen::Height / titleYIndentationFromScreenTopDivisor);
 
     //Initialize the top players title text
-    WinWindow::text_title_top_players.SetText("Top Players:");
-    WinWindow::text_title_top_players.SetColor(255, 255, 255);
-    WinWindow::text_title_top_players.SetFont(System::Fonts::WinWindow_Title_Top_Players);
-    WinWindow::text_title_top_players.SetX(System::Screen::Width / 2 - WinWindow::text_title_top_players.GetWidth() / 2);
-    WinWindow::text_title_top_players.SetY(WinWindow::text_title.GetY() + WinWindow::text_title.GetHeight() + 40);
+    int topPlayersTextYIndentationFromTitleAddend = 40;
+    WinWindow::topPlayersText.SetText("Top Players:");
+    WinWindow::topPlayersText.SetColor(255, 255, 255);
+    WinWindow::topPlayersText.SetFont(System::Fonts::WinWindowTopPlayers);
+    WinWindow::topPlayersText.SetX(System::Screen::Width / 2 - WinWindow::topPlayersText.GetWidth() / 2);
+    WinWindow::topPlayersText.SetY(WinWindow::titleText.GetY() + WinWindow::titleText.GetHeight() + topPlayersTextYIndentationFromTitleAddend);
 
     //Initialize the navigation hints text
-    WinWindow::text_navigation_hint.SetText("Press Fire to continue");
-    WinWindow::text_navigation_hint.SetColor(200, 200, 0);
-    WinWindow::text_navigation_hint.SetFont(System::Fonts::WinWindow_NavigationHints);
-    WinWindow::text_navigation_hint.SetX(System::Screen::Width / 2 - WinWindow::text_navigation_hint.GetWidth() / 2);
-    WinWindow::text_navigation_hint.SetY(System::Screen::Height - 50 );
+    int hintYIndentationFromScreenBottomSubtrahend = 50;
+    WinWindow::navigationHintText.SetText("Press Fire to continue");
+    WinWindow::navigationHintText.SetColor(200, 200, 0);
+    WinWindow::navigationHintText.SetFont(System::Fonts::WinWindowNavigationHints);
+    WinWindow::navigationHintText.SetX(System::Screen::Width / 2 - WinWindow::navigationHintText.GetWidth() / 2);
+    WinWindow::navigationHintText.SetY(System::Screen::Height - hintYIndentationFromScreenBottomSubtrahend );
 }
 
 void WinWindow::Show()
@@ -49,18 +52,16 @@ void WinWindow::Show()
     }
 
     RankList::GetTopPlayers();
-    for(unsigned i = 0 ; i < TOP_PLAYERS_NUM; i++)
-        RankList::topPlayers[i].SetY((i * RankList::topPlayers[i].GetHeight()) + (WinWindow::text_title_top_players.GetHeight() + WinWindow::text_title_top_players.GetY() + 50));
-
+    int topPlayersYIndentationFromOneAnotherAddend = 50;
+    for(unsigned i = 0 ; i < TOP_PLAYERS_NUM; i++) {
+        RankList::topPlayers[i].SetY((i * RankList::topPlayers[i].GetHeight()) + (WinWindow::topPlayersText.GetHeight() + WinWindow::topPlayersText.GetY() + topPlayersYIndentationFromOneAnotherAddend));
+    }
     //Initialize the score text
-    WinWindow::text_score.SetText("Your Score: " + to_string(System::Users::Current.GetCurrentScore()));
-    WinWindow::text_score.SetColor(0, 255, 0);
-    WinWindow::text_score.SetFont(System::Fonts::WinWindow_Score);
-    WinWindow::text_score.SetX(System::Screen::Width / 2 - WinWindow::text_score.GetWidth() / 2);
-    WinWindow::text_score.SetY(RankList::topPlayers[TOP_PLAYERS_NUM - 1].GetY() + RankList::topPlayers[TOP_PLAYERS_NUM - 1].GetHeight() + WinWindow::text_score.GetHeight());
-
-    System::Users::Current.SetCurrentLevel(1);
-    Game::PreStartInitializations();
+    WinWindow::scoreText.SetText("Your Score: " + to_string(System::Users::Current.GetCurrentScore()));
+    WinWindow::scoreText.SetColor(0, 255, 0);
+    WinWindow::scoreText.SetFont(System::Fonts::WinWindowPlayerScore);
+    WinWindow::scoreText.SetX(System::Screen::Width / 2 - WinWindow::scoreText.GetWidth() / 2);
+    WinWindow::scoreText.SetY(RankList::topPlayers[TOP_PLAYERS_NUM - 1].GetY() + RankList::topPlayers[TOP_PLAYERS_NUM - 1].GetHeight() + WinWindow::scoreText.GetHeight());
 
     SDL_FlushEvent(SDL_KEYDOWN);
     SDL_FlushEvent(SDL_KEYUP);
@@ -87,16 +88,17 @@ void WinWindow::RenderEverything()
 {
     SDL_RenderClear(System::renderer);
 
-    SDL_RenderCopy(System::renderer, WinWindow::background_texture, NULL, NULL);
+    SDL_RenderCopy(System::renderer, WinWindow::backgroundTexture, NULL, NULL);
 
-    WinWindow::text_title.Render();
-    WinWindow::text_title_top_players.Render();
+    WinWindow::titleText.Render();
+    WinWindow::topPlayersText.Render();
 
-    WinWindow::text_score.Render();
-    WinWindow::text_navigation_hint.Render();
+    WinWindow::scoreText.Render();
+    WinWindow::navigationHintText.Render();
 
-    for(int i = 0; i < TOP_PLAYERS_NUM; i++)
+    for(int i = 0; i < TOP_PLAYERS_NUM; i++) {
         RankList::topPlayers[i].Render();
+    }
 
     SDL_RenderPresent(System::renderer);
 }

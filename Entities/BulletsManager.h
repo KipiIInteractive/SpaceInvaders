@@ -12,17 +12,13 @@ class BulletsManager
         static void RenderAll();
         static void UpdateAll();
 
-        static void AddNewBullet(int speed, int pos_x, int pos_y, int direction);
-        static bool isBulletHitWall;
+        static void AddNewBullet(int speed, int xPos, int yPos, int direction);
+        static bool hasBulletHitWall;
         static std::vector<Bullet*> allBullets;
         static void FreeAllBullets();
-        static bool alien_is_killed;
 
     private:
         static std::vector<Bullet*> bulletsToDelete;
-        static bool isBulletHitTheWall();
-        static int framesOfKillingEnemy;
-        #define CURRENT_BULLET BulletsManager::allBullets[i]
 };
 
 #endif // BULLETSMANAGER_H_INCLUDED

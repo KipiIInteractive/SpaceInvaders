@@ -1,7 +1,7 @@
 #ifndef WINWINDOW_H_INCLUDED
 #define WINWINDOW_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../System/System.h"
 #include "../GUI/Label.h"
 #include "../GUI/Link.h"
@@ -15,12 +15,12 @@ class WinWindow
         static void Show();
 
     private:
-        static SDL_Texture *background_texture;
+        static SDL_Texture *backgroundTexture;
 
-        static Label text_title;
-        static Label text_title_top_players;
-        static Label text_score;
-        static Label text_navigation_hint;
+        static Label titleText;
+        static Label topPlayersText;
+        static Label scoreText;
+        static Label navigationHintText;
 
         static bool isActive;
         static void RenderEverything();

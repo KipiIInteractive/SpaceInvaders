@@ -1,5 +1,5 @@
-#ifndef ALIENSMANAGER_H_INCLUDED
-#define ALIENSMANAGER_H_INCLUDED
+#ifndef AliensManager_H_INCLUDED
+#define AliensManager_H_INCLUDED
 
 #include "Alien.h"
 #include <vector>
@@ -8,25 +8,29 @@
 class AliensManager
 {
     public:
-        static int number;
+        static int numAliens;
+        static int aliensOnRow;
         static int movementSpeed;
         static int shootingPowerCoefficient;
+        static int movementDelayFrames;
 
         static void RenderAll();
         static void Move();
+        static bool allAliensAreDead();
+        static int getRemainingAliens();
 
-        static void AddNewAlien(int type, int pos_x, int pos_y);
+        static void AddNewAlien(AlienType type, int xPos, int yPos);
         static std::vector<Alien*> allAliens;
         static void FreeAllAliens();
 
-        static SDL_Rect dead_rect;
+        static SDL_Rect deadRect;
 
     private:
-        static bool isAlienHitTheWall;
-        static void ChangeTheDirection();
+        static bool hasAlienHitTheWall;
+        static void ChangeMovementDirection();
+        static int movementDirection;
+        static int currentMovementFrame;
         static int direction;
-        static int framesForMovement;
-        static int currentFrame;
 };
 
-#endif // ALIENSMANAGER_H_INCLUDED
+#endif // AliensManager_H_INCLUDED

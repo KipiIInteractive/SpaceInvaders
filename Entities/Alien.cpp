@@ -5,97 +5,132 @@
 
 #define MAX_ALIENS_ON_ROW 15
 
-Alien::Alien(int type, int pos_x, int pos_y)
+int Alien::timeToBeRenderedDeadInSeconds = 20;
+
+Alien::Alien(AlienType type, int xPos, int yPos)
 {
-    this->SetTexture(System::Textures::Aliens);
+    this->SetTexture(System::Textures::AliensAlive);
 
     this->type = type;
 
-    this->rect.x = pos_x;
-    this->rect.y = pos_y;
+    float alienWidthAlienHeightRatio = 1.3;
+    this->rect.x = xPos;
+    this->rect.y = yPos;
     this->rect.w = (Game::Pannel.w - MAX_ALIENS_ON_ROW * 5) / MAX_ALIENS_ON_ROW;
-    this->rect.h = this->rect.w / 1.3;
+    this->rect.h = this->rect.w / alienWidthAlienHeightRatio;
 
     SDL_QueryTexture(this->texture, NULL, NULL, &frame.w, &frame.h);
     this->frame.w /= 2;
     this->frame.h /= 3;
     this->frame.x = this->frame.w;
 
-    if(type == 1)
+    this->isAlive = true;
+    this->hasBeenKilled = false;
+    this->timeDeadInSeconds = 0;
+
+    if(type == SQUID)
     {
         this->frame.y = 0;
-        this->score = 10;
+        this->pointsWorth = 40;
     }
-    else if(type == 2)
+    else if(type == CRAB)
     {
         this->frame.y = this->frame.h;
-        this->score = 20;
+        this->pointsWorth = 20;
     }
-    else if(type == 3)
+    else if(type == JELLYFISH)
     {
         this->frame.y = this->frame.h * 2;
-        this->score = 40;
+        this->pointsWorth = 10;
     }
     srand(time(0));
 }
 
-Alien::~Alien()
-{
-    delete(&this->rect);
-    delete(&this->frame);
+void Alien::setHasBeenKilled(bool state) {
+    this->hasBeenKilled = state;
+    this->isAlive = false;
 }
 
 void Alien::Render()
 {
-    SDL_RenderCopy(System::renderer, this->texture, &this->frame, &this->rect);
+    if(this->isAlive) {
+        SDL_RenderCopy(System::renderer, this->texture, &this->frame, &this->rect);
+    }
+    else if(this->hasBeenKilled && this->timeDeadInSeconds < this->timeToBeRenderedDeadInSeconds) {
+        SDL_RenderCopy(System::renderer, System::Textures::AliensDead, NULL, &this->rect);
+        this->timeDeadInSeconds++;
+    }
+    else {
+        this->hasBeenKilled = false;
+        this->timeDeadInSeconds = 0;
+    }
 }
 
 void Alien::Shoot()
 {
-    if(AliensManager::allAliens.size() >= 40)
-    {
-        if( rand() % 45  == 22 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+    if(this->isAlive) {
+        if(AliensManager::getRemainingAliens() >= 40)
+        {
+            // 1% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 1 ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 35)
+        {
+            // 1.25% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 1.25f ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 30)
+        {
+            // 1.67% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 1.67f ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 25)
+        {
+            // 2.5% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 2.5f ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 20)
+        {
+            // 3.3% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 3.3f) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 15)
+        {
+            // 5% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 5 ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 10)
+        {
+            // 10% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 10) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else if(AliensManager::getRemainingAliens() >= 5)
+        {
+            // 20% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 20 ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
+        else
+        {
+            // 100% chance for the alien to shoot (1 in 100)
+            if( rand() % 100 < 100 ) {
+                BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
+            }
+        }
     }
-    else if(AliensManager::allAliens.size() >= 35)
-    {
-        if( rand() % 40  == 20 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else if(AliensManager::allAliens.size() >= 30)
-    {
-        if( rand() % 30  == 15 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else if(AliensManager::allAliens.size() >= 25)
-    {
-        if( rand() % 25  == 12 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else if(AliensManager::allAliens.size() >= 20)
-    {
-        if( rand() % 20  == 10 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else if(AliensManager::allAliens.size() >= 15)
-    {
-        if( rand() % 18  == 9 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else if(AliensManager::allAliens.size() >= 10)
-    {
-        if( rand() % 16  ==  8)
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else if(AliensManager::allAliens.size() >= 5)
-    {
-        if( rand() % 14  == 7 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-    else
-    {
-        if( rand() % 12  == 6 )
-            BulletsManager::AddNewBullet(AliensManager::shootingPowerCoefficient, this->rect.x + this->rect.w / 2, this->rect.y + this->rect.h, System::Direction::Down);
-    }
-
 }

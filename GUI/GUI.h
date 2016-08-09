@@ -1,7 +1,7 @@
 #ifndef GUI_H_INCLUDED
 #define GUI_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../System/System.h"
 using namespace std;
 
@@ -26,7 +26,7 @@ class GUI
         void SetTexture(string texturePath);
         void SetHoverTexture(string hoverTexturePath);
 
-        bool isHover();
+        bool isHoveredOver();
         bool isClicked();
         bool click;
 

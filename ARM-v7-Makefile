@@ -1,0 +1,14 @@
+CXX = arm-linux-gnueabihf-g++
+CFLAGS = -Wall -g -std=c++11
+LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
+
+all: SpaceInvaders
+
+SpaceInvaders: launcher.cpp Entities/Entity.cpp Entities/Alien.cpp Entities/AliensManager.cpp Entities/Bullet.cpp Entities/BulletsManager.cpp Entities/UFO.cpp Entities/Barrier.cpp Entities/Player.cpp Game/Game.cpp Game/WinWindow.cpp Game/NameSelectionWindow.cpp Game/GameOverWindow.cpp Game/RankList.cpp fps_conroller/FPS_Controller.cpp GUI/GUI.cpp GUI/Keyboard.cpp GUI/Link.cpp GUI/Label.cpp GUI/InputField.cpp System/System.cpp level_management/LevelManager.cpp sounds_management/SoundManager.cpp profile_management/User.cpp profile_management/ProfileManager.cpp
+	$(CXX) $(CFLAGS) $? -o $@ $(LDFLAGS)
+
+.PHONY: clean
+
+clean:
+	rm -f SpaceInvaders
+

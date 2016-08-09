@@ -1,14 +1,13 @@
 #ifndef BULLET_H_INCLUDED
 #define BULLET_H_INCLUDED
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "../System/System.h"
 
 class Bullet
 {
     public:
-        Bullet(int speed, int pos_x, int pos_y, int direction);
-        ~Bullet();
+        Bullet(int speed, int xPos, int yPos, int direction);
 
         void SetTexture(SDL_Texture *texture);
 
@@ -18,7 +17,7 @@ class Bullet
         void Update();
         void Render();
 
-        bool isHitTheWall();
+        bool hasHitTheWall();
         SDL_Rect rect;
 
     private:

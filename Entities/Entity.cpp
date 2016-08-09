@@ -2,24 +2,17 @@
 
 Entity::Entity()
 {
-    this->rect.h = 1; this->rect.w = 1;
-    this->rect.x = 1; this->rect.y = 1;
+    this->rect.h = 0; this->rect.w = 0;
+    this->rect.x = 0; this->rect.y = 0;
     this->texture = NULL;
-    this->movementSpeed = 1;
-    this->shootingPower = 1;
+    this->movementSpeed = 0;
     this->isAlive = true;
 }
 
-Entity::~Entity()
-{
-    delete(&this->rect);
-}
+Entity::~Entity() {}
 
 void Entity::SetMovementSpeed(int speed) { this->movementSpeed = speed; }
 int Entity::GetMovementSpeed() { return this->movementSpeed; }
-
-void Entity::SetShootingPower(int power) { this->shootingPower = power; }
-int Entity::GetShootingPower() { return this->shootingPower; }
 
 void Entity::SetTexture(SDL_Texture *texture) { this->texture = texture; }
 

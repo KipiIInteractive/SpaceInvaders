@@ -1,0 +1,10 @@
+#ifndef ALIENTYPE_H_INCLUDED
+#define ALIENTYPE_H_INCLUDED
+
+enum AlienType {
+    SQUID,
+    CRAB,
+    JELLYFISH
+};
+
+#endif // ALIENTYPE_H_INCLUDED

@@ -4,26 +4,26 @@
 #include "../System/System.h"
 #include "BulletsManager.h"
 #include "../Game/Game.h"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 class Player
 {
     public:
         static void Init();
-        static void Free();
         static void Render();
         static void Move(int direction);
         static void Shoot();
+
         static SDL_Rect rect;
 
-        static void Die();
+        static void DecreaseLives();
         static int lives;
         static bool isDead;
 
     private:
-        static int framesToBeDead;
-        static SDL_Texture *texture;
-        static SDL_Texture *texture_dead;
+        static int respawnTimeInSeconds;
+        static SDL_Texture *aliveTexture;
+        static SDL_Texture *deadTexture;
         static int movementSpeed;
 };
 

@@ -1,12 +1,13 @@
 #ifndef SYSTEM_H_INCLUDED
 #define SYSTEM_H_INCLUDED
 
-#include <SDL.h>
-#include <SDL_image.h>
-#include <SDL_ttf.h>
-#include <windows.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
-#include "../profile_managment/User.h"
+#include "../profile_management/User.h"
+
+#define ALPHABET_SIZE 26
 
 class System
 {
@@ -38,39 +39,33 @@ class System
         class Fonts
         {
             public:
-                static TTF_Font *Buttons_Small;
-                static TTF_Font *InputFields;
-                static TTF_Font *Buttons;
-                static TTF_Font *Labels;
-                static TTF_Font *Errors;
-
                 //Game Over Window fonts
-                static TTF_Font *GameOver_NavigationHints;
-                static TTF_Font *GameOver_Title;
-                static TTF_Font *GameOver_Title_Top_Players;
-                static TTF_Font *GameOver_Score;
+                static TTF_Font *GameOverMenuNavigationHints;
+                static TTF_Font *GameOverMenuTitle;
+                static TTF_Font *GameOverMenuTopPlayers;
+                static TTF_Font *GameOverMenuPlayerScore;
 
                 //Win Window fonts
-                static TTF_Font *WinWindow_NavigationHints;
-                static TTF_Font *WinWindow_Title;
-                static TTF_Font *WinWindow_Title_Top_Players;
-                static TTF_Font *WinWindow_Score;
+                static TTF_Font *WinWindowNavigationHints;
+                static TTF_Font *WinWindowTitle;
+                static TTF_Font *WinWindowTopPlayers;
+                static TTF_Font *WinWindowPlayerScore;
 
                 //Rank list fonts
-                static TTF_Font *RankList_NavigationHints;
-                static TTF_Font *RankList_Title;
+                static TTF_Font *RankListNavigationHints;
+                static TTF_Font *RankListTitle;
 
                 //Game fonts
-                static TTF_Font *Game_Score;
-                static TTF_Font *Game_Level;
-                static TTF_Font *Game_LivesLeft;
+                static TTF_Font *PlayerScore;
+                static TTF_Font *GameLevel;
+                static TTF_Font *PlayerLivesLeft;
 
                 //Start window fonts
-                static TTF_Font *StartWindow_Title;
+                static TTF_Font *StartWindowTitle;
 
                 //Name selection window fonts
-                static TTF_Font *NameSelectionWindow_Title;
-                static TTF_Font *NameSelectionWindow_Instructions;
+                static TTF_Font *NameSelectionWindowTitle;
+                static TTF_Font *NameSelectionWindowInstructions;
         };
 
         //Directions
@@ -85,34 +80,34 @@ class System
         class Textures
         {
             public:
-                static SDL_Texture *Aliens;
-                static SDL_Texture *Aliens_Dead;
+                static SDL_Texture *AliensAlive;
+                static SDL_Texture *AliensDead;
                 static SDL_Texture *UFO;
 
                 static SDL_Texture *Bullets;
 
-                static SDL_Texture *Player;
-                static SDL_Texture *Player_Dead;
+                static SDL_Texture *PlayerAlive;
+                static SDL_Texture *PlayerDead;
 
-                static SDL_Texture *Background_Black;
+                static SDL_Texture *Background;
 
                 static SDL_Texture *Border;
 
-                static SDL_Texture *Barrier_Top_Left;
-                static SDL_Texture *Barrier_Top_Middle;
-                static SDL_Texture *Barrier_Top_Right;
-                static SDL_Texture *Barrier_Center_Left;
-                static SDL_Texture *Barrier_Center_Middle;
-                static SDL_Texture *Barrier_Center_Right;
-                static SDL_Texture *Barrier_Bottom_Left;
-                static SDL_Texture *Barrier_Bottom_Middle;
-                static SDL_Texture *Barrier_Bottom_Right;
+                static SDL_Texture *BarrierTopLeft;
+                static SDL_Texture *BarrierTopMiddle;
+                static SDL_Texture *BarrierTopRight;
+                static SDL_Texture *BarrierCenterLeft;
+                static SDL_Texture *BarrierCenterMiddle;
+                static SDL_Texture *BarrierCenterRight;
+                static SDL_Texture *BarrierBottomLeft;
+                static SDL_Texture *BarrierBottomMiddle;
+                static SDL_Texture *BarrierBottomRight;
 
-                static SDL_Texture *letters[26];
+                static SDL_Texture *letters[ALPHABET_SIZE];
         };
 
-        static string letters[26];
-        static SDL_Rect letter_rect[26];
+        static string letters[ALPHABET_SIZE];
+        static SDL_Rect letterRect[ALPHABET_SIZE];
         static void InitAlphabet();
 
         static void Free();
