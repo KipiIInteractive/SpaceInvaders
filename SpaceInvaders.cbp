@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SpaceInvaders" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/SpaceInvaders" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/SpaceInvaders" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="Entities/Alien.cpp" />
+		<Unit filename="Entities/Alien.h" />
+		<Unit filename="Entities/AlienType.h" />
+		<Unit filename="Entities/AliensManager.cpp" />
+		<Unit filename="Entities/AliensManager.h" />
+		<Unit filename="Entities/Barrier.cpp" />
+		<Unit filename="Entities/Barrier.h" />
+		<Unit filename="Entities/Bullet.cpp" />
+		<Unit filename="Entities/Bullet.h" />
+		<Unit filename="Entities/BulletsManager.cpp" />
+		<Unit filename="Entities/BulletsManager.h" />
+		<Unit filename="Entities/Entity.cpp" />
+		<Unit filename="Entities/Entity.h" />
+		<Unit filename="Entities/Player.cpp" />
+		<Unit filename="Entities/Player.h" />
+		<Unit filename="Entities/UFO.cpp" />
+		<Unit filename="Entities/UFO.h" />
+		<Unit filename="GUI/GUI.cpp" />
+		<Unit filename="GUI/GUI.h" />
+		<Unit filename="GUI/InputField.cpp" />
+		<Unit filename="GUI/InputField.h" />
+		<Unit filename="GUI/Keyboard.cpp" />
+		<Unit filename="GUI/Keyboard.h" />
+		<Unit filename="GUI/Label.cpp" />
+		<Unit filename="GUI/Label.h" />
+		<Unit filename="GUI/Link.cpp" />
+		<Unit filename="GUI/Link.h" />
+		<Unit filename="Game/Game.cpp" />
+		<Unit filename="Game/Game.h" />
+		<Unit filename="Game/GameOverWindow.cpp" />
+		<Unit filename="Game/GameOverWindow.h" />
+		<Unit filename="Game/NameSelectionWindow.cpp" />
+		<Unit filename="Game/NameSelectionWindow.h" />
+		<Unit filename="Game/RankList.cpp" />
+		<Unit filename="Game/RankList.h" />
+		<Unit filename="Game/WinWindow.cpp" />
+		<Unit filename="Game/WinWindow.h" />
+		<Unit filename="System/System.cpp" />
+		<Unit filename="System/System.h" />
+		<Unit filename="fps_conroller/FPS_Controller.cpp" />
+		<Unit filename="fps_conroller/FPS_Controller.h" />
+		<Unit filename="launcher.cpp" />
+		<Unit filename="launcher.h" />
+		<Unit filename="level_management/LevelManager.cpp" />
+		<Unit filename="level_management/LevelManager.h" />
+		<Unit filename="profile_management/ProfileManager.cpp" />
+		<Unit filename="profile_management/ProfileManager.h" />
+		<Unit filename="profile_management/User.cpp" />
+		<Unit filename="profile_management/User.h" />
+		<Unit filename="sounds_management/SoundManager.cpp" />
+		<Unit filename="sounds_management/SoundManager.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
